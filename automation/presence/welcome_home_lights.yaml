@@ -1,0 +1,15 @@
+alias: 'Welcome Home Lights'
+trigger: 
+  platform: state
+  entity_id: group.presence
+  from: 'not_home'
+  to: 'home'
+condition:
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+action:
+  - service: light.turn_on
+    entity_id: light.dining
+    data:
+      brightness_pct: 30

@@ -1,0 +1,21 @@
+alias: 'it is getting dark'
+trigger:
+  platform: sun
+  event: sunset
+  offset: "-00:45:00"
+condition:
+  condition: state
+  entity_id: group.presence
+  state: home
+action:
+  - service: light.turn_on
+    entity_id: light.dining
+    data:
+      brightness: 4
+  - delay: "00:00:01"
+  - service: light.turn_on
+    entity_id: light.dining
+    data:
+      brightness: 200
+      # 900 seconds = 15 minutes
+      transition: 900

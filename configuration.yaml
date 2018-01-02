@@ -1,0 +1,231 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 99
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Los_Angeles
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+#introduction: 
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  base_url: !secret base_url
+  ssl_certificate: /ssl/fullchain.pem  
+  ssl_key: /ssl/privkey.pem  
+  cors_allowed_origins:  
+   - https://google.com  
+   - https://home-assistant.io  
+  use_x_forwarded_for: false  
+  trusted_networks:  
+   - 127.0.0.1  
+   - ::1  
+   - 192.168.0.0/24  
+   - 192.168.1.0/24  
+  ip_ban_enabled: True  
+  login_attempts_threshold: 3  
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  include_used_components: true
+
+# Discover some devices automatically
+discovery:
+  ignore:
+    - harmony
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+  exclude:
+    entities:
+      - sensor.date
+      - sensor.date__time
+      - sensor.internet_time
+      - sensor.time__date
+      - sensor.time_utc
+      - sensor.time
+      - sensor.uptime
+      - sensor.pws_temp_f
+      - sensor.pws_weather_1d
+      - sensor.pws_weather_1n
+      - sensor.pws_weather_2d
+      - sensor.pws_weather_2n
+
+# Track the sun
+sun:
+
+####################
+##### Sensors ######
+####################
+binary_sensor:
+  - platform: template
+    sensors: 
+      hallway_motion:
+        friendly_name: "Hallway Motion"
+        value_template: >-
+          {%- if ((not is_state('sensor.hallway_motion_sensor_burglar', '0'))) -%}
+            true
+          {%- else -%}
+            false
+          {%- endif -%}
+sensor:
+  - platform: wunderground
+    api_key: !secret wunderground_api
+    scan_interval: 3660
+    monitored_conditions:
+      - weather_1d
+      - weather_1n
+      - weather_2d
+      - weather_2n
+      - temp_f
+#      - weather_3d
+#      - weather_3n
+#      - weather_4d
+#      - weather_4n
+  - platform: cert_expiry
+    host: !secret cert_expiry_host
+    port: 8123
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'time_date'
+      - 'time_utc'
+      - 'beat'
+  - platform: uptime
+  - platform: template
+    sensors:
+      honeywell_temp:
+        friendly_name: "Downstairs Temperature"
+        unit_of_measurement: '°F'
+        value_template: "{{ states.climate.thermostat.attributes.current_temperature }}"
+      frontdoorbattery:
+        entity_id: zwave.schlage_lock
+        value_template: "{{ states.zwave.schlage_lock.attributes.battery_level }}"
+        friendly_name: 'Front Door Lock Battery'
+        unit_of_measurement: '%'
+        icon_template: >-
+          {% set battery_level = states('sensor.frontdoorbattery')|int('unknown') %}
+          {% set battery_round = (battery_level|int / 10)|int * 10 %}
+          {% if battery_level == 'unknown' %}
+            mdi:battery-unknown
+          {% else %}
+            {% if battery_round >= 100 %}
+              mdi:battery
+            {% elif battery_round > 0 %}
+              mdi:battery-{{ battery_round }}
+            {% else %}
+              mdi:battery-alert
+            {% endif %}
+          {% endif %}
+      bathroom_humidity_diff:
+        friendly_name: "Humidity difference between bathroom and house"
+        unit_of_measurement: '%'
+        value_template: "{{ states('sensor.bathroom_sensor_relative_humidity')|float|round(0) - states('sensor.home_humidity')|float|round(0) }}"
+
+# Text to speech
+tts:
+  - platform: google
+
+####################
+##### Lights #######
+####################
+hue:
+  bridges:
+  - host: 192.168.2.10
+# light:
+  # - platform: hue
+    # host: 192.168.2.10
+    # allow_unreachable: true
+
+####################
+##### Remotes ######
+####################
+remote:
+  - platform: harmony
+    name: Harmony Hub
+    host: 192.168.1.15
+    activity: 23149902
+###########################
+##### Device Tracker ######
+###########################
+device_tracker:
+  - platform: unifi
+    host: 192.168.1.200
+    username: HASSIO
+    password: !secret unifi_pw
+    verify_ssl: False
+    interval_seconds: 12
+    consider_home: 60
+    track_new_devices: no
+###########################
+#####  Thermostats   ######
+###########################
+climate:
+  - platform: honeywell
+    username: !secret climate_username 
+    password: !secret climate_password
+    region: us
+    scan_interval: 600
+    name: Downstairs Thermostat
+ecobee:
+  api_key: !secret ecobee_api_key
+##################################
+#####  Google Assistant     ######
+################################## 
+google_assistant: 
+  project_id: !secret ga_project_id
+  client_id: !secret ga_client_id
+  access_token: !secret ga_access_token
+  agent_user_id: !secret ga_user_id
+  api_key: !secret ga_api_key
+  expose_by_default: false
+  
+###########################
+#####     Z Wave     ######
+###########################   
+zwave:
+  usb_path: /dev/ttyACM0
+  network_key: !secret zwave_network_key
+
+###########################
+###### Custom Panels ######
+###########################
+panel_custom:
+  - name: floorplan
+    sidebar_title: Floorplan
+    sidebar_icon: mdi:home
+    url_path: floorplan
+    config: !include floorplan.yaml
+
+
+group: !include groups.yaml
+automation: !include_dir_list automation
+script: !include_dir_merge_named scripts
+

@@ -1,0 +1,113 @@
+default_view:
+# status:
+  name: Status
+  icon: mdi:home
+  view: yes
+  entities:
+    - group.today_forecast
+    - group.presence
+    - group.hass_details
+    - group.front_door
+    - group.temps
+    - group.humidity
+    - group.thermostats
+lights_view:
+  name: Lights
+  icon: mdi:lightbulb
+  view: yes
+  entities:
+    - group.dining_room
+    - light.bedroom_lightswitch_level
+    - light.hallway_lightswitch_level
+    # - group.bedroom
+    - light.bathroom_lightswitch_level
+    - group.kitchen
+    # - group.living_room
+media:
+  name: Media Players
+  icon: mdi:television
+  view: yes
+  entities:
+    - media_player.home_group
+    - media_player.home
+    - media_player.chromecast
+    - media_player.bedroom_speaker
+    - media_player.kitchen_speaker
+    - remote.harmony_hub
+#### Forecast & Weather ####
+today_forecast:
+  name: Today's Forecast
+  entities:
+    - sensor.pws_weather_1d
+    - sensor.pws_weather_1n
+temps:
+  name: Temperatures
+  entities:
+    - sensor.home_temperature
+    - sensor.living_room_temperature
+    - sensor.bedroom_temperature
+    - sensor.pws_temp_f
+    - sensor.honeywell_temp
+humidity:
+    name: Humidity
+    entities:
+      - sensor.bathroom_sensor_relative_humidity
+      - sensor.home_humidity
+      - sensor.bathroom_humidity_diff
+
+#### Room Groups ####
+dining_room:
+  name: Dining Room
+  entities:
+    - light.dining_room_1
+    - light.dining_room_2
+    - light.dining_room_3
+    - light.dining_room_4
+    - light.dining_room_5
+# bedroom:
+  # name: Bedroom
+  # entities:
+    # - light.bedroom_color_1
+    # - light.bedroom_color_2
+# bathroom:
+  # name: Bathroom
+  # entities:
+    # - light.bathroom_color_1
+    # - light.bathroom_1
+    # - light.bathroom_2
+kitchen:
+  name: Kitchen
+  entities:
+    - light.kitchen_lightswitch_1_level
+    - light.kitchen_lightswitch_2_level
+# living_room:
+  # name: Living Room
+  # entities:
+    # - light.living_room_1
+    # - light.living_room_2
+    # - light.hallway_light
+presence:
+  name: Location
+  entities: !include devices.yaml
+    
+##### Lets Encrypt #####
+hass_details:
+  name: Hass.io
+  entities:
+    - sensor.ssl_certificate_expiry
+    - sensor.date
+    - sensor.time
+    - sensor.uptime
+    
+#### Schlage Lock ####
+front_door:
+  name: Front Door
+  entities:
+   - lock.schlage_lock_locked
+   - sensor.frontdoorbattery
+#### thermostats ####
+thermostats:
+  name: Thermostats
+  entities:
+    - climate.home
+    - climate.thermostat

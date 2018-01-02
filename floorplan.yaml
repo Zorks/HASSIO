@@ -1,0 +1,116 @@
+﻿      name: floorplan
+      image: /local/custom_ui/floorplan/floorplan.svg
+      stylesheet: /local/custom_ui/floorplan/floorplan.css
+      
+      # These options are optional
+      warnings:                  # enable warnings (to find out why things might ot be working correctly)
+      # pan_zoom:                  # enable experimental panning / zooming
+      hide_app_toolbar:          # hide the application toolbar (when used as a custom panel)
+      # date_format: DD-MMM-YYYY   # Date format to use in hover-over text
+      
+      last_motion_entity: sensor.template_last_motion
+      last_motion_class: last-motion
+
+      groups:
+
+        - name: Sensors
+          entities:
+             - sensor.bedroom_temperature
+             - sensor.living_room_temperature
+          #text_template: '${entity.state ? entity.state : "unknown"}'
+          # An example of rounding up a number, i.e. a temperature of 90.1 becomes 91
+          text_template: '${entity.state ? Math.ceil(entity.state) : "undefined"}°'  
+        - name: Motion
+          entities:
+            - binary_sensor.bedroom_occupancy
+            - binary_sensor.home_occupancy
+            - binary_sensor.living_room_occupancy
+            - binary_sensor.hallway_motion
+          states:
+            - state: 'on'
+              class: 'switch-on'
+            - state: 'off'
+              class: 'switch-off'
+
+        - name: Lights
+          entities:
+             - light.dining
+             - light.bedroom_lightswitch_level
+             - light.hallway_lightswitch_level
+          states:
+            - state: 'on'
+              class: 'switch-on'
+            - state: 'off'
+              class: 'switch-off'
+          action:
+            domain: homeassistant   
+            service: toggle
+
+        # - name: Switches
+          # entities:
+             # - switch.doorbell
+          # states:
+            # - state: 'on'
+              # class: 'doorbell-on'
+            # - state: 'off'
+              # class: 'doorbell-off'
+
+#### Front Door ####
+        - name: Front Door Lock
+          entities:
+             - lock.schlage_lock_locked
+          states:
+            - state: 'locked'
+              class: 'switch-on'
+            - state: 'unlocked'
+              class: 'switch-off'
+          action:
+            domain: script
+            service: toggle_front_door
+            
+        # - name: Binary sensors
+          # entities:
+            # - binary_sensor.front_hallway
+            # - binary_sensor.kitchen
+            # - binary_sensor.master_bedroom
+            # - binary_sensor.theatre_room
+          # states:
+            # - state: 'off'
+              # class: 'info-background'
+            # - state: 'on'
+              # class: 'warning-background'
+          # state_transitions:
+            # - name: On to off
+              # from_state: 'on'
+              # to_state: 'off'
+              # duration: 10
+
+              
+#### TV #####
+        - name: Harmony TV
+          entities:
+            - remote.harmony_hub
+          states:
+            - state: 'off'
+              class: 'switch-off'
+            - state: 'on'
+              class: 'switch-on'
+          action:
+            service: toggle
+
+
+        - name: thermostat_temp
+          entities:
+            - climate.home
+          text_template: '${entity.attributes.current_temperature ? entity.attributes.current_temperature : "undefined"}°'
+
+# The above text_template uses extended attributes from the climate.* objects to get current temperature.
+
+#        - name: text_states
+#          entities:
+#            - sensor.downstairs_thermostat_humidity
+#            - sensor.dark_sky_temperature
+#            - sensor.last_message
+#          text_template: '${entity.state ? entity.state.replace(/\s{2,}/g,"") : "undefined"}'
+#
+# The above text_template uses jQuery syntax to search and replace any instance of 2 consecutive (or more) spaces in a string of text.

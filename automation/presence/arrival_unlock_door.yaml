@@ -1,0 +1,26 @@
+alias: 'Unlock Front Door Upon Arrivial'
+trigger:
+  platform: state
+  entity_id:
+    - device_tracker.galaxynote8
+    - device_tracker.emilys_pixel
+  from: 'not_home'
+  to: 'home'
+condition:
+  condition: and
+  conditions:
+  - condition: state
+    entity_id: lock.schlage_lock_locked
+    state: 'locked'
+  - condition: time
+    after: '07:00:00'
+    before: '22:00:00'
+action:
+  - service: climate.set_away_mode
+    data:
+      entity_id: climate.home
+      away_mode: off
+  - service: lock.unlock
+    entity_id: lock.schlage_lock_locked
+  - delay: '00:03:00'
+  - service: script.relock_front_door

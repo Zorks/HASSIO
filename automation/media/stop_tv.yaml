@@ -1,0 +1,20 @@
+alias: 'Turn off TV'
+trigger:
+  - platform: state
+    entity_id: media_player.chromecast
+    to: 'off'
+    for:
+      minutes: 10
+  - platform: state
+    entity_id: media_player.chromecast
+    to: 'idle'
+    for:
+      minutes: 10
+condition:
+  - condition: state
+    entity_id: remote.harmony_hub
+    state: 'on'
+action:
+  service: remote.turn_off
+  entity_id: remote.harmony_hub
+  

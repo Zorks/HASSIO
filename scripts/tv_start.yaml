@@ -1,0 +1,15 @@
+tv_start:
+  alias: 'Start TV'
+  sequence:
+# pause chromecast
+    - service: media_player.media_pause
+      entity_id: media_player.chromecast
+#turn on Harmony Hub using default action 
+    - service: remote.turn_on
+      entity_id: remote.harmony_hub
+# wait until TV is on
+    - wait_template: "{{ states.remote.harmony_hub.state == 'on' }}"
+    - delay: "00:00:04"
+# resume TV playing
+    - service: media_player.media_play
+      entity_id: media_player.chromecast

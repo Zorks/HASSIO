@@ -1,0 +1,15 @@
+# Once the system has seen we have all left, set thermostat to away, make certain the door is locked, etc...
+# uses devices.yaml so the system doesn't shut off on tracked guests
+
+alias: 'Goodbye Sequence'
+trigger:
+  platform: state
+  entity_id: group.presence
+  from: 'home'
+  to: 'not_home'
+action:
+  - service: script.relock_front_door
+  - service: climate.set_away_mode
+    data:
+      entity_id: climate.home
+      away_mode: on

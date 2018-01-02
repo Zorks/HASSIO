@@ -1,0 +1,22 @@
+# exclude everything
+#*
+# include the following files
+!*.yaml
+!scenes
+!.gitignore
+# re-exclude these files
+secrets.yaml
+known_devices.yaml
+devices.yaml
+ip_bans.yaml
+*.jpg
+*.svg
+*.log
+*.db
+*.mp3
+OZW_Log.txt
+*.xml
+*.sqlite
+*.conf
+.HA_VERSION
+.uuid

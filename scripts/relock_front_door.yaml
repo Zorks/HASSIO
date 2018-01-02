@@ -1,0 +1,9 @@
+relock_front_door:
+  alias: 'Relock Front Door'
+  sequence:
+    - service: lock.lock
+      data_template:
+        entity_id: >
+          {% if is_state("lock.schlage_lock_locked", "unlocked") %}
+          lock.schlage_lock_locked
+          {% endif %}
