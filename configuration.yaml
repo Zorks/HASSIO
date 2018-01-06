@@ -223,7 +223,28 @@ panel_custom:
     sidebar_icon: mdi:home
     url_path: floorplan
     config: !include floorplan.yaml
-
+    
+###########################
+##### History Graphs ######
+###########################
+history_graph:
+  temperatures:
+    name: Temperatures
+    hours_to_show: 24
+    refresh: 1800
+    entities:
+      - sensor.home_temperature
+      - sensor.living_room_temperature
+      - sensor.bedroom_temperature
+      - sensor.pws_temp_f
+      - sensor.honeywell_temp
+  humidity:
+    name: Humidity
+    hours_to_show: 24
+    refresh: 600
+    entities:
+      - sensor.bathroom_sensor_relative_humidity
+      - sensor.home_humidity 
 
 group: !include groups.yaml
 automation: !include_dir_list automation

@@ -8,7 +8,7 @@ default_view:
     - group.presence
     - group.hass_details
     - group.front_door
-    - group.temps
+#    - group.temps
     - group.humidity
     - group.thermostats
 lights_view:
@@ -51,8 +51,7 @@ temps:
 humidity:
     name: Humidity
     entities:
-      - sensor.bathroom_sensor_relative_humidity
-      - sensor.home_humidity
+      - history_graph.humidity
       - sensor.bathroom_humidity_diff
 
 #### Room Groups ####
@@ -109,5 +108,6 @@ front_door:
 thermostats:
   name: Thermostats
   entities:
+    - history_graph.temperatures
     - climate.home
     - climate.thermostat
