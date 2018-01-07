@@ -176,11 +176,18 @@ remote:
 ##### Device Tracker ######
 ###########################
 device_tracker:
-  - platform: unifi
-    host: 192.168.1.200
+  # - platform: unifi
+    # host: 192.168.1.200
+    # username: HASSIO
+    # password: !secret unifi_pw
+    # verify_ssl: False
+    # interval_seconds: 12
+    # consider_home: 60
+    # track_new_devices: no
+  - platform: unifi_direct
+    host: 192.168.1.7
     username: HASSIO
     password: !secret unifi_pw
-    verify_ssl: False
     interval_seconds: 12
     consider_home: 60
     track_new_devices: no
