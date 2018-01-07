@@ -1,3 +1,61 @@
+/* Animation */
+@keyframes rotation {
+		from {
+				transform: rotate(0deg);
+		}
+		to {
+				transform: rotate(359deg);
+		}
+}
+
+@keyframes rotate90 {
+	100% {
+		transform: rotate(90deg);
+	}
+}
+
+@keyframes rotateReset90 {
+	0% {
+		transform: rotate(90deg);
+	}
+	100% {
+		transform: none;
+	}
+}
+
+@keyframes rotate-90 {
+	100% {
+		transform: rotate(-90deg);
+	}
+}
+
+@keyframes rotateReset-90 {
+	0% {
+		transform: rotate(-90deg);
+	}
+	100% {
+		transform: none;
+	}
+}
+
+@keyframes fadeIn {
+   0% {
+		 opacity: 0;
+	 }
+   100% {
+		 opacity: 1;
+	 }
+}
+
+@keyframes fadeOut {
+   0% {
+		 opacity: 1;
+	 }
+   100% {
+		 opacity: 0;
+	 }
+}
+
 /* SVG shapes */
 
 svg, svg * {
@@ -145,3 +203,22 @@ svg, svg * {
   /* fill: #2baaa6 !important; */
 /* } */
 
+/* bathroom Fan */
+#switch\.bathroom_fan_switch {
+  transform-origin: center; 
+}
+.fan-on {
+  -webkit-animation: rotation 3s infinite linear;
+}
+.fan-off {
+}
+#bathroom_fan_1 {
+	  transform: translate(1821.501px,  294.117px);
+}
+/*
+message from the past to future me: 
+any rotating _group_ will be super wonky if just placed in the SVG at its location (it will rotate around 0,0 with its location as the radius). 
+Instead, choose the location then create a containing group and apply transform: translate to that container group with your chosen location (see bathroom_fan_1). 
+Place the rotating group back to 0,0 and it should work. 
+note: this isn't neccessary if it is an object that is rotating and not a group
+*/

@@ -37,6 +37,8 @@
              - light.dining
              - light.bedroom_lightswitch_level
              - light.hallway_lightswitch_level
+             - group.kitchen
+             - light.bathroom_lightswitch_level
           states:
             - state: 'on'
               class: 'switch-on'
@@ -84,7 +86,16 @@
               # from_state: 'on'
               # to_state: 'off'
               # duration: 10
-
+        - name: Fans
+          entities:
+            - switch.bathroom_fan_switch
+          states:
+            - state: 'off'
+              class: 'fan-off'
+            - state: 'on'
+              class: 'fan-on'
+          action:
+            service: toggle          
               
 #### TV #####
         - name: Harmony TV
