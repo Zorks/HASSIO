@@ -186,11 +186,11 @@ device_tracker:
     # track_new_devices: no
   - platform: unifi_direct
     host: 192.168.1.7
-    username: HASSIO
+    username: Zorks
     password: !secret unifi_pw
     interval_seconds: 12
     consider_home: 60
-    track_new_devices: no
+    track_new_devices: false
 ###########################
 #####  Thermostats   ######
 ###########################
