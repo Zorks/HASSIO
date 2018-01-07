@@ -12,8 +12,12 @@
       last_motion_class: last-motion
 
       groups:
-
-        - name: Sensors
+        - name: Humidity
+          entities:
+             - sensor.bathroom_sensor_relative_humidity
+             - sensor.home_humidity
+          text_template: '${entity.state ? Math.ceil(entity.state) : "undefined"}%'  
+        - name: Temps
           entities:
              - sensor.bedroom_temperature
              - sensor.living_room_temperature
