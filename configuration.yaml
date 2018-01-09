@@ -93,6 +93,7 @@ binary_sensor:
           {%- else -%}
             false
           {%- endif -%}
+
 sensor:
   - platform: wunderground
     api_key: !secret wunderground_api
@@ -119,6 +120,12 @@ sensor:
       - 'time_utc'
       - 'beat'
   - platform: uptime
+  - platform: pi_hole
+    ssl: true
+    verify_ssl: false
+    host: !secret pi_hole_host
+    
+    
   - platform: template
     sensors:
       honeywell_temp:
@@ -230,6 +237,16 @@ panel_custom:
     sidebar_icon: mdi:home
     url_path: floorplan
     config: !include floorplan.yaml
+panel_iframe:
+  pihole:
+    title: Pi-hole
+    icon: mdi:block-helper
+    url: !secret pi_hole_panel
+  plex:
+    title: Plex
+    icon: mdi:plex
+    url: !secret plex_url
+
     
 ###########################
 ##### History Graphs ######

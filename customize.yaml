@@ -43,4 +43,8 @@ light.kitchen_lightswitch_1_level:
   friendly_name: Kitchen Lights 1
 light.kitchen_lightswitch_2_level:
   friendly_name: Kitchen Lights 2
-
+sensor.pihole_ads_blocked_today:
+  friendly_name: Ads Blocked Today
+sensor.pihole_ads_percentage_blocked_today:
+  friendly_name: Blocked DNS Queries
+  

@@ -11,6 +11,7 @@ default_view:
 #    - group.temps
     - group.humidity
     - group.thermostats
+    - group.pi_hole
 lights_view:
   name: Lights
   icon: mdi:lightbulb
@@ -111,3 +112,10 @@ thermostats:
     - history_graph.temperatures
     - climate.home
     - climate.thermostat
+    
+pi_hole:
+  name: Pi-Hole
+  entities:
+    - sensor.pihole_ads_blocked_today
+    - sensor.pihole_ads_percentage_blocked_today
+  
