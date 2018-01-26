@@ -133,7 +133,6 @@ sensor:
         unit_of_measurement: '°F'
         value_template: "{{ states.climate.thermostat.attributes.current_temperature }}"
       frontdoorbattery:
-        entity_id: zwave.schlage_lock
         value_template: "{{ states.zwave.schlage_lock.attributes.battery_level }}"
         friendly_name: 'Front Door Lock Battery'
         unit_of_measurement: '%'
@@ -220,6 +219,28 @@ google_assistant:
   agent_user_id: !secret ga_user_id
   api_key: !secret ga_api_key
   expose_by_default: false
+  entity_config:
+    light.bedroom_lightswitch_level:
+      expose: true
+      name: bedroom lights
+      type: light  
+    light.hallway_lightswitch_level:
+      expose: true
+      name: hallway lights
+      type: light
+    light.bathroom_lightswitch_level:
+      expose: true
+      name: bathroom lights
+      type: light
+    group.kitchen:
+      expose: true
+      name: kitchen lights
+      type: light
+    switch.bathroom_fan_switch:
+      expose: true
+      name: bathroom fan
+      type: switch
+  
   
 ###########################
 #####     Z Wave     ######

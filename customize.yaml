@@ -18,24 +18,14 @@ sensor.honeywell_temp:
   icon: mdi:thermometer
 light.bedroom_lightswitch_level:
   friendly_name: Bedroom Lights
-  google_assistant: true
-  google_assistant_name: bedroom lights
 light.hallway_lightswitch_level:
   friendly_name: Hallway Lights
-  google_assistant: true
-  google_assistant_name: hallway lights
 light.bathroom_lightswitch_level:
   friendly_name: Bathroom Lights
-  google_assistant: true
-  google_assistant_name: bathroom lights
 group.kitchen:
   friendly_name: Kitchen Lights
-  google_assistant: true
-  google_assistant_name: kitchen lights
 switch.bathroom_fan_switch:
   friendly_name: Bathroom Fan
-  google_assistant: true
-  google_assistant_name: bathroom fan
 sensor.bathroom_sensor_relative_humidity:
   friendly_name: Bathroom Humidity
   icon: mdi:water

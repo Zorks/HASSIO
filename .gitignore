@@ -20,3 +20,4 @@ OZW_Log.txt
 *.conf
 .HA_VERSION
 .uuid
+*.db-shm
