@@ -3,11 +3,10 @@ trigger:
   - platform: state
     entity_id: sensor.bathroom_sensor_burglar
     to: '8'
-# condition:
-  # condition: numeric_state
-  # entity_id: sun.sun
-  # value_template: '{{ state.attributes.elevation }}'
-  # below: 3
+condition:
+  condition: state
+  entity_id: light.bathroom_lightswitch_level
+  state: 'on'
 action:
   service: homeassistant.turn_on
   entity_id: script.timed_light_bathroom
