@@ -1,5 +1,5 @@
 alias: 'Bathroom Humidity Difference'
-# if the bathroom humidity is above house's by 10% and over 60%, start bathroom fan for 10 min or until it is within 10% of house humidity
+# if the bathroom humidity is above house's by 10% and over 60%, start bathroom fan until it is under 60% humidity
 trigger:
   - platform: numeric_state
     entity_id: sensor.bathroom_sensor_relative_humidity
@@ -9,5 +9,7 @@ condition:
   entity_id: sensor.bathroom_humidity_diff
   above: '10'
 action:
-  service: homeassistant.turn_on
-  entity_id: script.bathroom_humidity
+# waits 5 min before starting the fan
+  - delay: 00:05:00
+  - service: homeassistant.turn_on
+    entity_id: script.bathroom_humidity
