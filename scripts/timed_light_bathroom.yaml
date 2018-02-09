@@ -26,9 +26,9 @@ timed_light_bathroom:
       data:
         entity_id: script.timer_off_bathroom
 timer_off_bathroom:
-  alias: "Turn off bathroom light after 3 minutes"
+  alias: "Turn off bathroom light after 5 minutes"
   sequence:
-    - delay: 00:03:00
+    - delay: 00:05:00
     - service_template: > 
         {% if ((not is_state('sensor.bathroom_sensor_burglar', '0'))) %}
           script.turn_on
