@@ -16,10 +16,6 @@ condition:
     after: '07:00:00'
     before: '22:00:00'
 action:
-  - service: climate.set_away_mode
-    data:
-      entity_id: climate.home
-      away_mode: off
   - service: lock.unlock
     entity_id: lock.schlage_lock_locked
   - delay: '00:03:00'

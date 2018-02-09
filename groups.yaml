@@ -89,6 +89,15 @@ kitchen:
 presence:
   name: Location
   entities: !include devices.yaml
+tenants:
+  name: Location
+  entities: !include tenants.yaml
+climate_presence:
+  name: everyone
+  entities: 
+    - group.presence
+    - group.tenants
+    
     
 ##### Lets Encrypt #####
 hass_details:

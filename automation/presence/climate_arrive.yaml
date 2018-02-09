@@ -1,0 +1,13 @@
+# Once the system has seen someone has arrived, set thermostat to not away
+
+alias: 'Hello Climate'
+trigger:
+  platform: state
+  entity_id: group.climate_presence
+  from: 'not_home'
+  to: 'home'
+action:
+  - service: climate.set_away_mode
+    data:
+      entity_id: climate.home
+      away_mode: off

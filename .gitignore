@@ -21,3 +21,4 @@ OZW_Log.txt
 .HA_VERSION
 .uuid
 *.db-shm
+tenants.yaml

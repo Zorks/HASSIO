@@ -37,4 +37,3 @@ sensor.pihole_ads_blocked_today:
   friendly_name: Ads Blocked Today
 sensor.pihole_ads_percentage_blocked_today:
   friendly_name: Blocked DNS Queries
-  
