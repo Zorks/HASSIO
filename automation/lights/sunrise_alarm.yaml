@@ -1,0 +1,26 @@
+alias: 'Trevor Sunrise Alarm'
+trigger:
+  - platform: mqtt
+    topic: 'trevor/alarm'
+# condition:
+  # condition: and
+  # conditions:
+  # - condition: template
+    # value_template: '{{ trigger.payload_json.action == "com.urbandroid.sleep.alarmclock.ALARM_ALERT_START" }}'
+  # - condition: state
+    # entity_id: group.presence
+    # state: home
+action:
+  - service: light.turn_on
+    entity_id: light.bedroom_color_2
+    data:
+      brightness_pct: 1
+      rgb_color: [255,0,0]
+  - delay: "00:00:10"
+  - service: light.turn_on
+    entity_id: light.bedroom_color_2
+    data:
+      brightness_pct: 100
+      kelvin: 2700
+      # 360 seconds = 6 minutes
+      transition: 260

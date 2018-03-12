@@ -248,6 +248,14 @@ google_assistant:
 zwave:
   usb_path: /dev/ttyACM0
   network_key: !secret zwave_network_key
+  
+###########################
+#####      MQTT      ######
+########################### 
+mqtt:
+  broker: core-mosquitto
+
+
 
 ###########################
 ###### Custom Panels ######
@@ -263,10 +271,7 @@ panel_iframe:
     title: Pi-hole
     icon: mdi:block-helper
     url: !secret pi_hole_panel
-  plex:
-    title: Plex
-    icon: mdi:plex
-    url: !secret plex_url
+
 
     
 ###########################

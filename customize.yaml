@@ -26,6 +26,7 @@ group.kitchen:
   friendly_name: Kitchen Lights
 switch.bathroom_fan_switch:
   friendly_name: Bathroom Fan
+  icon: mdi:fan
 sensor.bathroom_sensor_relative_humidity:
   friendly_name: Bathroom Humidity
   icon: mdi:water
@@ -37,3 +38,5 @@ sensor.pihole_ads_blocked_today:
   friendly_name: Ads Blocked Today
 sensor.pihole_ads_percentage_blocked_today:
   friendly_name: Blocked DNS Queries
+light.bedroom_color_2:
+  friendly_name: Trevor's Lamp
