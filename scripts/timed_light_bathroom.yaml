@@ -1,31 +1,37 @@
 timed_light_bathroom:
-  alias: "set timer"
+  alias: "start bathroom timed lights"
   sequence:
     # Cancel ev. old timers
     - service: script.turn_off
       data:
-         entity_id: script.timer_off_bathroom
-####### Currently turned off but saved for future reference. Operates only as a auto-off script now ####
-    # - service: light.turn_on
-      # data_template:
-        # entity_id: light.bathroom_lightswitch_level
-        # transition: 2
-        # # brightness set to 3 between 10pm and 7am, 50 between 8pm and 10pm and 255 between 8am and 10pm.
-        # brightness: >- 
-          # {%- if now().strftime('%H')|int >=22 -%}
-            # {{3|int}}
-          # {%- elif now().strftime('%H')|int >=20 -%}
-            # {{50|int}}
-          # {%- elif now().strftime('%H') |int >=8 -%}
-            # {{255|int}}
-          # {%- else -%}
-            # {{20|int}}
-          # {%- endif -%}
+         entity_id: script.timed_light_bathroom_check_short
+    - service: script.turn_off
+      data:
+         entity_id: script.timed_light_bathroom_check_long
     # Set new timer
     - service: script.turn_on
       data:
-        entity_id: script.timer_off_bathroom
-timer_off_bathroom:
+        entity_id: script.timed_light_bathroom_check_short
+timed_light_bathroom_check_short:
+# this checks every minute for movement. Once there is no movement, it goes to the 5 min script
+  alias: "Check if there's movement in the bathroom"
+  sequence:
+    - delay: 00:01:00
+    - service_template: > 
+        {% if ((not is_state('sensor.bathroom_sensor_burglar', '0'))) %}
+          script.turn_on
+        {% else %}
+          script.turn_on
+        {% endif %}
+      data_template:
+        entity_id: >
+          {% if ((not is_state('sensor.bathroom_sensor_burglar', '0'))) %}
+            script.timer_off_bathroom_restart
+          {% else %}
+            script.timed_light_bathroom_check_long
+          {% endif %}
+timed_light_bathroom_check_long:
+# after waiting 5 min, it double checks that there is no movement. If there is, repeat 1 min script. If there isn't, turn off lights. 
   alias: "Turn off bathroom light after 5 minutes"
   sequence:
     - delay: 00:05:00
@@ -43,13 +49,16 @@ timer_off_bathroom:
             light.bathroom_lightswitch_level
           {% endif %}
 timer_off_bathroom_restart:
-  alias: "Turn off bathroom light after 3 minutes (restart)"
+  alias: "restart bathroom timed lights"
   sequence:
-    # Cancel current script
+    # Cancel current scripts
     - service: script.turn_off
       data:
-        entity_id: script.timer_off_bathroom
+        entity_id: script.timed_light_bathroom_check_short
+    - service: script.turn_off
+      data:
+        entity_id: script.timed_light_bathroom_check_long      
     # Set new timer
     - service: script.turn_on
       data:
-        entity_id: script.timer_off_bathroom
+        entity_id: script.timed_light_bathroom_check_short
