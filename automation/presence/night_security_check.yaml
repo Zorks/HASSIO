@@ -1,0 +1,14 @@
+# Between 9pm and 5am - once all the lights turn off, suggesting we went to bed, double check that door is locked.
+
+alias: 'Check that the door is locked at night'
+trigger:
+  platform: state
+  entity_id: group.all_lights
+  from: 'on'
+  to: 'off'
+condition:
+  condition: time
+  after: '21:00:00'
+  before: '05:00:00'
+action:
+  - service: script.relock_front_door
