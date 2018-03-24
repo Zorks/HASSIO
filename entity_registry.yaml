@@ -163,3 +163,6 @@ media_player.bathroom_speaker:
 media_player.plex_web_chrome_3:
   platform: plex
   unique_id: o73y0cnlesi5a06yqqldr63i
+media_player.woden:
+  platform: plex
+  unique_id: d7bc7c3c-575b-4530-905d-4820c451fc18

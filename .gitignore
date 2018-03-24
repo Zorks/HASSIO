@@ -22,3 +22,5 @@ OZW_Log.txt
 .uuid
 *.db-shm
 tenants.yaml
+*.db-wal
+entity_registry.yaml
