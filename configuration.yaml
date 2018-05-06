@@ -223,23 +223,22 @@ google_assistant:
     light.bedroom_lightswitch_level:
       expose: true
       name: bedroom lights
-      type: light  
     light.hallway_lightswitch_level:
       expose: true
       name: hallway lights
-      type: light
     light.bathroom_lightswitch_level:
       expose: true
       name: bathroom lights
-      type: light
-    group.kitchen:
+    light.kitchen_lightswitch_1_level:
       expose: true
-      name: kitchen lights
-      type: light
+      name: Kitchen Light 1
+    light.kitchen_lightswitch_2_level:
+      expose: true
+      name: Kitchen Light 2
     switch.bathroom_fan_switch:
       expose: true
       name: bathroom fan
-      type: switch
+
   
   
 ###########################
