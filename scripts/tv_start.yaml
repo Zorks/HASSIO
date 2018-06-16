@@ -2,6 +2,7 @@ tv_start:
   alias: 'Start TV'
   sequence:
 # pause chromecast
+    - delay: "00:00:01"
     - service: media_player.media_pause
       entity_id: media_player.chromecast
 #turn on Harmony Hub using default action 
