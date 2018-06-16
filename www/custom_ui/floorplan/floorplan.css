@@ -61,9 +61,11 @@
 svg, svg * {
   vector-effect: non-scaling-stroke !important;
   pointer-events: all !important;
-  background-color: black !important;
-}
 
+}
+svg.ha-floorplan {
+	background-color: black !important;
+}
 /* Hover over */
 
 .entity:hover {
