@@ -24,3 +24,4 @@ OZW_Log.txt
 tenants.yaml
 *.db-wal
 entity_registry.yaml
+.config_entries.json

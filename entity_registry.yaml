@@ -230,3 +230,63 @@ media_player.plex_web_firefox_2:
   name:
   platform: plex
   unique_id: pj6p9h758zn6otnf4y4sfdjn
+sensor.pws_weather_1d:
+  name:
+  platform: wunderground
+  unique_id: '@-122.304300,47.610200,weather_1d'
+sensor.pws_weather_1n:
+  name:
+  platform: wunderground
+  unique_id: '@-122.304300,47.610200,weather_1n'
+sensor.pws_weather_2d:
+  name:
+  platform: wunderground
+  unique_id: '@-122.304300,47.610200,weather_2d'
+sensor.pws_weather_2n:
+  name:
+  platform: wunderground
+  unique_id: '@-122.304300,47.610200,weather_2n'
+sensor.pws_temp_f:
+  name:
+  platform: wunderground
+  unique_id: '@-122.304300,47.610200,temp_f'
+zwave.aeotec_zw090_zstick_gen5_us:
+  name:
+  platform: zwave
+  unique_id: node-1
+zwave.schlage_lock:
+  name:
+  platform: zwave
+  unique_id: node-2
+zwave.bedroom_lightswitch:
+  name:
+  platform: zwave
+  unique_id: node-3
+zwave.hallway_lightswitch:
+  name:
+  platform: zwave
+  unique_id: node-4
+zwave.hallway_motion_sensor:
+  name:
+  platform: zwave
+  unique_id: node-5
+zwave.bathroom_sensor:
+  name:
+  platform: zwave
+  unique_id: node-10
+zwave.bathroom_lightswitch:
+  name:
+  platform: zwave
+  unique_id: node-11
+zwave.bathroom_fan:
+  name:
+  platform: zwave
+  unique_id: node-12
+zwave.kitchen_lightswitch_2:
+  name:
+  platform: zwave
+  unique_id: node-13
+zwave.kitchen_lightswitch_1:
+  name:
+  platform: zwave
+  unique_id: node-14
