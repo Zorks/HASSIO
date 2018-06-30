@@ -16,6 +16,15 @@ homeassistant:
 # Show links to resources in log and frontend
 #introduction: 
 
+#Recorder
+recorder:
+  purge_keep_days: 10
+  purge_interval: 1
+  exclude:
+#    domains:
+    entities:
+      - sun.sun
+
 # Enables the frontend
 frontend:
 
