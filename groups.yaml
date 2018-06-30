@@ -22,6 +22,7 @@ lights_view:
     - group.bedroom
     - light.bathroom_lightswitch_level
     - group.kitchen
+    - light.living_room
     # - group.living_room
 media:
   name: Media Players
