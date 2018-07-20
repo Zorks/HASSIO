@@ -25,3 +25,4 @@ tenants.yaml
 *.db-wal
 entity_registry.yaml
 .config_entries.json
+.storage/core.config_entries
