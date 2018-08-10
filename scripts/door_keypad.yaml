@@ -1,0 +1,341 @@
+door_keypad_1_delete:
+  alias: Delete Door Code 1
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_1_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_1_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_1_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_1_front_switch
+
+door_keypad_2_delete:
+  alias: Delete Door Code 2
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_2_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_2_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_2_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_2_front_switch
+
+door_keypad_3_delete:
+  alias: Delete Door Code 3
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_3_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_3_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_3_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_3_front_switch
+
+door_keypad_4_delete:
+  alias: Delete Door Code 4
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_4_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_4_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_4_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_4_front_switch
+
+door_keypad_5_delete:
+  alias: Delete Door Code 5
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_5_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_5_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_5_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_5_front_switch
+
+door_keypad_6_delete:
+  alias: Delete Door Code 6
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_6_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_6_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_6_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_6_front_switch
+
+door_keypad_7_delete:
+  alias: Delete Door Code 7
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_7_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_7_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_7_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_7_front_switch
+
+door_keypad_8_delete:
+  alias: Delete Door Code 8
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_8_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_8_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_8_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_8_front_switch
+
+door_keypad_9_delete:
+  alias: Delete Door Code 9
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_9_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_9_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_9_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_9_front_switch
+
+door_keypad_10_delete:
+  alias: Delete Door Code 10
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_10_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_10_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_10_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_10_front_switch
+
+door_keypad_11_delete:
+  alias: Delete Door Code 11
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_11_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_11_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_11_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_11_front_switch
+
+door_keypad_12_delete:
+  alias: Delete Door Code 12
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_12_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_12_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_12_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_12_front_switch
+
+door_keypad_13_delete:
+  alias: Delete Door Code 13
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_13_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_13_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_13_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_13_front_switch
+
+door_keypad_14_delete:
+  alias: Delete Door Code 14
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_14_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_14_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_14_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_14_front_switch
+
+door_keypad_15_delete:
+  alias: Delete Door Code 15
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_15_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_15_code
+  - service: input_select.select_option
+    data:
+      option: 'Always'
+      entity_id: input_select.door_keypad_15_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_15_front_switch
+
+door_keypad_16_delete:
+  alias: Delete Door Code 16
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_16_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_16_code
+  - service: input_select.select_option
+    data:
+      option: 'Disabled'
+      entity_id: input_select.door_keypad_16_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_16_front_switch
+
+door_keypad_17_delete:
+  alias: Delete Door Code 17
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_17_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_17_code
+  - service: input_select.select_option
+    data:
+      option: 'Disabled'
+      entity_id: input_select.door_keypad_17_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_17_front_switch
+
+door_keypad_18_delete:
+  alias: Delete Door Code 18
+  sequence:
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_18_name
+  - service: input_text.set_value
+    data:
+      value: ''
+      entity_id: input_text.door_keypad_18_code
+  - service: input_select.select_option
+    data:
+      option: 'Disabled'
+      entity_id: input_select.door_keypad_18_access_schedule
+  - service: input_boolean.turn_off
+    entity_id:
+    - input_boolean.door_keypad_18_front_switch

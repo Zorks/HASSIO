@@ -1,0 +1,106 @@
+#keypad interface
+door_keypad_1_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_2_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_3_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_4_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_5_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_6_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_7_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_8_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_9_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_10_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_11_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_12_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_13_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_14_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_15_access_schedule:
+  name: Access Schedule
+  options:
+    - Always
+    - Recurring
+    - Temporary
+door_keypad_16_access_schedule:
+  name: One Time Use
+  options:
+    - Disabled
+    - Enabled
+door_keypad_17_access_schedule:
+  name: One Time Use
+  options:
+    - Disabled
+    - Enabled
+door_keypad_18_access_schedule:
+  name: One Time Use
+  options:
+    - Disabled
+    - Enabled

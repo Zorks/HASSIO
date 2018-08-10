@@ -1,0 +1,19 @@
+alias: Keypad set random code for one time use
+trigger:
+  - platform: state
+    to: 'Enabled'
+    entity_id:
+      - input_select.door_keypad_16_access_schedule
+      - input_select.door_keypad_17_access_schedule
+      - input_select.door_keypad_18_access_schedule
+# This just sets the input boolean to a random number.  The code wont actually be set until you select the door switch you 
+# want to use
+action:
+  - service: input_text.set_value
+    data_template:
+      entity_id: >
+            {% set object_id = trigger.to_state.entity_id %}
+            {% set code_slot = "_".join(object_id.split("_")[3:-2]) %}
+            {% set user_code_id = 'input_text.door_keypad_' ~ code_slot ~ '_code' %}
+            {{ user_code_id }}
+      value: '{{ range(1000, 9999) | random }}'

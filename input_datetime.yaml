@@ -1,0 +1,121 @@
+#keypad interface
+door_keypad_1_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_1_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_2_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_2_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_3_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_3_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_4_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_4_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_5_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_5_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_6_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_6_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_7_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_7_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_8_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_8_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_9_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_9_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_10_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_10_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_11_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_11_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_12_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_12_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_13_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_13_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_14_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_14_date_end:
+  name: End Time
+  has_date: true
+  has_time: true
+door_keypad_15_date_start:
+  name: Start Time
+  has_date: true
+  has_time: true
+door_keypad_15_date_end:
+  name: End Time
+  has_date: true
+  has_time: true

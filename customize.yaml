@@ -9,7 +9,7 @@ group.all_scripts:
   hidden: false
 sensor.cert_expiry:
   hidden: false
-lock.schlage_lock_locked:
+lock.lock_front_door_lock:
   name: Front Door Lock
   friendly_name: Front Door Lock
 sensor.home_humidity:

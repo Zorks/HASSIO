@@ -66,7 +66,7 @@
 #### Front Door ####
         - name: Front Door Lock
           entities:
-             - lock.schlage_lock_locked
+             - lock.lock_front_door_lock
           states:
             - state: 'locked'
               class: 'switch-on'

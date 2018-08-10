@@ -1,0 +1,54 @@
+alias: Keypad switch turned off
+trigger:
+  - platform: state
+    to: 'off'
+    entity_id:
+      - input_boolean.door_keypad_1_front_switch
+      - input_boolean.door_keypad_2_front_switch
+      - input_boolean.door_keypad_3_front_switch
+      - input_boolean.door_keypad_4_front_switch
+      - input_boolean.door_keypad_5_front_switch
+      - input_boolean.door_keypad_6_front_switch
+      - input_boolean.door_keypad_7_front_switch
+      - input_boolean.door_keypad_8_front_switch
+      - input_boolean.door_keypad_9_front_switch
+      - input_boolean.door_keypad_10_front_switch
+      - input_boolean.door_keypad_11_front_switch
+      - input_boolean.door_keypad_12_front_switch
+      - input_boolean.door_keypad_13_front_switch
+      - input_boolean.door_keypad_14_front_switch
+      - input_boolean.door_keypad_15_front_switch
+      - input_boolean.door_keypad_16_front_switch
+      - input_boolean.door_keypad_17_front_switch
+      - input_boolean.door_keypad_18_front_switch
+
+condition:
+  - condition: template
+    value_template:  >-
+      {% set object_id = trigger.to_state.object_id %}
+      {% set code_slot = "_".join(object_id.split("_")[2:-2]) %}
+      {% set select_id = 'door_keypad_' ~ code_slot ~ '_access_schedule' %}
+      {{ states['input_select'][select_id].state in ['Always', 'Disabled'] }}
+
+action:
+# this is where usercodes get deleted, for the Schlage locks there seems to be an issue with 
+# clear usercode, setting to 0000 works for some locks, but for the schalge it sets 0000 as above
+# valid code, so this sets a random code, of course that means there is an unknown code in the cleared
+# slots.  If you dont like that set a specific code that only you know
+  - service: lock.set_usercode
+    data_template:
+      usercode: !secret primary_code
+      # usercode: >-
+        # {{ range(1000, 9999) | random }}
+# if your lock does not end in "door_lock" ie. often its "door_locked" change line 3 below to match
+# no other things should need to be changed
+      node_id: >-
+        {% set object_id = trigger.to_state.object_id %}
+        {% set lock_name = "_".join(object_id.split("_")[3:-1]) %}
+        {% set lock_id = 'lock_' ~ lock_name ~ '_door_lock' %}
+        {{ states['lock'][lock_id].attributes.node_id }}
+
+      code_slot: >-
+        {% set object_id = trigger.to_state.object_id %}
+        {% set code_slot = "_".join(object_id.split("_")[2:-2]) %}
+        {{ code_slot }}

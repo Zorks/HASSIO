@@ -1,0 +1,25 @@
+alias: Keypad clear code after one time use code is used for 16 through 18
+# When the code from slots 16. 17 or 18 are used, the immediately run the delete script, removing the code from all doors
+# notice that the alarm level is used to determine which slot was used, make sure the names match your config 
+trigger:
+  - platform: numeric_state
+    entity_id:
+      - sensor.lock_front_door_deadbolt_alarm_level
+    above: 15
+    below: 19
+condition:
+- condition: numeric_state
+  entity_id: sensor.ha_runtime_in_minutes
+  above: 1
+action:
+#      - service: notify.pushbullet_notifications
+#        data:
+#          message: "door delete test "
+#          target:
+#          - !secret pauls_secret_email
+#          title: "Testing of delete script door keypad"
+  - service: script.turn_on
+    data_template:
+      entity_id: >
+        {% set code_slot = trigger.to_state.state %}
+        {{ 'script.door_keypad_' ~ code_slot ~ '_delete' }}

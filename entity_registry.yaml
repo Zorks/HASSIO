@@ -42,35 +42,35 @@ light.dining_room_3:
   name:
   platform: hue
   unique_id: 00:17:88:01:02:3b:e5:32-0b
-lock.schlage_lock_locked:
+lock.lock_front_door_lock:
   name:
   platform: zwave
   unique_id: 2-72057594077282304
-sensor.schlage_lock_alarm_type:
+sensor.lock_front_door_deadbolt_alarm_type:
   name:
   platform: zwave
   unique_id: 2-72057594077528065
-sensor.schlage_lock_alarm_level:
+sensor.lock_front_door_deadbolt_alarm_level:
   name:
   platform: zwave
   unique_id: 2-72057594077528081
-sensor.schlage_lock_sourcenodeid:
+sensor.lock_front_door_deadbolt_sourcenodeid:
   name:
   platform: zwave
   unique_id: 2-72057594077528097
-sensor.schlage_lock_access_control:
+sensor.lock_front_door_deadbolt_access_control:
   name:
   platform: zwave
   unique_id: 2-72057594077528209
-sensor.schlage_lock_burglar:
+sensor.lock_front_door_deadbolt_burglar:
   name:
   platform: zwave
   unique_id: 2-72057594077528225
-sensor.schlage_lock_power_management:
+sensor.lock_front_door_deadbolt_power_management:
   name:
   platform: zwave
   unique_id: 2-72057594077528241
-sensor.schlage_lock_system:
+sensor.lock_front_door_deadbolt_system:
   name:
   platform: zwave
   unique_id: 2-72057594077528257
@@ -254,7 +254,7 @@ zwave.aeotec_zw090_zstick_gen5_us:
   name:
   platform: zwave
   unique_id: node-1
-zwave.schlage_lock:
+zwave.lock_front_door_deadbolt:
   name:
   platform: zwave
   unique_id: node-2

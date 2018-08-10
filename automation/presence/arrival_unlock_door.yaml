@@ -10,13 +10,13 @@ condition:
   condition: and
   conditions:
   - condition: state
-    entity_id: lock.schlage_lock_locked
+    entity_id: lock.lock_front_door_lock
     state: 'locked'
   - condition: time
     after: '07:00:00'
     before: '22:00:00'
 action:
   - service: lock.unlock
-    entity_id: lock.schlage_lock_locked
+    entity_id: lock.lock_front_door_lock
   - delay: '00:03:00'
   - service: script.relock_front_door
