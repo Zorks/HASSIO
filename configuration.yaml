@@ -153,7 +153,10 @@ sensor:
     ssl: true
     verify_ssl: false
     host: !secret pi_hole_host
-    
+    # host: localhost:444
+    monitored_conditions:
+      - ads_blocked_today
+      - ads_percentage_today
     
   - platform: template
     sensors:
