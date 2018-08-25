@@ -52,7 +52,6 @@ http:
   cors_allowed_origins:  
    - https://google.com  
    - https://home-assistant.io  
-  use_x_forwarded_for: false  
   trusted_networks:  
    - 127.0.0.1  
    - ::1  
