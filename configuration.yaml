@@ -31,7 +31,6 @@ recorder:
       - sensor.time_utc
       - sensor.time
       - sensor.uptime
-      - sensor.pws_temp_f
       - sensor.pws_weather_1d
       - sensor.pws_weather_1n
       - sensor.pws_weather_2d
