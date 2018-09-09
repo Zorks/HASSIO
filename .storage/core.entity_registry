@@ -588,8 +588,8 @@
             {
                 "config_entry_id": null,
                 "device_id": null,
-                "entity_id": "binary_sensor.hank_hkzwdws01_doorwindow_sensor_sensor",
-                "name": null,
+                "entity_id": "binary_sensor.frontdoor_sensor_sensor",
+                "name": "Front Door Binary Sensor",
                 "platform": "zwave",
                 "unique_id": "15-72057594294566912"
             },
@@ -597,14 +597,14 @@
                 "config_entry_id": null,
                 "device_id": null,
                 "entity_id": "zwave.frontdoor_sensor",
-                "name": null,
+                "name": "Front Door Sensor",
                 "platform": "zwave",
                 "unique_id": "node-15"
             },
             {
                 "config_entry_id": null,
                 "device_id": null,
-                "entity_id": "sensor.hank_hkzwdws01_doorwindow_sensor_sourcenodeid",
+                "entity_id": "sensor.frontdoor_sensor_sourcenodeid",
                 "name": null,
                 "platform": "zwave",
                 "unique_id": "15-72057594295631905"
@@ -612,7 +612,7 @@
             {
                 "config_entry_id": null,
                 "device_id": null,
-                "entity_id": "sensor.hank_hkzwdws01_doorwindow_sensor_access_control",
+                "entity_id": "sensor.frontdoor_sensor_access_control",
                 "name": null,
                 "platform": "zwave",
                 "unique_id": "15-72057594295632017"
@@ -620,7 +620,7 @@
             {
                 "config_entry_id": null,
                 "device_id": null,
-                "entity_id": "sensor.hank_hkzwdws01_doorwindow_sensor_burglar",
+                "entity_id": "sensor.frontdoor_sensor_burglar",
                 "name": null,
                 "platform": "zwave",
                 "unique_id": "15-72057594295632033"
@@ -628,7 +628,7 @@
             {
                 "config_entry_id": null,
                 "device_id": null,
-                "entity_id": "sensor.hank_hkzwdws01_doorwindow_sensor_alarm_type",
+                "entity_id": "sensor.frontdoor_sensor_alarm_type",
                 "name": null,
                 "platform": "zwave",
                 "unique_id": "15-72057594295631873"
@@ -636,10 +636,26 @@
             {
                 "config_entry_id": null,
                 "device_id": null,
-                "entity_id": "sensor.hank_hkzwdws01_doorwindow_sensor_alarm_level",
+                "entity_id": "sensor.frontdoor_sensor_alarm_level",
                 "name": null,
                 "platform": "zwave",
                 "unique_id": "15-72057594295631889"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "entity_id": "zwave.backdoor_sensor",
+                "name": "Back Door Sensor",
+                "platform": "zwave",
+                "unique_id": "node-16"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "entity_id": "binary_sensor.backdoor_sensor_sensor",
+                "name": "Back Door Binary Sensor",
+                "platform": "zwave",
+                "unique_id": "16-72057594311344128"
             }
         ]
     },
