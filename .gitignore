@@ -23,6 +23,9 @@ OZW_Log.txt
 *.db-shm
 tenants.yaml
 *.db-wal
-entity_registry.yaml
 .config_entries.json
-.storage/
+.storage/onboarding
+.storage/hassio
+.storage/auth_provider.homeassistant
+.storage/auth
+.storage/core.config_entries
