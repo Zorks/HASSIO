@@ -615,8 +615,12 @@ google_assistant:
     switch.bathroom_fan_switch:
       expose: true
       name: bathroom fan
-
-  
+    light.spare_bedroom_lightswitch_level:
+      expose: true
+      name: spare bedroom lights
+    light.office_lightswitch_level:
+      expose: true
+      name: office lights  
   
 ###########################
 #####     Z Wave     ######
