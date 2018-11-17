@@ -1,4 +1,4 @@
-homeassistant:
+﻿homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
   # Location required to calculate the time the sun rises and sets
@@ -18,7 +18,7 @@ homeassistant:
 
 #Recorder
 recorder:
-  purge_keep_days: 10
+  purge_keep_days: 7
   purge_interval: 1
   exclude:
 #    domains:
@@ -38,12 +38,11 @@ recorder:
       
 # Enables the frontend
 frontend:
-
+  themes: !include_dir_merge_named themes
 # Enables configuration UI
 config:
 
 http:
-  api_password: !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   base_url: !secret base_url
   ssl_certificate: /ssl/fullchain.pem  
@@ -132,6 +131,7 @@ sensor:
       - weather_2d
       - weather_2n
       - temp_f
+      - weather
 #      - weather_3d
 #      - weather_3n
 #      - weather_4d
@@ -542,11 +542,22 @@ tts:
 hue:
   bridges:
   - host: 192.168.2.10
-# light:
-  # - platform: hue
-    # host: 192.168.2.10
-    # allow_unreachable: true
-
+light:
+  - platform: group
+    name: All Lights
+    entities:
+      - light.bathroom
+      - light.bathroom_color_1
+      - light.bathroom_lightswitch_level
+      - light.bedroom
+      - light.bedroom_color_2
+      - light.bedroom_lightswitch_level
+      - light.dining
+      - light.hallway_lightswitch_level
+      - light.kitchen_lightswitch_1_level
+      - light.kitchen_lightswitch_2_level
+      - light.office_lightswitch_level
+      - light.spare_bedroom_lightswitch_level
 ####################
 ##### Remotes ######
 ####################
@@ -568,7 +579,7 @@ device_tracker:
     # consider_home: 60
     # track_new_devices: no
   - platform: unifi_direct
-    host: 192.168.1.7
+    host: 192.168.1.6
     username: Zorks
     password: !secret unifi_pw
     interval_seconds: 12
@@ -591,9 +602,6 @@ ecobee:
 ################################## 
 google_assistant: 
   project_id: !secret ga_project_id
-  client_id: !secret ga_client_id
-  access_token: !secret ga_access_token
-  agent_user_id: !secret ga_user_id
   api_key: !secret ga_api_key
   expose_by_default: false
   entity_config:
@@ -640,18 +648,21 @@ mqtt:
 ###########################
 ###### Custom Panels ######
 ###########################
-panel_custom:
-  - name: floorplan
-    sidebar_title: Floorplan
-    sidebar_icon: mdi:home
-    url_path: floorplan
-    config: !include floorplan.yaml
+# panel_custom:
+  # - name: floorplan
+    # sidebar_title: Floorplan
+    # sidebar_icon: mdi:home
+    # url_path: floorplan
+    # config: !include floorplan.yaml
 panel_iframe:
   pihole:
     title: Pi-hole
     icon: mdi:block-helper
     url: !secret pi_hole_panel
-
+  tautulli:
+    title: Tautulli
+    icon: mdi:television
+    url: !secret tautulli_panel
 
     
 ###########################

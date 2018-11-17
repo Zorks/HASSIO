@@ -9,12 +9,12 @@ timed_light_hallway:
       data_template:
         entity_id: light.hallway_lightswitch_level
         transition: 2
-        # brightness set to 3 between 10pm and 7am, 50 between 8pm and 10pm and 255 between 8am and 10pm.
+        # brightness set to 3 between 8pm and 7am, 30 between 6pm and 8pm and 255 between 8am and 8pm.
         brightness: >- 
-          {%- if now().strftime('%H')|int >=22 -%}
+          {%- if now().strftime('%H')|int >=20 -%}
             {{3|int}}
-          {%- elif now().strftime('%H')|int >=20 -%}
-            {{50|int}}
+          {%- elif now().strftime('%H')|int >=18 -%}
+            {{30|int}}
           {%- elif now().strftime('%H') |int >=8 -%}
             {{255|int}}
           {%- else -%}

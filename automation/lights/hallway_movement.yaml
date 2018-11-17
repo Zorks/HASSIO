@@ -9,10 +9,13 @@ condition:
     - condition: numeric_state
       entity_id: sun.sun
       value_template: '{{ state.attributes.elevation }}'
-      below: 3
+      below: 4
     - condition: time
       after: '15:00:00'
-      before: '20:00:00'
+      before: '23:00:00'
+    - condition: state
+      entity_id: group.all_lights
+      state: 'on'
 action:
   service: homeassistant.turn_on
   entity_id: script.timed_light_hallway

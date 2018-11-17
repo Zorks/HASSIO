@@ -310,7 +310,241 @@
                 "manufacturer": "Signify",
                 "model": "BSB002",
                 "name": "Philips hue",
-                "sw_version": "1808300701"
+                "sw_version": "1809121051"
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "90c964b65f5f4db3871a6b6bd3929f15",
+                "identifiers": [
+                    [
+                        "zwave",
+                        2
+                    ]
+                ],
+                "manufacturer": "Schlage",
+                "model": "BE469NXCEN Touchscreen DeadBolt",
+                "name": "Schlage Lock",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "a4e550c9a4e0429b95e6ca74215c342e",
+                "identifiers": [
+                    [
+                        "zwave",
+                        3
+                    ]
+                ],
+                "manufacturer": "GE",
+                "model": "14294 In-Wall Smart Dimmer",
+                "name": "Bedroom Lightswitch",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "a5ad8b7522354fa4ad51ccf6267fbb2d",
+                "identifiers": [
+                    [
+                        "zwave",
+                        4
+                    ]
+                ],
+                "manufacturer": "GE",
+                "model": "14294 In-Wall Smart Dimmer",
+                "name": "Hallway Lightswitch",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "f8a08be545ac461bac22974b9c452446",
+                "identifiers": [
+                    [
+                        "zwave",
+                        5
+                    ]
+                ],
+                "manufacturer": "Vision",
+                "model": "ZP3102 PIR Motion Sensor",
+                "name": "Hallway Motion Sensor",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "3009eba16f6546d8849359324cd0f254",
+                "identifiers": [
+                    [
+                        "zwave",
+                        10
+                    ]
+                ],
+                "manufacturer": "Vision",
+                "model": "ZP3111 Multisensor 4in1",
+                "name": "Bathroom Sensor",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "4e61d92bd31646b88b0a37c9a9dcceda",
+                "identifiers": [
+                    [
+                        "zwave",
+                        11
+                    ]
+                ],
+                "manufacturer": "GE",
+                "model": "14294 In-Wall Smart Dimmer",
+                "name": "Bathroom Lightswitch",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "dd142dfab0c44e3499a84b079fa3ed31",
+                "identifiers": [
+                    [
+                        "zwave",
+                        12
+                    ]
+                ],
+                "manufacturer": "GE",
+                "model": "14291 In-Wall Smart Switch",
+                "name": "Bathroom Fan",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "a8ca69aa5b86421e88aa944b4e0ff9b0",
+                "identifiers": [
+                    [
+                        "zwave",
+                        13
+                    ]
+                ],
+                "manufacturer": "GE",
+                "model": "14294 In-Wall Smart Dimmer",
+                "name": "Kitchen Lightswitch 2",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "d256cf54dca74b76985ed04c2032da98",
+                "identifiers": [
+                    [
+                        "zwave",
+                        14
+                    ]
+                ],
+                "manufacturer": "GE",
+                "model": "14294 In-Wall Smart Dimmer",
+                "name": "Kitchen Lightswitch 1",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "abd73a482cb84b7f8eb6223a467e9f39",
+                "identifiers": [
+                    [
+                        "zwave",
+                        15
+                    ]
+                ],
+                "manufacturer": "Hank",
+                "model": "HKZW-DWS01 Door/Window Sensor",
+                "name": "Hank HKZW-DWS01 Door/Window Sensor",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "fe31a949b6474844bab57e45e09d4913",
+                "identifiers": [
+                    [
+                        "zwave",
+                        16
+                    ]
+                ],
+                "manufacturer": "Hank",
+                "model": "HKZW-DWS01 Door/Window Sensor",
+                "name": "Hank HKZW-DWS01 Door/Window Sensor",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "453b0b20dcda491eadf226cbd5debed6",
+                "identifiers": [
+                    [
+                        "zwave",
+                        17
+                    ]
+                ],
+                "manufacturer": "GE",
+                "model": "14294 In-Wall Smart Dimmer",
+                "name": "GE 14294 In-Wall Smart Dimmer",
+                "sw_version": null
+            },
+            {
+                "config_entries": [
+                    "63d5ab0fc3ff4119a9a455c0240caf8a"
+                ],
+                "connections": [],
+                "hub_device_id": null,
+                "id": "d29eb6def08d40dbbd12e46b7394373f",
+                "identifiers": [
+                    [
+                        "zwave",
+                        18
+                    ]
+                ],
+                "manufacturer": "GE",
+                "model": "14294 In-Wall Smart Dimmer",
+                "name": "GE 14294 In-Wall Smart Dimmer",
+                "sw_version": null
             }
         ]
     },

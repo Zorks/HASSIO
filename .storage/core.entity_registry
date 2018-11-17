@@ -110,8 +110,8 @@
                 "unique_id": "2-72057594077282304"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "90c964b65f5f4db3871a6b6bd3929f15",
                 "disabled_by": null,
                 "entity_id": "sensor.lock_front_door_deadbolt_alarm_type",
                 "name": null,
@@ -119,8 +119,8 @@
                 "unique_id": "2-72057594077528065"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "90c964b65f5f4db3871a6b6bd3929f15",
                 "disabled_by": null,
                 "entity_id": "sensor.lock_front_door_deadbolt_alarm_level",
                 "name": null,
@@ -128,8 +128,8 @@
                 "unique_id": "2-72057594077528081"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "90c964b65f5f4db3871a6b6bd3929f15",
                 "disabled_by": null,
                 "entity_id": "sensor.lock_front_door_deadbolt_sourcenodeid",
                 "name": null,
@@ -137,8 +137,8 @@
                 "unique_id": "2-72057594077528097"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "90c964b65f5f4db3871a6b6bd3929f15",
                 "disabled_by": null,
                 "entity_id": "sensor.lock_front_door_deadbolt_access_control",
                 "name": null,
@@ -146,8 +146,8 @@
                 "unique_id": "2-72057594077528209"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "90c964b65f5f4db3871a6b6bd3929f15",
                 "disabled_by": null,
                 "entity_id": "sensor.lock_front_door_deadbolt_burglar",
                 "name": null,
@@ -155,8 +155,8 @@
                 "unique_id": "2-72057594077528225"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "90c964b65f5f4db3871a6b6bd3929f15",
                 "disabled_by": null,
                 "entity_id": "sensor.lock_front_door_deadbolt_power_management",
                 "name": null,
@@ -164,8 +164,8 @@
                 "unique_id": "2-72057594077528241"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "90c964b65f5f4db3871a6b6bd3929f15",
                 "disabled_by": null,
                 "entity_id": "sensor.lock_front_door_deadbolt_system",
                 "name": null,
@@ -173,8 +173,8 @@
                 "unique_id": "2-72057594077528257"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "a4e550c9a4e0429b95e6ca74215c342e",
                 "disabled_by": null,
                 "entity_id": "light.bedroom_lightswitch_level",
                 "name": null,
@@ -182,8 +182,8 @@
                 "unique_id": "3-72057594093076481"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "a5ad8b7522354fa4ad51ccf6267fbb2d",
                 "disabled_by": null,
                 "entity_id": "light.hallway_lightswitch_level",
                 "name": null,
@@ -191,8 +191,8 @@
                 "unique_id": "4-72057594109853697"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "f8a08be545ac461bac22974b9c452446",
                 "disabled_by": null,
                 "entity_id": "binary_sensor.hallway_motion_sensor_sensor",
                 "name": null,
@@ -200,8 +200,8 @@
                 "unique_id": "5-72057594126794752"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "f8a08be545ac461bac22974b9c452446",
                 "disabled_by": null,
                 "entity_id": "sensor.hallway_motion_sensor_temperature",
                 "name": null,
@@ -209,8 +209,8 @@
                 "unique_id": "5-72057594126811154"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "f8a08be545ac461bac22974b9c452446",
                 "disabled_by": null,
                 "entity_id": "sensor.hallway_motion_sensor_alarm_type",
                 "name": null,
@@ -218,8 +218,8 @@
                 "unique_id": "5-72057594127859713"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "f8a08be545ac461bac22974b9c452446",
                 "disabled_by": null,
                 "entity_id": "sensor.hallway_motion_sensor_alarm_level",
                 "name": null,
@@ -227,8 +227,8 @@
                 "unique_id": "5-72057594127859729"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "f8a08be545ac461bac22974b9c452446",
                 "disabled_by": null,
                 "entity_id": "sensor.hallway_motion_sensor_sourcenodeid",
                 "name": null,
@@ -236,8 +236,8 @@
                 "unique_id": "5-72057594127859745"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "f8a08be545ac461bac22974b9c452446",
                 "disabled_by": null,
                 "entity_id": "sensor.hallway_motion_sensor_burglar",
                 "name": null,
@@ -245,8 +245,8 @@
                 "unique_id": "5-72057594127859873"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "f8a08be545ac461bac22974b9c452446",
                 "disabled_by": null,
                 "entity_id": "sensor.hallway_motion_sensor_system",
                 "name": null,
@@ -254,8 +254,8 @@
                 "unique_id": "5-72057594127859905"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "f8a08be545ac461bac22974b9c452446",
                 "disabled_by": null,
                 "entity_id": "sensor.hallway_motion_sensor_emergency",
                 "name": null,
@@ -263,8 +263,8 @@
                 "unique_id": "5-72057594127859921"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "f8a08be545ac461bac22974b9c452446",
                 "disabled_by": null,
                 "entity_id": "sensor.hallway_motion_sensor_homehealth",
                 "name": null,
@@ -272,8 +272,8 @@
                 "unique_id": "5-72057594127859969"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "3009eba16f6546d8849359324cd0f254",
                 "disabled_by": null,
                 "entity_id": "binary_sensor.bathroom_sensor_sensor",
                 "name": null,
@@ -281,8 +281,8 @@
                 "unique_id": "10-72057594210680832"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "3009eba16f6546d8849359324cd0f254",
                 "disabled_by": null,
                 "entity_id": "sensor.bathroom_sensor_temperature",
                 "name": null,
@@ -290,8 +290,8 @@
                 "unique_id": "10-72057594210697234"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "3009eba16f6546d8849359324cd0f254",
                 "disabled_by": null,
                 "entity_id": "sensor.bathroom_sensor_luminance",
                 "name": null,
@@ -299,8 +299,8 @@
                 "unique_id": "10-72057594210697266"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "3009eba16f6546d8849359324cd0f254",
                 "disabled_by": null,
                 "entity_id": "sensor.bathroom_sensor_relative_humidity",
                 "name": null,
@@ -308,8 +308,8 @@
                 "unique_id": "10-72057594210697298"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "3009eba16f6546d8849359324cd0f254",
                 "disabled_by": null,
                 "entity_id": "sensor.bathroom_sensor_alarm_type",
                 "name": null,
@@ -317,8 +317,8 @@
                 "unique_id": "10-72057594211745793"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "3009eba16f6546d8849359324cd0f254",
                 "disabled_by": null,
                 "entity_id": "sensor.bathroom_sensor_alarm_level",
                 "name": null,
@@ -326,8 +326,8 @@
                 "unique_id": "10-72057594211745809"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "3009eba16f6546d8849359324cd0f254",
                 "disabled_by": null,
                 "entity_id": "sensor.bathroom_sensor_sourcenodeid",
                 "name": null,
@@ -335,8 +335,8 @@
                 "unique_id": "10-72057594211745825"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "3009eba16f6546d8849359324cd0f254",
                 "disabled_by": null,
                 "entity_id": "sensor.bathroom_sensor_burglar",
                 "name": null,
@@ -344,8 +344,8 @@
                 "unique_id": "10-72057594211745953"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "3009eba16f6546d8849359324cd0f254",
                 "disabled_by": null,
                 "entity_id": "sensor.bathroom_sensor_homehealth",
                 "name": null,
@@ -353,8 +353,8 @@
                 "unique_id": "10-72057594211746049"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "4e61d92bd31646b88b0a37c9a9dcceda",
                 "disabled_by": null,
                 "entity_id": "light.bathroom_lightswitch_level",
                 "name": null,
@@ -362,8 +362,8 @@
                 "unique_id": "11-72057594227294209"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "dd142dfab0c44e3499a84b079fa3ed31",
                 "disabled_by": null,
                 "entity_id": "switch.bathroom_fan_switch",
                 "name": null,
@@ -371,8 +371,8 @@
                 "unique_id": "12-72057594244055040"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "a8ca69aa5b86421e88aa944b4e0ff9b0",
                 "disabled_by": null,
                 "entity_id": "light.kitchen_lightswitch_2_level",
                 "name": null,
@@ -380,8 +380,8 @@
                 "unique_id": "13-72057594260848641"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "d256cf54dca74b76985ed04c2032da98",
                 "disabled_by": null,
                 "entity_id": "light.kitchen_lightswitch_1_level",
                 "name": null,
@@ -659,8 +659,8 @@
                 "unique_id": "node-14"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "abd73a482cb84b7f8eb6223a467e9f39",
                 "disabled_by": null,
                 "entity_id": "binary_sensor.frontdoor_sensor_sensor",
                 "name": "Front Door Binary Sensor",
@@ -731,8 +731,8 @@
                 "unique_id": "node-16"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "fe31a949b6474844bab57e45e09d4913",
                 "disabled_by": null,
                 "entity_id": "binary_sensor.backdoor_sensor_sensor",
                 "name": "Back Door Binary Sensor",
@@ -758,8 +758,8 @@
                 "unique_id": "node-17"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "453b0b20dcda491eadf226cbd5debed6",
                 "disabled_by": null,
                 "entity_id": "light.office_lightswitch_level",
                 "name": null,
@@ -776,13 +776,94 @@
                 "unique_id": "node-18"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "d29eb6def08d40dbbd12e46b7394373f",
                 "disabled_by": null,
                 "entity_id": "light.spare_bedroom_lightswitch_level",
                 "name": null,
                 "platform": "zwave",
                 "unique_id": "18-72057594344734721"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.microsoft_edge",
+                "name": null,
+                "platform": "plex",
+                "unique_id": "fm467wo1jtpga8tqqpwl17c2"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.firefox_2",
+                "name": null,
+                "platform": "plex",
+                "unique_id": "qz0pilu3tlbltmjj6dqjp3xi"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.firefox_3",
+                "name": null,
+                "platform": "plex",
+                "unique_id": "jkcq4fxh8kgr3eo74o3yxjyl"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.microsoft_edge_2",
+                "name": null,
+                "platform": "plex",
+                "unique_id": "3t3qwon11iypr03ux82uyg4q"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.firefox_4",
+                "name": null,
+                "platform": "plex",
+                "unique_id": "e64qix8bl0gkjaq9wtzy2gwl"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "sensor.pws_weather",
+                "name": null,
+                "platform": "wunderground",
+                "unique_id": "@-122.304300,47.610200,weather"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.firefox_5",
+                "name": null,
+                "platform": "plex",
+                "unique_id": "26jmqpbphwfwx3ai4ldwa90p"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.firefox_6",
+                "name": null,
+                "platform": "plex",
+                "unique_id": "97pax8d4g7ii5nf8ff9smxqu"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.chrome",
+                "name": null,
+                "platform": "plex",
+                "unique_id": "7514bdfjn778f87jwii4uiki"
             }
         ]
     },
