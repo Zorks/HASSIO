@@ -17,6 +17,7 @@ condition:
         before: sunrise
         before_offset: "01:00:00"
 action:
+  - delay: 00:01:00
   - service: frontend.set_theme
     data:
       name: solarized_dark 
