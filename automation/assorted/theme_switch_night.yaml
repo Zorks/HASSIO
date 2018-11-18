@@ -1,0 +1,22 @@
+#If the system restarts 1 hr before sunset or after sunrise, it should automatically switch to the night theme. 
+
+alias: Automatic Theme Change - evening
+trigger:
+  - platform: homeassistant
+    event: start
+  - platform: sun
+    offset: "-01:00:00"
+    event: sunset
+condition:
+    condition: or  
+    conditions:
+      - condition: sun
+        after: sunset
+        after_offset: "-01:00:00"
+      - condition: sun
+        before: sunrise
+        before_offset: "01:00:00"
+action:
+  - service: frontend.set_theme
+    data:
+      name: solarized_dark 

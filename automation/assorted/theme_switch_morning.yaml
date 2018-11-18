@@ -1,0 +1,10 @@
+
+alias: Automatic Theme Change - morning
+trigger:
+  - platform: sun
+    offset: "01:00:00"
+    event: sunrise
+action:
+  - service: frontend.set_theme
+    data:
+      name: default
