@@ -1,0 +1,11 @@
+alias: Bathroom Fan Switch double-tapped on
+trigger:
+  # Trigger on double-tap of Fan switch
+  - platform: event
+    event_type: zwave.node_event
+    event_data:
+      entity_id: zwave.bathroom_lightswitch
+      basic_level: 0
+action:
+  - service: switch.toggle
+    entity_id: switch.bathroom_fan_switch
