@@ -1,6 +1,6 @@
-alias: Bathroom Fan Switch double-tapped on
+alias: Bathroom Light Switch double-tapped off
 trigger:
-  # Trigger on double-tap of Fan switch
+  # Trigger off double-tap of Light switch
   - platform: event
     event_type: zwave.node_event
     event_data:

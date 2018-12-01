@@ -864,6 +864,15 @@
                 "name": null,
                 "platform": "plex",
                 "unique_id": "7514bdfjn778f87jwii4uiki"
+            },
+            {
+                "config_entry_id": "d2d89de77d7f4d428ac38d6da1256a95",
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.tv_and_speakers",
+                "name": null,
+                "platform": "cast",
+                "unique_id": "41f0a665-d878-4c41-9401-d8d9d05f903a"
             }
         ]
     },

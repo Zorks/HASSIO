@@ -1,4 +1,4 @@
-alias: Bathroom Fan Switch double-tapped on
+alias: Bathroom Light Switch double-tapped on
 trigger:
   # Trigger on double-tap of Fan switch
   - platform: event
