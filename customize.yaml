@@ -43,3 +43,5 @@ sensor.pihole_ads_percentage_blocked_today:
   friendly_name: Blocked DNS Queries
 light.bedroom_color_2:
   friendly_name: Trevor's Lamp
+sensor.dark_sky_temperature:
+  friendly_name: Outside Temperature
