@@ -101,8 +101,8 @@
                 "unique_id": "00:17:88:01:02:3b:e5:32-0b"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "90c964b65f5f4db3871a6b6bd3929f15",
                 "disabled_by": null,
                 "entity_id": "lock.lock_front_door_lock",
                 "name": null,
@@ -677,47 +677,47 @@
                 "unique_id": "node-15"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "abd73a482cb84b7f8eb6223a467e9f39",
                 "disabled_by": null,
                 "entity_id": "sensor.frontdoor_sensor_sourcenodeid",
-                "name": null,
+                "name": "Front Door Sensor Sourcenode ID",
                 "platform": "zwave",
                 "unique_id": "15-72057594295631905"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "abd73a482cb84b7f8eb6223a467e9f39",
                 "disabled_by": null,
                 "entity_id": "sensor.frontdoor_sensor_access_control",
-                "name": null,
+                "name": "Front Door Sensor Access Control",
                 "platform": "zwave",
                 "unique_id": "15-72057594295632017"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "abd73a482cb84b7f8eb6223a467e9f39",
                 "disabled_by": null,
                 "entity_id": "sensor.frontdoor_sensor_burglar",
-                "name": null,
+                "name": "Front Door Sensor Burglar",
                 "platform": "zwave",
                 "unique_id": "15-72057594295632033"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "abd73a482cb84b7f8eb6223a467e9f39",
                 "disabled_by": null,
                 "entity_id": "sensor.frontdoor_sensor_alarm_type",
-                "name": null,
+                "name": "Front Door Sensor Alarm Type",
                 "platform": "zwave",
                 "unique_id": "15-72057594295631873"
             },
             {
-                "config_entry_id": null,
-                "device_id": null,
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "abd73a482cb84b7f8eb6223a467e9f39",
                 "disabled_by": null,
                 "entity_id": "sensor.frontdoor_sensor_alarm_level",
-                "name": null,
+                "name": "Front Door Sensor Alarm Level",
                 "platform": "zwave",
                 "unique_id": "15-72057594295631889"
             },
@@ -873,6 +873,69 @@
                 "name": null,
                 "platform": "cast",
                 "unique_id": "41f0a665-d878-4c41-9401-d8d9d05f903a"
+            },
+            {
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "fe31a949b6474844bab57e45e09d4913",
+                "disabled_by": null,
+                "entity_id": "sensor.backdoor_sensor_sourcenodeid",
+                "name": "Backdoor Door Sensor Sourcenode ID",
+                "platform": "zwave",
+                "unique_id": "16-72057594312409121"
+            },
+            {
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "fe31a949b6474844bab57e45e09d4913",
+                "disabled_by": null,
+                "entity_id": "sensor.backdoor_sensor_access_control",
+                "name": "Backdoor Door Sensor Access Control",
+                "platform": "zwave",
+                "unique_id": "16-72057594312409233"
+            },
+            {
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "fe31a949b6474844bab57e45e09d4913",
+                "disabled_by": null,
+                "entity_id": "sensor.backdoor_sensor_burglar",
+                "name": "Backdoor Door Sensor Burglar",
+                "platform": "zwave",
+                "unique_id": "16-72057594312409249"
+            },
+            {
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "fe31a949b6474844bab57e45e09d4913",
+                "disabled_by": null,
+                "entity_id": "sensor.backdoor_sensor_alarm_type",
+                "name": "Backdoor Door Sensor Alarm Type",
+                "platform": "zwave",
+                "unique_id": "16-72057594312409089"
+            },
+            {
+                "config_entry_id": "63d5ab0fc3ff4119a9a455c0240caf8a",
+                "device_id": "fe31a949b6474844bab57e45e09d4913",
+                "disabled_by": null,
+                "entity_id": "sensor.backdoor_sensor_alarm_level",
+                "name": "Backdoor Door Sensor Alarm Level",
+                "platform": "zwave",
+                "unique_id": "16-72057594312409105"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.firefox_7",
+                "name": null,
+                "platform": "plex",
+                "unique_id": "cr8q9gxz5g6u9pj5ej3kpld1"
+            },
+            {
+                "config_entry_id": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "media_player.firefox_8",
+                "name": null,
+                "platform": "plex",
+                "unique_id": "v2tbdaohndh701w4wdkhyx5u"
             }
         ]
     },

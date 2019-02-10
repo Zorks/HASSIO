@@ -107,7 +107,7 @@
                 "manufacturer": "Philips",
                 "model": "Hue white lamp",
                 "name": "Dining Room 5",
-                "sw_version": "1.29.0_r21169"
+                "sw_version": "1.46.13_r26312"
             },
             {
                 "config_entries": [
@@ -143,7 +143,7 @@
                 "manufacturer": "Philips",
                 "model": "Hue white lamp",
                 "name": "Dining Room 3",
-                "sw_version": "1.29.0_r21169"
+                "sw_version": "1.46.13_r26312"
             },
             {
                 "config_entries": [
@@ -161,7 +161,7 @@
                 "manufacturer": "Philips",
                 "model": "Hue white lamp",
                 "name": "Dining Room 4",
-                "sw_version": "1.29.0_r21169"
+                "sw_version": "1.46.13_r26312"
             },
             {
                 "config_entries": [
@@ -179,7 +179,7 @@
                 "manufacturer": "Philips",
                 "model": "Hue white lamp",
                 "name": "Dining Room 1",
-                "sw_version": "1.29.0_r21169"
+                "sw_version": "1.46.13_r26312"
             },
             {
                 "config_entries": [
@@ -233,7 +233,7 @@
                 "manufacturer": "Philips",
                 "model": "Hue color lamp",
                 "name": "Living Room",
-                "sw_version": "5.105.0.21536"
+                "sw_version": "5.127.1.26420"
             },
             {
                 "config_entries": [
@@ -251,7 +251,7 @@
                 "manufacturer": "Philips",
                 "model": "Hue white lamp",
                 "name": "Dining Room 2",
-                "sw_version": "1.29.0_r21169"
+                "sw_version": "1.46.13_r26312"
             },
             {
                 "config_entries": [
@@ -287,7 +287,7 @@
                 "manufacturer": "Philips",
                 "model": "Hue color lamp",
                 "name": "Trevor's Lamp",
-                "sw_version": "5.105.0.21536"
+                "sw_version": "5.127.1.26420"
             },
             {
                 "config_entries": [
@@ -310,7 +310,7 @@
                 "manufacturer": "Signify",
                 "model": "BSB002",
                 "name": "Philips hue",
-                "sw_version": "1809121051"
+                "sw_version": "1811120916"
             },
             {
                 "config_entries": [

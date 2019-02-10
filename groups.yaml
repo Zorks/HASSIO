@@ -106,7 +106,7 @@ presence:
   name: Location
   entities: !include devices.yaml
 tenants:
-  name: Location
+  name: Location2
   entities: !include tenants.yaml
 climate_presence:
   name: everyone
