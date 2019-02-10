@@ -29,3 +29,9 @@ tenants.yaml
 .storage/auth_provider.homeassistant
 .storage/auth
 .storage/core.config_entries
+.storage/core.restore_state
+.storage/core.restore_state
+.storage/core.restore_state
+.storage/core.restore_state
+.storage/core.restore_state
+*.restore_state

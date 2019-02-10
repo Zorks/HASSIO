@@ -36,7 +36,7 @@ views:
             refresh_interval: 1800
             entities:
               - sensor.house_avg_temp
-              - sensor.pws_temp_f
+              - sensor.dark_sky_temperature
               - sensor.honeywell_temp
       - type: vertical-stack
         cards:
@@ -69,9 +69,9 @@ views:
         - type: glance
           title: Pi-Hole
           entities:
-            - entity: sensor.pihole_ads_blocked_today
+            - entity: sensor.pi_hole_ads_blocked_today
               name: Total
-            - entity: sensor.pihole_ads_percentage_blocked_today
+            - entity: sensor.pi_hole_ads_percentage_blocked_today
               name: Blocked
       - type: horizontal-stack
         cards:
