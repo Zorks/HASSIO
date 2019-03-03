@@ -2,6 +2,7 @@
     "data": {
         "devices": [
             {
+                "area_id": null,
                 "config_entries": [
                     "d2d89de77d7f4d428ac38d6da1256a95"
                 ],
@@ -20,6 +21,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "d2d89de77d7f4d428ac38d6da1256a95"
                 ],
@@ -38,6 +40,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "d2d89de77d7f4d428ac38d6da1256a95"
                 ],
@@ -56,6 +59,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "d2d89de77d7f4d428ac38d6da1256a95"
                 ],
@@ -74,6 +78,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "d2d89de77d7f4d428ac38d6da1256a95"
                 ],
@@ -92,6 +97,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -110,6 +116,7 @@
                 "sw_version": "1.46.13_r26312"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -128,6 +135,7 @@
                 "sw_version": "5.38.2.19136"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -146,6 +154,7 @@
                 "sw_version": "1.46.13_r26312"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -164,6 +173,7 @@
                 "sw_version": "1.46.13_r26312"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -182,6 +192,7 @@
                 "sw_version": "1.46.13_r26312"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -200,6 +211,7 @@
                 "sw_version": "5.50.1.19085"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -218,6 +230,7 @@
                 "sw_version": "1.15.2_r19181"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -236,6 +249,7 @@
                 "sw_version": "5.127.1.26420"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -254,6 +268,7 @@
                 "sw_version": "1.46.13_r26312"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -272,6 +287,7 @@
                 "sw_version": "5.38.2.19136"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -290,6 +306,7 @@
                 "sw_version": "5.127.1.26420"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "58ad8ada55404cc9908ab2346bf226be"
                 ],
@@ -310,9 +327,10 @@
                 "manufacturer": "Signify",
                 "model": "BSB002",
                 "name": "Philips hue",
-                "sw_version": "1811120916"
+                "sw_version": "1901181309"
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -331,6 +349,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -349,6 +368,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -367,6 +387,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -385,6 +406,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -403,6 +425,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -421,6 +444,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -439,6 +463,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -457,6 +482,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -475,6 +501,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -493,6 +520,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -511,6 +539,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
@@ -529,6 +558,7 @@
                 "sw_version": null
             },
             {
+                "area_id": null,
                 "config_entries": [
                     "63d5ab0fc3ff4119a9a455c0240caf8a"
                 ],
