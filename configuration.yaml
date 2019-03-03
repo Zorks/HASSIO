@@ -144,6 +144,7 @@ updater:
 discovery:
   ignore:
     - harmony
+    - igd
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -162,6 +163,15 @@ weather:
     api_key: !secret darksky_api
     mode: daily
 
+###############################
+##### Push Notificatoins ######
+###############################
+notify:
+  - platform: html5
+    name: notify
+    vapid_pub_key: !secret vapid_pub_key
+    vapid_prv_key: !secret vapid_prv_key
+    vapid_email: !secret email   
 ################################
 ##### Door Code Interface ######      only used for Doorcode Interface currently
 ################################
@@ -191,7 +201,7 @@ sensor:
     api_key: !secret darksky_api
     monitored_conditions:
       - temperature
-    update_interval: '00:15:00'
+    scan_interval: '00:15:00'
   - platform: cert_expiry
     host: !secret cert_expiry_host
     port: 8123

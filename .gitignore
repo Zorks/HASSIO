@@ -30,4 +30,3 @@ tenants.yaml
 .storage/auth
 .storage/core.config_entries
 .storage/core.restore_state
-*.restore_state
