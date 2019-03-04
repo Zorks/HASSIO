@@ -184,6 +184,8 @@ input_boolean: !include input_boolean.yaml
 ####################
 ##### Sensors ######
 ####################
+media_player:
+  - platform: plex
 binary_sensor:
   - platform: template
     sensors: 
@@ -195,6 +197,9 @@ binary_sensor:
           {%- else -%}
             false
           {%- endif -%}
+      chromecast_state:
+        value_template: '{{ states.media_player.chromecast.media_content_type }}'
+        friendly_name: "Chromecast Content Type"
 
 sensor:
   - platform: darksky
@@ -659,7 +664,7 @@ climate:
     password: !secret climate_password
     region: us
     scan_interval: 600
-    name: Downstairs Thermostat
+#   name: Downstairs Thermostat
 ecobee:
   api_key: !secret ecobee_api_key
 ##################################

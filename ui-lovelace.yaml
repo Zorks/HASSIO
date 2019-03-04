@@ -79,9 +79,14 @@ views:
           entity: lock.lock_front_door_lock
           tap_action: 
             action: toggle
-        - type: gauge
-          entity: sensor.frontdoorbattery
-          title: Door Battery
+        - type: conditional
+          conditions:
+            - entity: sensor.frontdoorbattery
+              state_not: "unknown"
+          card:
+            type: gauge
+            entity: sensor.frontdoorbattery
+            title: Door Battery
   - title: Lights
     icon: mdi:lightbulb
     cards:

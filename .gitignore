@@ -30,5 +30,6 @@ tenants.yaml
 .storage/auth
 .storage/core.config_entries
 .storage/core.restore_state
-.storage/core.restore_state
 .storage/core.device_registry
+.storage/core.area_registry
+.storage/core.entity_registry

@@ -15,6 +15,7 @@ condition:
     entity_id: remote.harmony_hub
     state: 'on'
 action:
-  service: remote.turn_off
-  entity_id: remote.harmony_hub
-  
+  - service: remote.turn_off
+    entity_id: remote.harmony_hub
+  - service: script.turn_off
+    entity_id: script.tv_stretch_command

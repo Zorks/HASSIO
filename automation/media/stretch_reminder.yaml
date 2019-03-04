@@ -1,0 +1,19 @@
+alias: 'Remind us to stretch'
+# Chromecast is in an 'off' state normally but is 'paused' if auto-playing the next episode or 'idle' if we recently watched something and actively looking for a new episode. 
+# This should trigger only after we have watched something and decided to watch another TV episode
+trigger:
+  - platform: state
+    entity_id: media_player.chromecast
+    from: 'idle'
+    to: 'playing'
+  - platform: state
+    entity_id: media_player.chromecast
+    from: 'paused'
+    to: 'playing'
+condition:
+  - condition: state
+    entity_id: sensor.chromecast_state
+    state: 'tvshow'
+action:
+  - delay: '00:05:00'
+  - service: script.tv_stretch_command

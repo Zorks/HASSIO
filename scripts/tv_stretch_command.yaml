@@ -1,0 +1,17 @@
+tv_stretch_command:
+  alias: 'I command you to stretch'
+  sequence:
+  # Tell Us to Stretch
+    - service: notify.notify
+      data:
+        message: "remember to stretch"
+        title: "If you're watching TV..."
+        #currently incompatible with firefox
+        # badge: /local/icons/stretch.png
+# Turns triggering automation off, waits until the TV has turned off, then turns automation back on - this way it'll only trigger once per TV viewing session
+    - service: automation.turn_off
+      entity_id: automation.stretch_reminder
+    - wait_template: "{{ is_state('media_player.chromecast', 'off') }}"
+      timeout: '00:06:00'
+    - service: automation.turn_on
+      entity_id: automation.stretch_reminder      
