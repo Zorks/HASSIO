@@ -124,11 +124,11 @@ http:
   cors_allowed_origins:  
    - https://google.com  
    - https://home-assistant.io  
-  trusted_networks:  
-   - 127.0.0.1  
-   - ::1  
-   - 192.168.0.0/24  
-   - 192.168.1.0/24  
+  # trusted_networks:  
+   # - 127.0.0.1  
+   # - ::1  
+   # - 192.168.0.0/24  
+   # - 192.168.1.0/24  
   ip_ban_enabled: True  
   login_attempts_threshold: 3  
 # Checks for available updates
@@ -266,7 +266,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_1_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_1_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -275,7 +275,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_2_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_2_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -284,7 +284,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_3_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_3_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -293,7 +293,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_4_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_4_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -302,7 +302,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_5_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_5_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -311,7 +311,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_6_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_6_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -320,7 +320,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_7_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_7_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -329,7 +329,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_8_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_8_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -338,7 +338,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_9_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_9_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -347,7 +347,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_10_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_10_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -356,7 +356,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_11_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_11_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -365,7 +365,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_12_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_12_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -374,7 +374,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_13_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_13_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -383,7 +383,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_14_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_14_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -392,7 +392,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_15_date_start'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_15_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -401,7 +401,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_1_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_1_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -410,7 +410,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_2_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_2_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -419,7 +419,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_3_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_3_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -428,7 +428,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_4_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_4_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -437,7 +437,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_5_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_5_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -446,7 +446,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_6_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_6_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -455,7 +455,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_7_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_7_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -464,7 +464,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_8_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_8_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -473,7 +473,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_9_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_9_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -482,7 +482,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_10_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_10_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -491,7 +491,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_11_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_11_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -500,7 +500,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_12_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_12_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -509,7 +509,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_13_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_13_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -518,7 +518,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_14_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_14_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -527,7 +527,7 @@ sensor:
         entity_id: sensor.date_time
         value_template: >-
           {% set input = states['input_datetime']['door_keypad_15_date_end'] %}
-          {% set time_now = states['sensor']['date__time'].state | replace(',', '') ~ ':00' %}
+          {% set time_now = states['sensor']['date_time'].state | replace(',', '') ~ ':00' %}
           {% set access_schedule = states['input_select']['door_keypad_15_access_schedule'].state %}
           {{ (access_schedule == 'Temporary' or access_schedule == 'Recurring') and input.state == time_now }}
 
@@ -605,7 +605,8 @@ sensor:
 
 # Text to speech
 tts:
-  - platform: google
+  - platform: google_translate
+    service_name: google_say
 
 ####################
 ##### Lights #######
@@ -710,8 +711,11 @@ zwave:
 ###########################
 #####      MQTT      ######
 ########################### 
-mqtt:
-  broker: core-mosquitto
+# mqtt:
+  # broker: core-mosquitto
+  # port: 1883
+  # username: !secret mqtt_user
+  # password: !secret mqtt_pass
 
 
 
