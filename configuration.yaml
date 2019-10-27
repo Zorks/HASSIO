@@ -218,16 +218,7 @@ sensor:
       - 'time_date'
       - 'time_utc'
       - 'beat'
-  - platform: uptime
-  - platform: pi_hole
-    ssl: true
-    verify_ssl: false
-    host: !secret pi_hole_host
-    # host: localhost:444
-    monitored_conditions:
-      - ads_blocked_today
-      - ads_percentage_today
-    
+  - platform: uptime    
   - platform: template
     sensors:
       honeywell_temp:
@@ -235,7 +226,7 @@ sensor:
         unit_of_measurement: '°F'
         value_template: "{{ states.climate.thermostat.attributes.current_temperature }}"
       frontdoorbattery:
-        value_template: "{{ states.zwave.lock_front_door_deadbolt.attributes.battery_level }}"
+        value_template: "{{ states.sensor.schlage_lock_battery_level }}"
         friendly_name: 'Front Door Lock Battery'
         unit_of_measurement: '%'
         icon_template: >-
@@ -709,13 +700,10 @@ zwave:
   network_key: !secret zwave_network_key
   
 ###########################
-#####      MQTT      ######
+#####      Pihole      ######
 ########################### 
-# mqtt:
-  # broker: core-mosquitto
-  # port: 1883
-  # username: !secret mqtt_user
-  # password: !secret mqtt_pass
+pi_hole:
+  host: 'localhost:4865'
 
 
 
@@ -728,11 +716,8 @@ zwave:
     # sidebar_icon: mdi:home
     # url_path: floorplan
     # config: !include floorplan.yaml
+
 panel_iframe:
-  pihole:
-    title: Pi-hole
-    icon: mdi:block-helper
-    url: !secret pi_hole_panel
   tautulli:
     title: Tautulli
     icon: mdi:television
