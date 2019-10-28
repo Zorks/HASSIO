@@ -88,9 +88,9 @@ views:
             entity: sensor.schlage_lock_battery_level 
             name: Door Battery
             severity:
-              green: 0
+              green: 85
               yellow: 45
-              red: 85
+              red: 0
   - title: Lights
     icon: mdi:lightbulb
     cards:
