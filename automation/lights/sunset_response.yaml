@@ -4,27 +4,21 @@ trigger:
   event: sunset
   offset: "-00:45:00"
 condition:
-  condition: state
-  entity_id: group.presence
-  state: home
-  # - condition: state
-    # entity_id: group.presence
-    # state: 'home'
-  # - condition: time
-    # before: '20:15:00'
-    # after: '13:00:00'
-  # - condition: state
-    # entity_id: light.all_lights
-    # state: 'off'       
+  - condition: state
+    entity_id: group.presence
+    state: home
+  - condition: state
+    entity_id: light.dining
+    state: 'off'       
 action:
   - service: light.turn_on
     entity_id: light.dining
     data:
-      brightness: 4
+      brightness_pct: 1
   - delay: "00:00:01"
   - service: light.turn_on
     entity_id: light.dining
     data:
-      brightness: 200
+      brightness_pct: 100
       # 900 seconds = 15 minutes
       transition: 900

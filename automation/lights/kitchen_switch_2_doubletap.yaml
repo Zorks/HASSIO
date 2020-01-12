@@ -20,6 +20,6 @@ action:
         {% if trigger.event.data.basic_level == 255 %}
           100
         {% elif trigger.event.data.basic_level == 0 %}
-          0
+          10
         {% endif %}
       entity_id: light.kitchen_lightswitch_1_level
