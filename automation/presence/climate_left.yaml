@@ -1,6 +1,4 @@
 # Once the system has seen we have all left, set thermostat to away
-
-
 alias: 'Goodbye Climate'
 trigger:
   platform: state
@@ -8,7 +6,7 @@ trigger:
   from: 'home'
   to: 'not_home'
 action:
-  - service: climate.set_away_mode
+  - service: climate.set_preset_mode
     data:
       entity_id: climate.home
-      away_mode: on
+      preset_mode: 'away'

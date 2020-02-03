@@ -1,5 +1,4 @@
-# Once the system has seen someone has arrived, set thermostat to not away
-
+# Once the system has seen someone has arrived (upstairs or tenants), set thermostat to 'home'
 alias: 'Hello Climate'
 trigger:
   platform: state
@@ -7,7 +6,21 @@ trigger:
   from: 'not_home'
   to: 'home'
 action:
-  - service: climate.set_away_mode
+# this sets state to 'home' until next time trigger. 
+  - service: climate.set_preset_mode
     data:
       entity_id: climate.home
-      away_mode: off
+      preset_mode: 'home'
+#warms home up for 30 min regardless of what time it is
+  - delay: '00:30:00'
+# Returns to schedule after warming up the home if after dark (so it doesn't keep the house heated all night). 
+# Otherwise keeps the home warm for them until next scheduled event.  
+  - service: ecobee.resume_program
+    data_template: 
+      entity_id: climate.home
+      resume_all: >
+        {% if is_state("sun.sun", "below_horizon") -%}
+        true
+        {%- else -%}
+        false
+        {%- endif %}
