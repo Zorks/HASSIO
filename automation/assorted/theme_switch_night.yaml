@@ -20,4 +20,4 @@ action:
   - delay: 00:01:00
   - service: frontend.set_theme
     data:
-      name: solarized_dark 
+      name: amoled 

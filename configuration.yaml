@@ -15,8 +15,11 @@
 system_health:
 # Show links to resources in log and frontend
 #introduction: 
+
 lovelace:
   mode: yaml
+
+
 # If an item is excluded here, it will not show up on history or logbook pages
 # history_graph won't work if the item is excluded here
 recorder:
@@ -639,7 +642,7 @@ device_tracker:
     username: Zorks
     password: !secret unifi_pw
     interval_seconds: 12
-    consider_home: 60
+    consider_home: 120
     track_new_devices: false
 #works but immediately start getting a cascade of errors from other components, mostly the hue bridge and occasionally Ecobee
   # - platform: bluetooth_tracker
@@ -664,7 +667,8 @@ ecobee:
 ################################## 
 google_assistant: 
   project_id: !secret ga_project_id
-  api_key: !secret ga_api_key
+  service_account: !include service_account.json
+  report_state: true
   expose_by_default: false
   entity_config:
     light.bedroom_lightswitch_level:
