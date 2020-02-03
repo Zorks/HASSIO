@@ -1,0 +1,522 @@
+{
+    "data": {
+        "config": {
+            "title": "Home",
+            "views": [
+                {
+                    "cards": [
+                        {
+                            "card": {
+                                "entities": [
+                                    "group.all_automations"
+                                ],
+                                "type": "entities"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "group.all_automations",
+                                    "state": "off"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "entity": "weather.dark_sky",
+                            "type": "weather-forecast"
+                        },
+                        {
+                            "entity": "light.all_lights",
+                            "type": "light"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "climate.home",
+                                            "type": "thermostat"
+                                        },
+                                        {
+                                            "entity": "climate.thermostat",
+                                            "type": "thermostat"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                },
+                                {
+                                    "entities": [
+                                        "sensor.house_avg_temp",
+                                        "sensor.dark_sky_temperature",
+                                        "sensor.honeywell_temp"
+                                    ],
+                                    "hours_to_show": 24,
+                                    "refresh_interval": 1800,
+                                    "title": "Temperatures",
+                                    "type": "history-graph"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "switch.bathroom_fan_switch",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        },
+                                        {
+                                            "entity": "sensor.bathroom_humidity_diff",
+                                            "title": "Humidity Diff.",
+                                            "type": "gauge"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                },
+                                {
+                                    "entities": [
+                                        "sensor.bathroom_sensor_relative_humidity",
+                                        "sensor.home_humidity"
+                                    ],
+                                    "hours_to_show": 24,
+                                    "refresh_interval": 600,
+                                    "title": "Humidity",
+                                    "type": "history-graph"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.ssl_certificate_expiry",
+                                            "name": "SSL Cert Expiry"
+                                        },
+                                        {
+                                            "entity": "sensor.uptime",
+                                            "name": "Uptime"
+                                        }
+                                    ],
+                                    "title": "Hass.io",
+                                    "type": "glance"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.pi_hole_ads_blocked_today",
+                                            "name": "Total"
+                                        },
+                                        {
+                                            "entity": "sensor.pi_hole_ads_percentage_blocked_today",
+                                            "name": "Blocked"
+                                        }
+                                    ],
+                                    "title": "Pi-Hole",
+                                    "type": "glance"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "lock.lock_front_door_lock",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "entity-button"
+                                },
+                                {
+                                    "card": {
+                                        "entity": "sensor.schlage_lock_battery_level",
+                                        "name": "Door Battery",
+                                        "severity": {
+                                            "green": 85,
+                                            "red": 0,
+                                            "yellow": 45
+                                        },
+                                        "type": "gauge"
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "sensor.schlage_lock_battery_level",
+                                            "state_not": "unknown"
+                                        }
+                                    ],
+                                    "type": "conditional"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        }
+                    ],
+                    "icon": "mdi:home",
+                    "title": "Status"
+                },
+                {
+                    "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "entity": "light.hallway_lightswitch_level",
+                                    "type": "light"
+                                },
+                                {
+                                    "entity": "light.bathroom_lightswitch_level",
+                                    "type": "light"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "light.spare_bedroom_lightswitch_level",
+                                    "type": "light"
+                                },
+                                {
+                                    "entity": "light.office_lightswitch_level",
+                                    "type": "light"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "entity": "light.living_room",
+                            "type": "light"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "light.bedroom_color_1",
+                                    "type": "light"
+                                },
+                                {
+                                    "entity": "light.bedroom_color_2",
+                                    "type": "light"
+                                },
+                                {
+                                    "entity": "light.bedroom_lightswitch_level",
+                                    "type": "light"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "light.kitchen_lightswitch_1_level",
+                                    "type": "light"
+                                },
+                                {
+                                    "entity": "light.kitchen_lightswitch_2_level",
+                                    "type": "light"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "light.dining",
+                                    "type": "light"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "light.dining_room_1",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            }
+                                        },
+                                        {
+                                            "entity": "light.dining_room_2",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            }
+                                        },
+                                        {
+                                            "entity": "light.dining_room_3",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            }
+                                        },
+                                        {
+                                            "entity": "light.dining_room_4",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            }
+                                        },
+                                        {
+                                            "entity": "light.dining_room_5",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            }
+                                        }
+                                    ],
+                                    "show_name": false,
+                                    "type": "glance"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        }
+                    ],
+                    "icon": "mdi:lightbulb",
+                    "title": "Lights"
+                },
+                {
+                    "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "entity": "remote.harmony_hub",
+                                    "icon": "mdi:television",
+                                    "name": "Chromecast",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "entity-button"
+                                },
+                                {
+                                    "entity": "media_player.chromecast",
+                                    "type": "media-control"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "media_player.home_group",
+                                    "type": "media-control"
+                                },
+                                {
+                                    "entity": "media_player.tv_and_speakers",
+                                    "type": "media-control"
+                                },
+                                {
+                                    "entity": "media_player.living_room_speaker",
+                                    "type": "media-control"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "media_player.bedroom_speaker",
+                                    "type": "media-control"
+                                },
+                                {
+                                    "entity": "media_player.kitchen_speaker",
+                                    "type": "media-control"
+                                },
+                                {
+                                    "entity": "media_player.bathroom_speaker",
+                                    "type": "media-control"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        }
+                    ],
+                    "icon": "mdi:television",
+                    "title": "Media Players"
+                },
+                {
+                    "cards": [
+                        {
+                            "entities": [
+                                "input_text.door_keypad_1_name",
+                                "input_text.door_keypad_1_code",
+                                "input_select.door_keypad_1_access_schedule",
+                                "input_datetime.door_keypad_1_date_start",
+                                "input_datetime.door_keypad_1_date_end",
+                                "input_boolean.door_keypad_1_front_switch",
+                                "script.door_keypad_1_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Entry Code 1",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_text.door_keypad_2_name",
+                                "input_text.door_keypad_2_code",
+                                "input_select.door_keypad_2_access_schedule",
+                                "input_datetime.door_keypad_2_date_start",
+                                "input_datetime.door_keypad_2_date_end",
+                                "input_boolean.door_keypad_2_front_switch",
+                                "script.door_keypad_2_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Entry Code 2",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_text.door_keypad_3_name",
+                                "input_text.door_keypad_3_code",
+                                "input_select.door_keypad_3_access_schedule",
+                                "input_datetime.door_keypad_3_date_start",
+                                "input_datetime.door_keypad_3_date_end",
+                                "input_boolean.door_keypad_3_front_switch",
+                                "script.door_keypad_3_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Entry Code 3",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_text.door_keypad_4_name",
+                                "input_text.door_keypad_4_code",
+                                "input_select.door_keypad_4_access_schedule",
+                                "input_datetime.door_keypad_4_date_start",
+                                "input_datetime.door_keypad_4_date_end",
+                                "input_boolean.door_keypad_4_front_switch",
+                                "script.door_keypad_4_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Entry Code 4",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_text.door_keypad_5_name",
+                                "input_text.door_keypad_5_code",
+                                "input_select.door_keypad_5_access_schedule",
+                                "input_datetime.door_keypad_5_date_start",
+                                "input_datetime.door_keypad_5_date_end",
+                                "input_boolean.door_keypad_5_front_switch",
+                                "script.door_keypad_5_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Entry Code 5",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_text.door_keypad_6_name",
+                                "input_text.door_keypad_6_code",
+                                "input_select.door_keypad_6_access_schedule",
+                                "input_datetime.door_keypad_6_date_start",
+                                "input_datetime.door_keypad_6_date_end",
+                                "input_boolean.door_keypad_6_front_switch",
+                                "script.door_keypad_6_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Entry Code 6",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_text.door_keypad_7_name",
+                                "input_text.door_keypad_7_code",
+                                "input_select.door_keypad_7_access_schedule",
+                                "input_datetime.door_keypad_7_date_start",
+                                "input_datetime.door_keypad_7_date_end",
+                                "input_boolean.door_keypad_7_front_switch",
+                                "script.door_keypad_7_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Entry Code 7",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_text.door_keypad_8_name",
+                                "input_text.door_keypad_8_code",
+                                "input_select.door_keypad_8_access_schedule",
+                                "input_datetime.door_keypad_8_date_start",
+                                "input_datetime.door_keypad_8_date_end",
+                                "input_boolean.door_keypad_8_front_switch",
+                                "script.door_keypad_8_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Entry Code 8",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_text.door_keypad_9_name",
+                                "input_text.door_keypad_9_code",
+                                "input_select.door_keypad_9_access_schedule",
+                                "input_datetime.door_keypad_9_date_start",
+                                "input_datetime.door_keypad_9_date_end",
+                                "input_boolean.door_keypad_9_front_switch",
+                                "script.door_keypad_9_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Entry Code 9",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_text.door_keypad_10_name",
+                                "input_text.door_keypad_10_code",
+                                "input_select.door_keypad_10_access_schedule",
+                                "input_datetime.door_keypad_10_date_start",
+                                "input_datetime.door_keypad_10_date_end",
+                                "input_boolean.door_keypad_10_front_switch",
+                                "script.door_keypad_10_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Entry Code 10",
+                            "type": "entities"
+                        }
+                    ],
+                    "icon": "mdi:dialpad",
+                    "title": "Door Lock Entry Codes"
+                },
+                {
+                    "cards": [
+                        {
+                            "entities": [
+                                "input_select.door_keypad_16_access_schedule",
+                                "input_text.door_keypad_16_name",
+                                "input_text.door_keypad_16_code",
+                                "input_boolean.door_keypad_16_front_switch",
+                                "script.door_keypad_16_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "One Time Use Code 1",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_select.door_keypad_17_access_schedule",
+                                "input_text.door_keypad_17_name",
+                                "input_text.door_keypad_17_code",
+                                "input_boolean.door_keypad_17_front_switch",
+                                "script.door_keypad_17_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "One Time Use Code 2",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_select.door_keypad_18_access_schedule",
+                                "input_text.door_keypad_18_name",
+                                "input_text.door_keypad_18_code",
+                                "input_boolean.door_keypad_18_front_switch",
+                                "script.door_keypad_18_delete"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "One Time Use Code 3",
+                            "type": "entities"
+                        }
+                    ],
+                    "icon": "mdi:bomb",
+                    "title": "One Time Use Entry Codes"
+                }
+            ]
+        }
+    },
+    "key": "lovelace",
+    "version": 1
+}

@@ -1,0 +1,8 @@
+alias: 'Update groups'
+# whenever hassio starts, this runs scripts to update any "all entity" groups (like group.all_lights)
+# Only need it for group.all_lights for now
+trigger:
+  platform: homeassistant
+  event: start
+action:
+  service: script.update_all_lights_group

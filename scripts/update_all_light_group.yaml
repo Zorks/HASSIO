@@ -1,0 +1,8 @@
+# This script maintains an "all lights" group since HASSIO killed the auto-generated one in v0.104
+update_all_lights_group:
+  alias: 'Update group.all_lights'
+  sequence:
+    - service: group.set
+      data_template:
+        object_id: "all_lights"
+        entities: "{{ states.light | map(attribute='entity_id') | join(',') }}"
