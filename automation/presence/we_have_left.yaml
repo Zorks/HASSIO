@@ -1,5 +1,4 @@
 # Once the system has seen we have all left, make certain the door is locked, etc...
-
 alias: 'Goodbye Sequence'
 trigger:
   platform: state
@@ -10,3 +9,4 @@ action:
   - service: script.relock_front_door
   - service: light.turn_off
     entity_id: all
+

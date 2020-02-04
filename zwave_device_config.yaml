@@ -1,20 +1,35 @@
 light.hallway_lightswitch_level:
   ignored: false
+  refresh_value: true
   polling_intensity: 1
   delay: 3
 light.bedroom_lightswitch_level:
   ignored: false
+  refresh_value: true
   polling_intensity: 1
   delay: 3
 light.bathroom_lightswitch_level:
   ignored: false
+  refresh_value: true
   polling_intensity: 1
   delay: 3
 light.kitchen_lightswitch_1_level:
   ignored: false
+  refresh_value: true
   polling_intensity: 1
   delay: 3
 light.kitchen_lightswitch_2_level:
   ignored: false
+  refresh_value: true
   polling_intensity: 1
   delay: 3
+light.office_lightswitch_level:
+  ignored: false
+  refresh_value: true
+  polling_intensity: 1
+  delay: 3
+light.spare_bedroom_lightswitch_level:
+  ignored: false
+  refresh_value: true
+  polling_intensity: 1
+  delay: 3  
