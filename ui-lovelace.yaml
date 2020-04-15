@@ -1,13 +1,7 @@
 title: Home
-resources:
-  - url: /community_plugin/simple-thermostat/simple-thermostat.js
-    type: module
-  - url: /community_plugin/mini-graph-card/mini-graph-card-bundle.js
-    type: module
-  - url: /community_plugin/vertical-stack-in-card/vertical-stack-in-card.js
-    type: js    
-  - url: /community_plugin/light-entity-card/light-entity-card.js
-    type: js
+
+preload:
+  - entity-filter
 views:
   - title: Status
     icon: mdi:home
@@ -17,7 +11,7 @@ views:
         - type: entity-filter
           entities: !include devices.yaml
           state_filter:
-            - home
+            - home        
           card:
             type: glance
             title: Location        
@@ -81,6 +75,7 @@ views:
                 name: Upstairs
                 decimals: 0
                 step-size: 1
+                fallback: '00'
                 label:
                   temperature: Temp
                 control:
@@ -138,12 +133,16 @@ views:
             - entity: sensor.uptime
               name: Uptime
         - type: glance
-          title: Pi-Hole
+          title: AdGuard
           entities:
-            - entity: sensor.pi_hole_ads_blocked_today
+            - entity: sensor.adguard_dns_queries_blocked
               name: Total
-            - entity: sensor.pi_hole_ads_percentage_blocked_today
+            - entity: sensor.adguard_dns_queries_blocked_ratio
               name: Blocked
+            - entity: switch.adguard_protection
+              name: Active
+              tap_action: 
+                action: toggle
 
   - title: Lights
     icon: mdi:lightbulb
@@ -160,6 +159,8 @@ views:
           entity: light.office_lamp
         - type: light
           entity: light.office_lightswitch_level
+          name: Office Ceiling Light
+
       - type: horizontal-stack
         cards:
         - type: light
@@ -170,6 +171,7 @@ views:
         cards:
         - type: light
           entity: light.bedroom_lightswitch_level      
+          name: Bedroom Ceiling Light
         - type: horizontal-stack
           cards:
           - type: light

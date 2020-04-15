@@ -16,7 +16,7 @@ sensor.home_humidity:
 sensor.honeywell_temp:
   icon: mdi:thermometer
 light.bedroom_lightswitch_level:
-  friendly_name: Bedroom Lights
+  friendly_name: Bedroom Ceiling Light
 light.hallway_lightswitch_level:
   friendly_name: Hallway Lights
 light.bathroom_lightswitch_level:

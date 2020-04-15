@@ -18,7 +18,17 @@ system_health:
 
 lovelace:
   mode: yaml
-
+  resources:
+    - url: /hacsfiles/simple-thermostat/simple-thermostat.js
+      type: module
+    - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+      type: module
+    - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
+      type: module    
+    - url: /hacsfiles/light-entity-card/light-entity-card.js
+      type: module
+    - url: /hacsfiles/lovelace-card-preloader/lovelace-card-preloader.js
+      type: module
 
 # If an item is excluded here, it will not show up on history or logbook pages
 # history_graph won't work if the item is excluded here
@@ -229,22 +239,23 @@ tts:
 hue:
   bridges:
   - host: 192.168.2.10
-  
+
+# this group is related to the "all lights" button in lovelace. Add a Light? Manually Update!  
 light:
   - platform: group
     name: All Lights
     entities:
-      - light.bathroom
-      - light.bathroom_color_1
       - light.bathroom_lightswitch_level
-      - light.bedroom
+      - light.bedroom_color_1
       - light.bedroom_color_2
       - light.bedroom_lightswitch_level
       - light.dining
+      - light.living_room
       - light.hallway_lightswitch_level
       - light.kitchen_lightswitch_1_level
       - light.kitchen_lightswitch_2_level
       - light.office_lightswitch_level
+      - light.office_lamp
       - light.spare_bedroom_lightswitch_level
 ####################
 ##### Remotes ######
@@ -265,7 +276,12 @@ device_tracker:
     interval_seconds: 12
     consider_home: 120
     track_new_devices: false
-
+# enabling the bluetooth tracker causes a cascade of connection errors for Wifi connected devices like Hue and the Brother Printer?  Likely related to HassOS version or wifi/bluetooth use at the same time (see github link)
+# https://github.com/home-assistant/operating-system/issues/520  
+  # - platform: bluetooth_tracker
+    # interval_seconds: 12
+    # consider_home: 120
+    # track_new_devices: true
 ###########################
 #####  Thermostats   ######
 ###########################
@@ -288,13 +304,13 @@ google_assistant:
   entity_config:
     light.bedroom_lightswitch_level:
       expose: true
-      name: bedroom lights
+      name: Bedroom Ceiling Light
     light.hallway_lightswitch_level:
       expose: true
-      name: hallway lights
+      name: Hallway Light
     light.bathroom_lightswitch_level:
       expose: true
-      name: bathroom lights
+      name: Bathroom Lights
     light.kitchen_lightswitch_1_level:
       expose: true
       name: Kitchen Light 1
@@ -303,13 +319,13 @@ google_assistant:
       name: Kitchen Light 2
     switch.bathroom_fan_switch:
       expose: true
-      name: bathroom fan
+      name: Bathroom Fan
     light.spare_bedroom_lightswitch_level:
       expose: true
-      name: spare bedroom lights
+      name: Spare Bedroom Lights
     light.office_lightswitch_level:
       expose: true
-      name: office lights  
+      name: Office Ceiling Light  
   
 ###########################
 #####     Z Wave     ######
@@ -318,11 +334,7 @@ zwave:
   usb_path: /dev/ttyACM0
   network_key: !secret zwave_network_key
   device_config: !include zwave_device_config.yaml  
-###########################
-#####      Pihole      ######
-########################### 
-pi_hole:
-  host: 'localhost:4865'
+
 
 
 
@@ -335,28 +347,7 @@ panel_iframe:
     title: Tautulli
     icon: mdi:television
     url: !secret tautulli_panel
-###########################
-##### History Graphs ######
-###########################
-history_graph:
-  temperatures:
-    name: Temperatures
-    hours_to_show: 24
-    refresh: 1800
-    entities:
-      # - sensor.home_temperature
-      # - sensor.living_room_temperature
-      # - sensor.bedroom_temperature
-      - sensor.house_avg_temp
-      - sensor.pws_temp_f
-      - sensor.honeywell_temp
-  humidity:
-    name: Humidity
-    hours_to_show: 24
-    refresh: 600
-    entities:
-      - sensor.bathroom_sensor_relative_humidity
-      - sensor.home_humidity 
+
 
 group: !include groups.yaml
 automation: !include_dir_list automation

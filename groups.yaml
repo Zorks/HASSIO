@@ -1,35 +1,6 @@
-default_view:
-# status:
-  name: Status
-  icon: mdi:home
-  view: yes
-  entities:
-    - group.today_forecast
-    - group.presence
-    - group.hass_details
-    - group.front_door
-#    - group.temps
-    - group.humidity
-    - group.thermostats
-    - group.pi_hole
-lights_view:
-  name: Lights
-  icon: mdi:lightbulb
-  view: yes
-  entities:
-    - group.dining_room
-    - light.hallway_lightswitch_level
-    - group.bedroom
-    - light.bathroom_lightswitch_level
-    - group.kitchen
-    - light.living_room
-    - light.spare_bedroom_lightswitch_level
-    - light.office_lightswitch_level
-    # - group.living_room
 media:
   name: Media Players
   icon: mdi:television
-  view: yes
   entities:
     - media_player.home_group
     - group.media_speakers
@@ -66,7 +37,6 @@ temps:
 humidity:
     name: Humidity
     entities:
-      - history_graph.humidity
       - sensor.bathroom_humidity_diff
       - switch.bathroom_fan_switch
 
@@ -134,7 +104,6 @@ front_door:
 thermostats:
   name: Thermostats
   entities:
-    - history_graph.temperatures
     - climate.home
     - climate.thermostat
     
