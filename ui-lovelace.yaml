@@ -52,7 +52,7 @@ views:
           # entities:
             # - sensor.dark_sky_temperature
         - type: weather-forecast
-          entity: weather.dark_sky
+          entity: weather.kbfi_daynight
       - type: light
         entity: light.all_lights
 
