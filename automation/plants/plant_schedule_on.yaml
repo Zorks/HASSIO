@@ -1,0 +1,11 @@
+alias: 'Plant Schedule - On'
+trigger:
+  - platform: time
+    at: "07:30:00"
+condition:
+  condition: state
+  entity_id: group.plants
+  state: 'off'
+action:
+  service: homeassistant.turn_on
+  entity_id: group.plants

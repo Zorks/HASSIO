@@ -52,10 +52,19 @@ views:
           # entities:
             # - sensor.dark_sky_temperature
         - type: weather-forecast
-          entity: weather.kbfi_daynight
+          entity: weather.kbfi_hourly
       - type: light
         entity: light.all_lights
-
+      - type: horizontal-stack
+        cards:
+          - type: button
+            entity: switch.kitchen_plants
+            icon: mdi:cactus
+            icon_height: 100px
+          - type: button
+            entity: switch.office_plants
+            icon: mdi:sprout
+            icon_height: 100px            
       - type: 'custom:vertical-stack-in-card'
         cards:
           - type: 'custom:mini-graph-card'
@@ -206,6 +215,16 @@ views:
               - entity: light.dining_room_5
                 tap_action:  
                   action: toggle
+      - type: horizontal-stack
+        cards:
+          - type: button
+            entity: switch.kitchen_plants
+            icon: mdi:cactus
+            icon_height: 100px
+          - type: button
+            entity: switch.office_plants
+            icon: mdi:sprout
+            icon_height: 100px  
   - title: Media Players
     icon: mdi:television
     cards:

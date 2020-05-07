@@ -19,12 +19,7 @@ media_tv:
   entities:
     - media_player.chromecast
     - remote.harmony_hub
-#### Forecast & Weather ####
-today_forecast:
-  name: Today's Forecast
-  entities:
-    - sensor.pws_weather_1d
-    - sensor.pws_weather_1n
+
 temps:
   name: Temperatures
   entities:
@@ -52,7 +47,7 @@ dining_room:
 bedroom:
   name: Bedroom
   entities:
-    # - light.bedroom_color_1
+    - light.bedroom_color_1
     - light.bedroom_color_2
     - light.bedroom_lightswitch_level    
 # bathroom:
@@ -107,8 +102,8 @@ thermostats:
     - climate.home
     - climate.thermostat
     
-pi_hole:
-  name: Pi-Hole
+plants:
+  name: Plants
   entities:
-    - sensor.pihole_ads_blocked_today
-    - sensor.pihole_ads_percentage_blocked_today
+    - switch.kitchen_plants
+    - switch.office_plants
