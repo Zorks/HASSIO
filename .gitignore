@@ -33,7 +33,8 @@ tenants.yaml
 .storage/core.device_registry
 .storage/core.area_registry
 .storage/core.entity_registry
-.storage/
+.storage/hacs.repositories
+.storage/*
 service_account.json
 custom_components/
 www/community/
