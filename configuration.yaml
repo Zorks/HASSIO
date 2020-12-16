@@ -33,7 +33,9 @@ lovelace:
       type: module
     - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
       type: module
-                
+    - url: /hacsfiles/lovelace-paper-buttons-row/paper-buttons-row.js
+      type: module
+                                
 
 # If an item is excluded here, it will not show up on history or logbook pages
 # history_graph won't work if the item is excluded here
@@ -157,6 +159,7 @@ notify:
     vapid_prv_key: !secret vapid_prv_key
     vapid_email: !secret email   
 
+
 ####################
 ##### Sensors ######
 ####################
@@ -262,6 +265,16 @@ light:
       - light.dining_room_3
       - light.dining_room_4
       - light.dining_room_5      
+
+##########################
+##### Input Boolean ######
+##########################
+input_boolean:
+  coffee_set:
+    name: Coffee pot is ready for brewing
+    icon: mdi:coffee
+
+
 ####################
 ##### Remotes ######
 ####################
@@ -279,7 +292,7 @@ device_tracker:
     username: Zorks
     password: !secret unifi_pw
     interval_seconds: 12
-    consider_home: 120
+    consider_home: 180
     track_new_devices: false
 # enabling the bluetooth tracker causes a cascade of connection errors for Wifi connected devices like Hue and the Brother Printer?  Likely related to HassOS version or wifi/bluetooth use at the same time (see github link)
 # https://github.com/home-assistant/operating-system/issues/520  
@@ -336,6 +349,9 @@ google_assistant:
     switch.office_plants:
       expose: true
       name: Office Plants  
+    switch.coffee:
+      expose: true
+      name: Coffee 
 ###########################
 #####     Z Wave     ######
 ###########################   

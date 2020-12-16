@@ -17,7 +17,7 @@ views:
             title: Location        
         - type: horizontal-stack
           cards:
-          - type: entity-button
+          - type: button
             entity: lock.lock_front_door_lock
             tap_action: 
               action: toggle
@@ -65,6 +65,31 @@ views:
             entity: switch.office_plants
             icon: mdi:sprout
             icon_height: 100px            
+      - type: 'custom:paper-buttons-row'
+        buttons:
+          - entity: switch.coffee
+            icon: mdi:coffee-maker
+            align_icon: top
+            style:
+              icon:
+                --mdc-icon-size: 100px      
+            tap_action:
+              action: call-service 
+              service: homeassistant.turn_on
+              service_data:
+                entity_id: script.coffee_start
+
+          - entity: input_boolean.coffee_set
+            align_icon: top
+            state_icons:
+              "off": "mdi:coffee-off"
+              "on": "mdi:coffee"
+            state_text:
+              "off": "ready to brew?"
+              "on": "coffee is set"
+            style:
+              icon:
+                --mdc-icon-size: 100px               
       - type: 'custom:vertical-stack-in-card'
         cards:
           - type: 'custom:mini-graph-card'
@@ -125,7 +150,7 @@ views:
               - sensor.home_humidity
           - type: horizontal-stack
             cards:
-            - type: entity-button
+            - type: button
               entity: switch.bathroom_fan_switch
               tap_action:  
                 action: toggle  
@@ -254,13 +279,13 @@ views:
           cards:
           - type: 'custom:vertical-stack-in-card'
             cards:
-            - type: entity-button
+            - type: button
               name: System Power
               icon: mdi:power
               entity: remote.harmony_hub
               tap_action:  
                 action: toggle
-            - type: entity-button
+            - type: button
               name: "Mute / Unmute"
               icon: mdi:volume-off
               entity: remote.harmony_hub
@@ -273,7 +298,7 @@ views:
                   command: Mute
           - type: 'custom:vertical-stack-in-card'
             cards:
-            - type: entity-button
+            - type: button
               name: Volume Up
               icon: mdi:volume-high
               entity: remote.harmony_hub
@@ -284,7 +309,7 @@ views:
                   entity_id: remote.harmony_hub
                   device: 40193695
                   command: VolumeUp
-            - type: entity-button
+            - type: button
               name: Volume Down
               icon: mdi:volume-low
               entity: remote.harmony_hub

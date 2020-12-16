@@ -1,0 +1,16 @@
+coffee_start:
+  alias: 'Start Coffee'
+  sequence:
+# Turns off coffee pot (if already on) - hacky if/else statement for lovelace manual start button   
+    - service: switch.turn_off
+      entity_id: switch.coffee
+# Check if coffee was set - controlled by lovelace button to indicate if fresh grounds/water was added
+    - condition: state
+      entity_id: input_boolean.coffee_set
+      state: 'on'
+# start coffee pot 
+    - service: switch.turn_on
+      entity_id: switch.coffee
+# switch "coffee set" back to off
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.coffee_set
