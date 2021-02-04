@@ -8,9 +8,9 @@ action:
   - service: light.turn_on
     data_template: 
       brightness_pct: >
-        {% if trigger.event.data.basic_level == 255 %}
+        {% if trigger.event.data.value == 255 %}
           100
-        {% elif trigger.event.data.basic_level == 0 %}
+        {% elif trigger.event.data.value == 0 %}
           4
         {% endif %}
-      entity_id: light.bathroom_lightswitch_level
+      entity_id: light.bathroom_light

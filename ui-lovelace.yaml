@@ -6,7 +6,7 @@ views:
   - title: Status
     icon: mdi:home
     cards:      
-      - type: 'custom:vertical-stack-in-card'
+      - type: vertical-stack
         cards:
         - type: entity-filter
           entities: !include devices.yaml
@@ -23,48 +23,32 @@ views:
               action: toggle
           - type: conditional
             conditions:
-              - entity: sensor.schlage_lock_battery_level 
+              - entity: sensor.front_door_lock_battery_level 
                 state_not: "unknown"
             card:
               type: gauge
-              entity: sensor.schlage_lock_battery_level 
+              entity: sensor.front_door_lock_battery_level 
               name: Door Battery
               severity:
                 green: 85
                 yellow: 45
                 red: 0          
-
-      - type: 'custom:vertical-stack-in-card'
+      - type: weather-forecast
+        entity: weather.kbfi_hourly
+      - type: vertical-stack
         cards:
-        # - type: 'custom:mini-graph-card'
-          # title: Temperatures
-          # hours_to_show: 24
-          # points_per_hour: 1
-          # hour24: true
-          # decimals: 0
-          # action: none
-          # show:
-            # name: false
-            # icon: false
-            # points: false
-            # extrema: true
-            # state: false            
-          # entities:
-            # - sensor.dark_sky_temperature
-        - type: weather-forecast
-          entity: weather.kbfi_hourly
-      - type: light
-        entity: light.all_lights
-      - type: horizontal-stack
-        cards:
-          - type: button
-            entity: switch.kitchen_plants
-            icon: mdi:cactus
-            icon_height: 100px
-          - type: button
-            entity: switch.office_plants
-            icon: mdi:sprout
-            icon_height: 100px            
+        - type: light
+          entity: light.all_lights
+        - type: horizontal-stack
+          cards:
+            - type: button
+              entity: switch.kitchen_plants
+              icon: mdi:cactus
+              icon_height: 100px
+            - type: button
+              entity: switch.office_plants
+              icon: mdi:sprout
+              icon_height: 100px            
       - type: 'custom:paper-buttons-row'
         buttons:
           - entity: switch.coffee
@@ -73,6 +57,8 @@ views:
             style:
               icon:
                 --mdc-icon-size: 100px      
+              # button:
+                # background-color: var(--table-row-alternative-background-color)
             tap_action:
               action: call-service 
               service: homeassistant.turn_on
@@ -90,6 +76,8 @@ views:
             style:
               icon:
                 --mdc-icon-size: 100px               
+              # button:
+                # background-color: var(--table-row-alternative-background-color)
       - type: 'custom:vertical-stack-in-card'
         cards:
           - type: 'custom:mini-graph-card'
@@ -151,7 +139,7 @@ views:
           - type: horizontal-stack
             cards:
             - type: button
-              entity: switch.bathroom_fan_switch
+              entity: switch.bathroom_fan
               tap_action:  
                 action: toggle  
             - type: gauge
@@ -162,7 +150,7 @@ views:
         - type: glance
           title: Hass.io
           entities:
-            - entity: sensor.ssl_certificate_expiry
+            - entity: sensor.cert_expiry_timestamp_home_trevortaylor_net
               name: SSL Cert Expiry
             - entity: sensor.uptime
               name: Uptime
@@ -177,34 +165,38 @@ views:
               name: Active
               tap_action: 
                 action: toggle
-
+        - type: button
+          entity: switch.computer
+          name: Computer
+          icon: mdi:desktop-tower-monitor
+          icon_height: 100px           
   - title: Lights
     icon: mdi:lightbulb
     cards:
       - type: horizontal-stack
         cards:
         - type: light
-          entity: light.hallway_lightswitch_level
+          entity: light.hallway_light
         - type: light
-          entity: light.bathroom_lightswitch_level
+          entity: light.bathroom_light
       - type: horizontal-stack
         cards:
         - type: light
           entity: light.office_lamp
         - type: light
-          entity: light.office_lightswitch_level
+          entity: light.office_lights
           name: Office Ceiling Light
 
       - type: horizontal-stack
         cards:
         - type: light
-          entity: light.spare_bedroom_lightswitch_level
+          entity: light.spare_bedroom_lights
         - type: light
           entity: light.living_room
       - type: 'custom:vertical-stack-in-card'
         cards:
         - type: light
-          entity: light.bedroom_lightswitch_level      
+          entity: light.bedroom_light      
           name: Bedroom Ceiling Light
         - type: horizontal-stack
           cards:
@@ -212,12 +204,13 @@ views:
             entity: light.bedroom_color_1
           - type: light
             entity: light.bedroom_color_2
+            name: Emily's Lamp
       - type: horizontal-stack
         cards:
         - type: light
-          entity: light.kitchen_lightswitch_1_level
+          entity: light.kitchen_light_1
         - type: light
-          entity: light.kitchen_lightswitch_2_level
+          entity: light.kitchen_light_2
       - type: 'custom:vertical-stack-in-card'
         cards:
           - type: light
@@ -255,17 +248,36 @@ views:
     cards:
       - type: 'custom:vertical-stack-in-card'
         cards:
-        - type: custom:mini-media-player
-          entity: media_player.plex_chromecast
-          artwork: full-cover
-          name: Plex
-          icon: mdi:plex
-          hide: 
-            volume: true
-            power: true  
-            controls: true
-            name: true
-
+        - type: conditional
+          conditions:
+            - entity: media_player.plex_chromecast
+              state: "playing"
+          card:
+            type: custom:mini-media-player
+            entity: media_player.plex_chromecast
+            artwork: full-cover
+            name: Plex
+            icon: mdi:plex
+            hide: 
+              volume: true
+              power: true  
+              controls: true
+              name: true
+        - type: conditional
+          conditions:
+            - entity: media_player.plex_chromecast
+              state: "paused"
+          card:
+            type: custom:mini-media-player
+            entity: media_player.plex_chromecast
+            artwork: full-cover
+            name: Plex
+            icon: mdi:plex
+            hide: 
+              volume: true
+              power: true  
+              controls: true
+              name: true
         - type: custom:mini-media-player
           entity: media_player.chromecast
           artwork: full-cover

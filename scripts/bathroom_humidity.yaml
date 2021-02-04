@@ -3,7 +3,7 @@ bathroom_humidity:
   sequence:
 # start fan
     - service: switch.turn_on
-      entity_id: switch.bathroom_fan_switch
+      entity_id: switch.bathroom_fan
 # minimum run time of 5 minutes
     - delay: 00:05:00
 # wait until bathroom humidity is less than 60% (timeout is commented out as it ends the entire script, not just the wait_template)
@@ -11,4 +11,4 @@ bathroom_humidity:
 #      timeout: "00:5:00"
 # stop fan
     - service: switch.turn_off
-      entity_id: switch.bathroom_fan_switch
+      entity_id: switch.bathroom_fan

@@ -1,16 +1,17 @@
 alias: Bedroom Switch Double Tap
 trigger:
   - platform: event
-    event_type: zwave.node_event
+    event_type: zwave_js_event
     event_data:
-      entity_id: zwave.bedroom_lightswitch
+     device_id: b5f2fcf85f9b0d26d287adc42f27100a
+
 action:
   - service: light.turn_on
     data_template: 
       brightness_pct: >
-        {% if trigger.event.data.basic_level == 255 %}
+        {% if trigger.event.data.value == 255 %}
           100
-        {% elif trigger.event.data.basic_level == 0 %}
+        {% elif trigger.event.data.value == 0 %}
           10
         {% endif %}
-      entity_id: light.bedroom_lightswitch_level
+      entity_id: light.bedroom_light

@@ -7,7 +7,7 @@ timed_light_hallway:
          entity_id: script.timer_off_hallway
     - service: light.turn_on
       data_template:
-        entity_id: light.hallway_lightswitch_level
+        entity_id: light.hallway_light
         transition: 2
         # brightness set to 3 between 8pm and 7am, 30 between 6pm and 8pm and 255 between 8am and 8pm.
         brightness: >- 
@@ -39,7 +39,7 @@ timer_off_hallway:
           {% if ((not is_state('sensor.hallway_motion_sensor_burglar', '0'))) %}
             script.timer_off_hallway_restart
           {% else %}
-            light.hallway_lightswitch_level
+            light.hallway_light
           {% endif %}
 timer_off_hallway_restart:
   alias: "Turn off hallway light after 30 seconds (restart)"

@@ -1,16 +1,16 @@
 alias: Office Switch Double Tap
 trigger:
   - platform: event
-    event_type: zwave.node_event
+    event_type: zwave_js_event
     event_data:
-      entity_id: zwave.office_lightswitch
+      device_id: 6adf396592828be8ab788674e9113f43
 action:
   - service: light.turn_on
     data_template: 
       brightness_pct: >
-        {% if trigger.event.data.basic_level == 255 %}
+        {% if trigger.event.data.value == 255 %}
           100
-        {% elif trigger.event.data.basic_level == 0 %}
+        {% elif trigger.event.data.value == 0 %}
           10
         {% endif %}
-      entity_id: light.office_lightswitch_level
+      entity_id: light.office_lights

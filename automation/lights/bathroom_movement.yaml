@@ -5,7 +5,7 @@ trigger:
     to: '8'
 condition:
   condition: state
-  entity_id: light.bathroom_lightswitch_level
+  entity_id: light.bathroom_light
   state: 'on'
 action:
   service: homeassistant.turn_on

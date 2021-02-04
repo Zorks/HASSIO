@@ -1,25 +1,25 @@
 alias: Kitchen Switch 1 Double Tap
 trigger:
   - platform: event
-    event_type: zwave.node_event
+    event_type: zwave_js_event
     event_data:
-      entity_id: zwave.kitchen_lightswitch_1
+      device_id: 7d27e04aa4d14b076542e5b92dc999a0
 action:
   - service: light.turn_on
     data_template: 
       brightness_pct: >
-        {% if trigger.event.data.basic_level == 255 %}
+        {% if trigger.event.data.value == 255 %}
           100
-        {% elif trigger.event.data.basic_level == 0 %}
+        {% elif trigger.event.data.value == 0 %}
           10
         {% endif %}
-      entity_id: light.kitchen_lightswitch_1_level
+      entity_id: light.kitchen_light_1
   - service: light.turn_on
     data_template: 
       brightness_pct: >
-        {% if trigger.event.data.basic_level == 255 %}
+        {% if trigger.event.data.value == 255 %}
           100
-        {% elif trigger.event.data.basic_level == 0 %}
+        {% elif trigger.event.data.value == 0 %}
           10
         {% endif %}
-      entity_id: light.kitchen_lightswitch_2_level
+      entity_id: light.kitchen_light_2

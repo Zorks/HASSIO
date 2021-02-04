@@ -5,7 +5,7 @@
   latitude: !secret latitude
   longitude: !secret longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 99
+  elevation: 255
   # metric for Metric, imperial for Imperial
   unit_system: imperial
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -103,7 +103,9 @@ frontend:
   themes: !include_dir_merge_named themes
 # Enables configuration UI
 config:
-
+# Enables sending Wake on Lan commands to other computers
+wake_on_lan:
+#
 http:
   ssl_certificate: /ssl/fullchain.pem  
   ssl_key: /ssl/privkey.pem  
@@ -117,7 +119,7 @@ http:
    # - 192.168.0.0/24  
    # - 192.168.1.0/24  
   ip_ban_enabled: True  
-  login_attempts_threshold: 3  
+  login_attempts_threshold: 5  
 # Checks for available updates
 # Note: This component will send some information about your system to
 # the developers to assist with development of Home Assistant.
@@ -204,7 +206,7 @@ sensor:
         unit_of_measurement: '°F'
         value_template: "{{ states.climate.thermostat.attributes.current_temperature }}"
       frontdoorbattery:
-        value_template: "{{ states.sensor.schlage_lock_battery_level }}"
+        value_template: "{{ states.sensor.front_door_lock_battery_level }}"
         friendly_name: 'Front Door Lock Battery'
         unit_of_measurement: '%'
         icon_template: >-
@@ -245,18 +247,18 @@ light:
   - platform: group
     name: All Lights
     entities:
-      - light.bathroom_lightswitch_level
+      - light.bathroom_light
       - light.bedroom_color_1
       - light.bedroom_color_2
-      - light.bedroom_lightswitch_level
+      - light.bedroom_light
       - light.dining_lights
       - light.living_room
-      - light.hallway_lightswitch_level
-      - light.kitchen_lightswitch_1_level
-      - light.kitchen_lightswitch_2_level
-      - light.office_lightswitch_level
+      - light.hallway_light
+      - light.kitchen_light_1
+      - light.kitchen_light_2
+      - light.office_lights
       - light.office_lamp
-      - light.spare_bedroom_lightswitch_level
+      - light.spare_bedroom_lights
   - platform: group
     name: Dining Lights
     entities:
@@ -274,32 +276,24 @@ input_boolean:
     name: Coffee pot is ready for brewing
     icon: mdi:coffee
 
-
-####################
-##### Remotes ######
-####################
-remote:
-  - platform: harmony
-    name: Harmony Hub
-    host: 192.168.1.15
-    activity: 23149902
 ###########################
 ##### Device Tracker ######
 ###########################
 device_tracker:
   - platform: unifi_direct
-    host: 192.168.1.6
-    username: Zorks
+    host: 10.11.12.27
+    username: !secret unifi_user
     password: !secret unifi_pw
-    interval_seconds: 12
+    interval_seconds: 6
     consider_home: 180
-    track_new_devices: false
-# enabling the bluetooth tracker causes a cascade of connection errors for Wifi connected devices like Hue and the Brother Printer?  Likely related to HassOS version or wifi/bluetooth use at the same time (see github link)
-# https://github.com/home-assistant/operating-system/issues/520  
-  # - platform: bluetooth_tracker
-    # interval_seconds: 12
-    # consider_home: 120
-    # track_new_devices: true
+    new_device_defaults:
+      track_new_devices: false
+  - platform: bluetooth_tracker
+    interval_seconds: 6
+    consider_home: 120
+    new_device_defaults:
+      track_new_devices: false
+
 ###########################
 #####  Thermostats   ######
 ###########################
@@ -319,28 +313,28 @@ google_assistant:
   report_state: true
   expose_by_default: false
   entity_config:
-    light.bedroom_lightswitch_level:
+    light.bedroom_light:
       expose: true
       name: Bedroom Ceiling Light
-    light.hallway_lightswitch_level:
+    light.hallway_light:
       expose: true
       name: Hallway Light
-    light.bathroom_lightswitch_level:
+    light.bathroom_light:
       expose: true
       name: Bathroom Lights
-    light.kitchen_lightswitch_1_level:
+    light.kitchen_light_1:
       expose: true
       name: Kitchen Light 1
-    light.kitchen_lightswitch_2_level:
+    light.kitchen_light_2:
       expose: true
       name: Kitchen Light 2
-    switch.bathroom_fan_switch:
+    switch.bathroom_fan:
       expose: true
       name: Bathroom Fan
-    light.spare_bedroom_lightswitch_level:
+    light.spare_bedroom_lights:
       expose: true
       name: Spare Bedroom Lights
-    light.office_lightswitch_level:
+    light.office_lights:
       expose: true
       name: Office Ceiling Light  
     switch.kitchen_plants:
@@ -352,33 +346,28 @@ google_assistant:
     switch.coffee:
       expose: true
       name: Coffee 
+    switch.computer:
+      expose: true
+      name: Computer
 ###########################
-#####     Z Wave     ######
+#####     Switch     ######
 ###########################   
-zwave:
-  usb_path: /dev/ttyACM0
-  network_key: !secret zwave_network_key
-  device_config: !include zwave_device_config.yaml  
+switch:
+  - platform: wake_on_lan
+    mac: !secret wol_mac
+    host: !secret wol_host
+    name: Computer
 
 ###########################
 #####     Vacuum     ######
 ###########################   
-
-# vacuum:
-  # - platform: xiaomi_miio
-    # host: 192.168.1.29
-    # token: !secret roborock
 
 
 ###########################
 ###### Custom Panels ######
 ###########################
 
-panel_iframe:
-  tautulli:
-    title: Tautulli
-    icon: mdi:television
-    url: !secret tautulli_panel
+
 ###########################
 ######  Mobile App   ######
 ###########################

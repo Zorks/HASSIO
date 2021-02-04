@@ -2,8 +2,8 @@ alias: 'Unlock Front Door Upon Arrivial'
 trigger:
   platform: state
   entity_id:
-    - device_tracker.galaxynote8
-    - device_tracker.emilys_phone
+    - person.trevor
+    - person.emily
   from: 'not_home'
   to: 'home'
 condition:

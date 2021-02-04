@@ -46,7 +46,7 @@ timed_light_bathroom_check_long:
           {% if ((not is_state('sensor.bathroom_sensor_burglar', '0'))) %}
             script.timer_off_bathroom_restart
           {% else %}
-            light.bathroom_lightswitch_level
+            light.bathroom_light
           {% endif %}
 timer_off_bathroom_restart:
   alias: "restart bathroom timed lights"
