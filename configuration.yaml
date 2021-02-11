@@ -107,19 +107,15 @@ config:
 wake_on_lan:
 #
 http:
-  ssl_certificate: /ssl/fullchain.pem  
-  ssl_key: /ssl/privkey.pem  
-  ssl_profile: intermediate
+  # ssl_certificate: /ssl/fullchain.pem  
+  # ssl_key: /ssl/privkey.pem  
+  # ssl_profile: intermediate
   cors_allowed_origins:  
    - https://google.com  
    - https://home-assistant.io  
-  # trusted_networks:  
-   # - 127.0.0.1  
-   # - ::1  
-   # - 192.168.0.0/24  
-   # - 192.168.1.0/24  
   ip_ban_enabled: True  
   login_attempts_threshold: 5  
+  
 # Checks for available updates
 # Note: This component will send some information about your system to
 # the developers to assist with development of Home Assistant.
@@ -146,10 +142,11 @@ sun:
 ##### Weather ######
 ####################
 
-weather:
-  - platform: darksky
-    api_key: !secret darksky_api
-    mode: daily
+#switched to NWS
+# weather:
+  # - platform: darksky
+    # api_key: !secret darksky_api
+    # mode: daily
 
 ###############################
 ##### Push Notificatoins ######
@@ -187,9 +184,9 @@ sensor:
     monitored_conditions:
       - temperature
     scan_interval: '00:15:00'
-  - platform: cert_expiry
-    host: !secret cert_expiry_host
-    port: 8123
+  # - platform: cert_expiry
+    # host: !secret cert_expiry_host
+    # port: 8123
   - platform: time_date
     display_options:
       - 'time'
@@ -284,10 +281,11 @@ device_tracker:
     host: 10.11.12.27
     username: !secret unifi_user
     password: !secret unifi_pw
-    interval_seconds: 6
+    interval_seconds: 7
     consider_home: 180
     new_device_defaults:
       track_new_devices: false
+# as of 2/4/21 causing error messages in log every 18 seconds      
   - platform: bluetooth_tracker
     interval_seconds: 6
     consider_home: 120

@@ -29,14 +29,14 @@ timer_off_hallway:
   sequence:
     - delay: 00:00:30
     - service_template: > 
-        {% if ((not is_state('sensor.hallway_motion_sensor_burglar', '0'))) %}
+        {% if ((not is_state('binary_sensor.hallway_sensor_motion', 'off'))) %}
           script.turn_on
         {% else %}
           light.turn_off
         {% endif %}
       data_template:
         entity_id: >
-          {% if ((not is_state('sensor.hallway_motion_sensor_burglar', '0'))) %}
+          {% if ((not is_state('binary_sensor.hallway_sensor_motion', 'off'))) %}
             script.timer_off_hallway_restart
           {% else %}
             light.hallway_light

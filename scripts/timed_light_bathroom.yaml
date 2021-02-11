@@ -1,64 +1,81 @@
-timed_light_bathroom:
-  alias: "start bathroom timed lights"
+timed_light_bathroom_dark:
+  alias: "Turn on Bathroom Light and Start Timer Sequence"
   sequence:
-    # Cancel ev. old timers
+    # Cancel old timers
     - service: script.turn_off
       data:
          entity_id: script.timed_light_bathroom_check_short
     - service: script.turn_off
       data:
          entity_id: script.timed_light_bathroom_check_long
-    # Set new timer
+    - service: light.turn_on
+      data_template:
+        entity_id: light.bathroom_light
+        transition: 2
+        # brightness set to 3 between 7pm and 7am, 30 between 5pm and 7pm and 100 between 8am and 5pm.
+        brightness: >- 
+          {%- if now().strftime('%H')|int >=19 -%}
+            {{3|int}}
+          {%- elif now().strftime('%H')|int >=17 -%}
+            {{30|int}}
+          {%- elif now().strftime('%H') |int >=8 -%}
+            {{100|int}}
+          {%- else -%}
+            {{20|int}}
+          {%- endif -%}
+    # Start new timer
+    - service: script.turn_on
+      data:
+        entity_id: script.timed_light_bathroom
+
+timed_light_bathroom:
+# clears old timers and starts new sequence. Used to restart the timer process as well
+  alias: "start bathroom timed lights"
+  sequence:
+    # Cancel old timers
+    - service: script.turn_off
+      data:
+         entity_id: script.timed_light_bathroom_check_short
+    - service: script.turn_off
+      data:
+         entity_id: script.timed_light_bathroom_check_long
+    # Start new timer
     - service: script.turn_on
       data:
         entity_id: script.timed_light_bathroom_check_short
 timed_light_bathroom_check_short:
-# this checks every minute for movement. Once there is no movement, it goes to the 5 min script
+# this checks every minute for movement. Once there is no movement, it goes to the long script
   alias: "Check if there's movement in the bathroom"
   sequence:
     - delay: 00:01:00
     - service_template: > 
-        {% if ((not is_state('sensor.bathroom_sensor_burglar', '0'))) %}
+        {% if ((not is_state(' binary_sensor.bathroom_sensor_motion', 'off'))) %}
           script.turn_on
         {% else %}
           script.turn_on
         {% endif %}
       data_template:
         entity_id: >
-          {% if ((not is_state('sensor.bathroom_sensor_burglar', '0'))) %}
-            script.timer_off_bathroom_restart
+          {% if ((not is_state(' binary_sensor.bathroom_sensor_motion', 'off'))) %}
+            script.timer_off_bathroom
           {% else %}
             script.timed_light_bathroom_check_long
           {% endif %}
 timed_light_bathroom_check_long:
-# after waiting 5 min, it double checks that there is no movement. If there is, repeat 1 min script. If there isn't, turn off lights. 
-  alias: "Turn off bathroom light after 5 minutes"
+# after waiting 4 min, it double checks that there is no movement. If there is, repeat process. If there isn't, turn off lights. 
+  alias: "Turn off bathroom light after 4 minutes"
   sequence:
-    - delay: 00:05:00
+    - delay: 00:04:00
     - service_template: > 
-        {% if ((not is_state('sensor.bathroom_sensor_burglar', '0'))) %}
+        {% if ((not is_state(' binary_sensor.bathroom_sensor_motion', 'off'))) %}
           script.turn_on
         {% else %}
           light.turn_off
         {% endif %}
       data_template:
         entity_id: >
-          {% if ((not is_state('sensor.bathroom_sensor_burglar', '0'))) %}
-            script.timer_off_bathroom_restart
+          {% if ((not is_state(' binary_sensor.bathroom_sensor_motion', 'off'))) %}
+            script.timer_off_bathroom
           {% else %}
             light.bathroom_light
           {% endif %}
-timer_off_bathroom_restart:
-  alias: "restart bathroom timed lights"
-  sequence:
-    # Cancel current scripts
-    - service: script.turn_off
-      data:
-        entity_id: script.timed_light_bathroom_check_short
-    - service: script.turn_off
-      data:
-        entity_id: script.timed_light_bathroom_check_long      
-    # Set new timer
-    - service: script.turn_on
-      data:
-        entity_id: script.timed_light_bathroom_check_short

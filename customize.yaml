@@ -37,11 +37,3 @@ light.kitchen_light_1:
   friendly_name: Kitchen Lights 1
 light.kitchen_light_2:
   friendly_name: Kitchen Lights 2
-sensor.pihole_ads_blocked_today:
-  friendly_name: Ads Blocked Today
-sensor.pihole_ads_percentage_blocked_today:
-  friendly_name: Blocked DNS Queries
-light.bedroom_color_2:
-  friendly_name: Trevor's Lamp
-sensor.dark_sky_temperature:
-  friendly_name: Outside Temperature

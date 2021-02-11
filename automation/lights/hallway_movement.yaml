@@ -1,8 +1,8 @@
 alias: 'Hallway Movement'
 trigger:
   - platform: state
-    entity_id: sensor.hallway_motion_sensor_burglar
-    to: '8'
+    entity_id: binary_sensor.hallway_sensor_motion
+    to: 'on'
 condition:
   condition: and
   conditions:
