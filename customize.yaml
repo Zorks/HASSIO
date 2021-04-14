@@ -22,7 +22,7 @@ light.hallway_light:
 light.bathroom_light:
   friendly_name: Bathroom Lights
 light.office_lightswitch_level:
-  friendly_name: Office Lights  
+  friendly_name: Office Lights
 light.spare_bedroom_lights:
   friendly_name: Spare Bedroom Lights
 group.kitchen:
@@ -37,3 +37,5 @@ light.kitchen_light_1:
   friendly_name: Kitchen Lights 1
 light.kitchen_light_2:
   friendly_name: Kitchen Lights 2
+climate.thermostat:
+  friendly_name: Basement

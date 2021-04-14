@@ -96,7 +96,7 @@ views:
                 entity: climate.home
                 name: Upstairs
                 decimals: 0
-                step-size: 1
+                step_size: 1
                 fallback: '00'
                 label:
                   temperature: Temp
@@ -112,7 +112,7 @@ views:
                 entity: climate.thermostat
                 name: Basement
                 decimals: 0
-                step-size: 1
+                step_size: 1
                 fallback: '00'
                 label: 
                   temperature: Temp

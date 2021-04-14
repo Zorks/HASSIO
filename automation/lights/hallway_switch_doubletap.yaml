@@ -1,7 +1,7 @@
 alias: Hallway Switch Double Tap
 trigger:
   - platform: event
-    event_type: zwave_js_event
+    event_type: zwave_js_value_notification
     event_data:
       device_id: db9121a9896e3f93d42ef75a8fc05ed1
 action:

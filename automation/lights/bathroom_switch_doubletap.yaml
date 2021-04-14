@@ -1,7 +1,7 @@
 alias: Bathroom Switch Double Tap
 trigger:
   - platform: event
-    event_type: zwave_js_event
+    event_type: zwave_js_value_notification
     event_data:
       device_id: 8cb32c0ca9f0f5ed4c376b0cb02470fa
 action:

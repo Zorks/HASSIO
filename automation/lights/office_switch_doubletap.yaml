@@ -1,7 +1,7 @@
 alias: Office Switch Double Tap
 trigger:
   - platform: event
-    event_type: zwave_js_event
+    event_type: zwave_js_value_notification
     event_data:
       device_id: 6adf396592828be8ab788674e9113f43
 action:

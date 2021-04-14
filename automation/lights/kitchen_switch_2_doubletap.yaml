@@ -1,7 +1,7 @@
 alias: Kitchen Switch 2 Double Tap
 trigger:
   - platform: event
-    event_type: zwave_js_event
+    event_type: zwave_js_value_notification
     event_data:
       device_id: 38f0169c956322eb2cb54645abc733be
 action:

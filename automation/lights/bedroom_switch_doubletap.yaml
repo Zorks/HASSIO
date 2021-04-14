@@ -1,7 +1,7 @@
 alias: Bedroom Switch Double Tap
 trigger:
   - platform: event
-    event_type: zwave_js_event
+    event_type: zwave_js_value_notification
     event_data:
      device_id: b5f2fcf85f9b0d26d287adc42f27100a
 

@@ -1,7 +1,7 @@
 alias: Spare Bedroom Switch Double Tap
 trigger:
   - platform: event
-    event_type: zwave_js_event
+    event_type: zwave_js_value_notification
     event_data:
       device_id: 035feddac732eb4681d7fb3800f2fd56
 action:
