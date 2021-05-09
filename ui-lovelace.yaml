@@ -145,15 +145,22 @@ views:
             - type: gauge
               entity: sensor.bathroom_humidity_diff
               name: Humidity Diff.             
-      - type: horizontal-stack
+      - type: vertical-stack
         cards:
-        - type: glance
-          title: Hass.io
-          entities:
-            - entity: sensor.cert_expiry_timestamp_home_trevortaylor_net
-              name: SSL Cert Expiry
-            - entity: sensor.uptime
-              name: Uptime
+        - type: horizontal-stack
+          cards:
+          - type: glance
+            title: Hass.io
+            entities:
+              - entity: sensor.cert_expiry_timestamp_home_trevortaylor_net
+                name: SSL Cert Expiry
+              - entity: sensor.uptime
+                name: Uptime
+          - type: button
+            entity: switch.computer
+            name: Computer
+            icon: mdi:desktop-tower-monitor
+            icon_height: 100px           
         - type: glance
           title: AdGuard
           entities:
@@ -165,11 +172,6 @@ views:
               name: Active
               tap_action: 
                 action: toggle
-        - type: button
-          entity: switch.computer
-          name: Computer
-          icon: mdi:desktop-tower-monitor
-          icon_height: 100px           
   - title: Lights
     icon: mdi:lightbulb
     cards:

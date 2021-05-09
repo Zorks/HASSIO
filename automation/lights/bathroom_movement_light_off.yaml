@@ -17,6 +17,9 @@ condition:
     - condition: state
       entity_id: light.bathroom_light
       state: 'off'
+  # time condition set so that it doesn't trigger after midnight to prevent accidental lights if the house thinks another light is on
+    - condition: time
+      after: "15:00:00"
 action:
   service: homeassistant.turn_on
   entity_id: script.timed_light_bathroom_dark
