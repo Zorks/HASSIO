@@ -125,6 +125,25 @@ views:
                     'off':
                       include: false
 
+          - type: horizontal-stack
+            cards:
+            - type: thermostat
+              entity: climate.window_a_c
+              name: Air Conditioner
+              decimals: 0
+              step_size: 1
+              # control:
+                # hvac:
+                  # cool:
+                    # include: false
+                  # heat:
+                    # include: false
+                  # 'off':
+                    # include: false
+            # - type: 'custom:mini-graph-card'
+              # title: A/C Power
+              # entities: 
+                # - sensor.window_a_c_energy_current
       - type: 'custom:vertical-stack-in-card'
         cards:
           - type: 'custom:mini-graph-card'
@@ -252,11 +271,11 @@ views:
         cards:
         - type: conditional
           conditions:
-            - entity: media_player.plex_chromecast
+            - entity: media_player.chromecast
               state: "playing"
           card:
             type: custom:mini-media-player
-            entity: media_player.plex_chromecast
+            entity: media_player.chromecast
             artwork: full-cover
             name: Plex
             icon: mdi:plex
@@ -267,11 +286,11 @@ views:
               name: true
         - type: conditional
           conditions:
-            - entity: media_player.plex_chromecast
+            - entity: media_player.chromecast
               state: "paused"
           card:
             type: custom:mini-media-player
-            entity: media_player.plex_chromecast
+            entity: media_player.chromecast
             artwork: full-cover
             name: Plex
             icon: mdi:plex
