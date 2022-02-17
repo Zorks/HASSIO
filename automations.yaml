@@ -1,2 +1,11 @@
-
-
+- id: '1631387430655'
+  alias: Low Battery Alert
+  description: Daily notification of any devices with low batteries
+  use_blueprint:
+    path: sbyx/low-battery-level-detection-notification-for-all-battery-sensors.yaml
+    input:
+      time: '17:00:00'
+      actions:
+      - service: notify.mobile_app_s21
+        data:
+          message: Low Battery {{sensors}}

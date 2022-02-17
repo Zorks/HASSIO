@@ -2,7 +2,7 @@ alias: 'Bathroom Humidity Difference'
 # if the bathroom humidity is above house's by 10% and over 60%, start bathroom fan until it is under 60% humidity
 trigger:
   - platform: numeric_state
-    entity_id: sensor.bathroom_sensor_relative_humidity
+    entity_id: sensor.bathroom_sensor_humidity
     above: '60'
 condition:
   condition: numeric_state

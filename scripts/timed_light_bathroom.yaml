@@ -8,6 +8,9 @@ timed_light_bathroom_dark:
     - service: script.turn_off
       data:
          entity_id: script.timed_light_bathroom_check_long
+    - service: script.turn_off
+      data:
+        entity_id: script.timed_light_bathroom
     - service: light.turn_on
       data_template:
         entity_id: light.bathroom_light
@@ -35,6 +38,9 @@ timed_light_bathroom:
     # Cancel old timers
     - service: script.turn_off
       data:
+        entity_id: script.timed_light_bathroom_dark
+    - service: script.turn_off
+      data:
          entity_id: script.timed_light_bathroom_check_short
     - service: script.turn_off
       data:
@@ -49,14 +55,14 @@ timed_light_bathroom_check_short:
   sequence:
     - delay: 00:01:00
     - service_template: > 
-        {% if ((not is_state(' binary_sensor.bathroom_sensor_motion', 'off'))) %}
+        {% if ((not is_state('binary_sensor.bathroom_sensor_motion', 'off'))) %}
           script.turn_on
         {% else %}
           script.turn_on
         {% endif %}
       data_template:
         entity_id: >
-          {% if ((not is_state(' binary_sensor.bathroom_sensor_motion', 'off'))) %}
+          {% if ((not is_state('binary_sensor.bathroom_sensor_motion', 'off'))) %}
             script.timed_light_bathroom
           {% else %}
             script.timed_light_bathroom_check_long
@@ -67,14 +73,14 @@ timed_light_bathroom_check_long:
   sequence:
     - delay: 00:04:00
     - service_template: > 
-        {% if ((not is_state(' binary_sensor.bathroom_sensor_motion', 'off'))) %}
+        {% if ((not is_state('binary_sensor.bathroom_sensor_motion', 'off'))) %}
           script.turn_on
         {% else %}
           light.turn_off
         {% endif %}
       data_template:
         entity_id: >
-          {% if ((not is_state(' binary_sensor.bathroom_sensor_motion', 'off'))) %}
+          {% if ((not is_state('binary_sensor.bathroom_sensor_motion', 'off'))) %}
             script.timed_light_bathroom
           {% else %}
             light.bathroom_light
