@@ -67,17 +67,30 @@ views:
 
           - entity: input_boolean.coffee_set
             align_icon: top
+            name: false
+            layout: icon_state
             state_icons:
               "off": "mdi:coffee-off"
               "on": "mdi:coffee"
             state_text:
-              "off": "ready to brew?"
+              "off": "not ready to brew"
               "on": "coffee is set"
             style:
               icon:
-                --mdc-icon-size: 100px               
-              # button:
-                # background-color: var(--table-row-alternative-background-color)
+                --mdc-icon-size: 100px 
+          - entity: input_boolean.one_two_lamps
+            align_icon: top
+            name: false
+            layout: icon_state
+            state_icons:
+              "off": "mdi:lamp"
+              "on": "mdi:lamps"
+            state_text:
+              "off": "Just One Lamp"
+              "on": "Both Lamps"
+            style:
+              icon:
+                --mdc-icon-size: 100px                 
       - type: 'custom:vertical-stack-in-card'
         cards:
           - type: 'custom:mini-graph-card'
@@ -153,7 +166,7 @@ views:
             hour24: true
             decimals: 0
             entities:
-              - sensor.bathroom_sensor_relative_humidity
+              - sensor.bathroom_sensor_humidity
               - sensor.home_humidity
           - type: horizontal-stack
             cards:

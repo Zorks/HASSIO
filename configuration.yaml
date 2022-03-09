@@ -274,7 +274,9 @@ input_boolean:
   coffee_set:
     name: Coffee pot is ready for brewing
     icon: mdi:coffee
-
+  one_two_lamps:
+    name: "Sunrise Alarm Lamp Number"
+    icon: mdi:lamps
 ###########################
 ##### Device Tracker ######
 ###########################

@@ -5,24 +5,38 @@ trigger:
 action:
   - service: homeassistant.turn_on
     entity_id: script.coffee_start
-  - service: light.turn_on
-    entity_id: light.bedroom_color_2
-    data:
-      brightness_pct: 1
-      rgb_color: [255,0,0]
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.one_two_lamps
+        state: "on"
+      sequence:
+        - service: light.turn_on
+          entity_id: light.bedroom_color_2
+          data:
+            brightness_pct: 1
+            rgb_color: [255,0,0]
   - service: light.turn_on
     entity_id: light.bedroom_color_1
     data:
       brightness_pct: 1
       rgb_color: [255,0,0]
   - delay: "00:00:10"
-  - service: light.turn_on
-    entity_id: light.bedroom_color_2
-    data:
-      brightness_pct: 100
-      kelvin: 2700
-      # 360 seconds = 6 minutes
-      transition: 260
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.one_two_lamps
+        state: "on"
+      sequence:
+        - service: light.turn_on
+          entity_id: light.bedroom_color_2
+          data:
+            brightness_pct: 100
+            kelvin: 2700
+            # 360 seconds = 6 minutes
+            transition: 260
+        - service: input_boolean.turn_off
+          entity_id: input_boolean.one_two_lamps
   - service: light.turn_on
     entity_id: light.bedroom_color_1
     data:
