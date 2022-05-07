@@ -66,7 +66,6 @@ history:
       - sensor.backdoor_sensor_burglar
       - sensor.bathroom_sensor_burglar
     domains:
-      - media_player
       - device_tracker
       - light
       - climate
@@ -85,7 +84,7 @@ history:
       - input_text
       - sensor
       - weather
-
+      - media_player
       # Logbook page only. Probably identical to History page
 logbook:
   exclude:
@@ -119,15 +118,6 @@ http:
   trusted_proxies:
     - 10.11.12.200
   
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
-updater:
-  # Optional, allows Home Assistant developers to focus on popular components.
-
-# Discover some devices automatically
 discovery:
   ignore:
     - harmony

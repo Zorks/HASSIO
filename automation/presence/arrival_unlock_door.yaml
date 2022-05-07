@@ -13,8 +13,8 @@ condition:
     entity_id: lock.lock_front_door_lock
     state: 'locked'
   - condition: time
-    after: '07:00:00'
-    before: '22:00:00'
+    after: '06:00:00'
+    before: '23:00:00'
 action:
   - service: lock.unlock
     entity_id: lock.lock_front_door_lock
