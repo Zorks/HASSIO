@@ -1,21 +1,36 @@
-alias: 'Turn off TV'
+alias: "Turn off TV"
 trigger:
   - platform: state
-    entity_id: media_player.chromecast
-    to: 'off'
+    entity_id: media_player.living_room_tv
+    to: "unavailable"
+    for:
+      minutes: 3
+  - platform: state
+    entity_id: media_player.living_room_tv
+    to: "off"
     for:
       minutes: 10
   - platform: state
-    entity_id: media_player.chromecast
-    to: 'idle'
+    entity_id: media_player.living_room_tv
+    to: "idle"
     for:
-      minutes: 10
+      minutes: 30
 condition:
-  - condition: state
-    entity_id: remote.harmony_hub
-    state: 'on'
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: remote.harmony_hub
+      state: "on"
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: media_player.plex_living_room_tv
+        state: "playing"
+      - condition: state
+        entity_id: media_player.plex_living_room_tv
+        state: "paused"
 action:
   - service: remote.turn_off
     entity_id: remote.harmony_hub
-  - service: script.turn_off
-    entity_id: script.tv_stretch_command
+  # - service: script.turn_off
+    # entity_id: script.tv_stretch_command

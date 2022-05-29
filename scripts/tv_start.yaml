@@ -4,7 +4,7 @@ tv_start:
 # pause chromecast
     - delay: "00:00:02"
     - service: media_player.media_pause
-      entity_id: media_player.chromecast
+      entity_id: media_player.living_room_tv
 #turn on Harmony Hub using default action 
     - service: remote.turn_on
       entity_id: remote.harmony_hub
@@ -13,4 +13,4 @@ tv_start:
     - delay: "00:00:10"
 # resume TV playing
     - service: media_player.media_play
-      entity_id: media_player.chromecast
+      entity_id: media_player.living_room_tv

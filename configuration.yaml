@@ -167,7 +167,7 @@ binary_sensor:
             false
           {%- endif -%}
       # chromecast_state:
-        # value_template: '{{ states.media_player.chromecast.media_content_type }}'
+        # value_template: '{{ states.media_player.living_room_tv.media_content_type }}'
         # friendly_name: "Chromecast Content Type"
 
 sensor:

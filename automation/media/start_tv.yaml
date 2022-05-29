@@ -1,7 +1,7 @@
 alias: 'Start TV when chromecast starts'
 trigger:
   platform: state
-  entity_id: media_player.chromecast
+  entity_id: media_player.living_room_tv
   # from: 'off'
   to: 'playing'
 condition:

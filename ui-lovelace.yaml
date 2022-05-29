@@ -284,11 +284,11 @@ views:
         cards:
         - type: conditional
           conditions:
-            - entity: media_player.chromecast
+            - entity: media_player.living_room_tv
               state: "playing"
           card:
             type: custom:mini-media-player
-            entity: media_player.chromecast
+            entity: media_player.plex_living_room_tv
             artwork: full-cover
             name: Plex
             icon: mdi:plex
@@ -299,11 +299,11 @@ views:
               name: true
         - type: conditional
           conditions:
-            - entity: media_player.chromecast
+            - entity: media_player.living_room_tv
               state: "paused"
           card:
             type: custom:mini-media-player
-            entity: media_player.chromecast
+            entity: media_player.living_room_tv
             artwork: full-cover
             name: Plex
             icon: mdi:plex
@@ -313,7 +313,7 @@ views:
               controls: true
               name: true
         - type: custom:mini-media-player
-          entity: media_player.chromecast
+          entity: media_player.living_room_tv
           artwork: full-cover
           name: Plex
           icon: mdi:plex
@@ -328,12 +328,14 @@ views:
             - type: button
               name: System Power
               icon: mdi:power
+              state_color: false
               entity: remote.harmony_hub
               tap_action:  
                 action: toggle
             - type: button
               name: "Mute / Unmute"
               icon: mdi:volume-off
+              state_color: false
               entity: remote.harmony_hub
               tap_action:  
                 action: call-service
@@ -346,6 +348,7 @@ views:
             cards:
             - type: button
               name: Volume Up
+              state_color: false
               icon: mdi:volume-high
               entity: remote.harmony_hub
               tap_action:  
@@ -357,6 +360,7 @@ views:
                   command: VolumeUp
             - type: button
               name: Volume Down
+              state_color: false
               icon: mdi:volume-low
               entity: remote.harmony_hub
               tap_action:  

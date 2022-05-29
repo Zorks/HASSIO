@@ -17,7 +17,7 @@ media_tv:
   name: Chromecast
   icon: mdi:television
   entities:
-    - media_player.chromecast
+    - media_player.living_room_tv
     - remote.harmony_hub
 
 temps:
