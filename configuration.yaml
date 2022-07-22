@@ -41,7 +41,7 @@ lovelace:
 # history_graph won't work if the item is excluded here
 recorder:
   db_url: !secret db_url
-  purge_keep_days: 4
+  purge_keep_days: 7
   exclude:
 #    domains:
     entities:
@@ -272,7 +272,7 @@ input_boolean:
 ###########################
 device_tracker:
   - platform: unifi_direct
-    host: 10.11.12.27
+    host: 10.11.12.8
     username: !secret unifi_user
     password: !secret unifi_pw
     interval_seconds: 7
