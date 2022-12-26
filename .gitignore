@@ -37,6 +37,7 @@ tenants.yaml
 .storage/core.entity_registry
 .storage/hacs.repositories
 .storage/
+packages/keymaster/
 service_account.json
 custom_components/
 www/community/

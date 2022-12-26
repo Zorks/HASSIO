@@ -1,0 +1,7 @@
+keymaster_front_door_manual_notify:
+  mode: parallel
+  sequence:
+    - service: notify.phones
+      data:
+        title: "{{ title }}"
+        message: "{{ message }}"
