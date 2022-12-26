@@ -179,7 +179,8 @@ binary_sensor:
       # chromecast_state:
         # value_template: '{{ states.media_player.living_room_tv.media_content_type }}'
         # friendly_name: "Chromecast Content Type"
-
+  - platform: workday
+    country: US
 sensor:
   - platform: darksky
     api_key: !secret darksky_api

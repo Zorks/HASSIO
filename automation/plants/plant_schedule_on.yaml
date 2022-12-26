@@ -6,6 +6,9 @@ condition:
   condition: state
   entity_id: group.plants
   state: 'off'
+  
 action:
-  service: homeassistant.turn_on
-  entity_id: group.plants
+# delays the plant lights 30 min if it is not a work day to avoid disturbing sleepers
+  - delay: "{{ iif(is_state('binary_sensor.workday_sensor', 'off'), '00:30:00', '00:00:02') }}"
+  - service: homeassistant.turn_on
+    entity_id: group.plants    
