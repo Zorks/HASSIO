@@ -1,3 +1,4 @@
+#Theme changes to light mode an hour after sunrise to avoid early morning blinding phone screens. 
 
 alias: Automatic Theme Change - morning
 trigger:
@@ -7,4 +8,4 @@ trigger:
 action:
   - service: frontend.set_theme
     data:
-      name: default
+      name: 'Google Theme'

@@ -410,10 +410,10 @@ views:
     icon: 'mdi:lock-smart'
     panel: false
     badges:
-#      - input_text.front_door_lockname
+      - input_text.front_door_lockname
       - input_boolean.front_door_lock_notifications
       - input_boolean.front_door_dooraccess_notifications
-      # - input_boolean.front_door_garageacess_notifications
+      - input_boolean.front_door_garageacess_notifications
       - entity: >-
           lock.lock_front_door_lock
       # - entity: >-

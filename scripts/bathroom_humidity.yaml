@@ -6,8 +6,8 @@ bathroom_humidity:
       entity_id: switch.bathroom_fan
 # minimum run time of 5 minutes
     - delay: 00:05:00
-# wait until bathroom humidity is less than 60% (timeout is commented out as it ends the entire script, not just the wait_template)
-    - wait_template: "{{ states.sensor.bathroom_sensor_humidity.state <= '60' }}"
+# wait until bathroom humidity is less than 70% (timeout is commented out as it ends the entire script, not just the wait_template)
+    - wait_template: "{{ states.sensor.bathroom_sensor_humidity.state <= '70' }}"
 #      timeout: "00:5:00"
 # stop fan
     - service: switch.turn_off

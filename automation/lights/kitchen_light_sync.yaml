@@ -1,0 +1,24 @@
+alias: 'Kitchen Lights Sync'
+# sometimes one of the lights doesn't register as off in lovelace when both are switched off (controlled by the same three way switch). This checks to see if that is that happened and turns it off a reasonable time afterwards, just in case.
+trigger:
+  platform: state
+  entity_id: 
+    - light.kitchen_light_1
+    - light.kitchen_light_2
+  from: "on"
+  to: "off"
+  for: "00:30:00"
+condition:
+  alias: "If one of the kitchen lights still says it is on"
+  or:
+    - condition: state
+      entity_id: light.kitchen_light_1
+      state: "on"
+    - condition: state
+      entity_id: light.kitchen_light_2
+      state: "on"       
+action:
+  - service: light.turn_off
+    entity_id: 
+      - light.kitchen_light_1
+      - light.kitchen_light_2
