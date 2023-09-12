@@ -81,10 +81,7 @@ http:
   use_x_forwarded_for: true
   trusted_proxies:
     - 10.11.12.200
-  
-discovery:
-  ignore:
-    - harmony
+
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:

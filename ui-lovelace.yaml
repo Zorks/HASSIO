@@ -277,6 +277,121 @@ views:
             entity: switch.office_plants
             icon: mdi:sprout
             icon_height: 100px  
+  - title: Tesla
+    icon: mdi:car
+    cards:
+    - type: 'custom:vertical-stack-in-card'
+      cards:
+      - type: entities
+        title: Data Update
+        entities:
+          - entity: sensor.tesla_model_y_data_last_update_time
+            name: Data last updated
+          - entity: switch.tesla_model_y_polling
+            name: Automatic Polling
+          - entity: button.tesla_model_y_force_data_update
+            name: Manually Trigger Update
+      - type: map
+        aspect_ratio: 16:9
+        default_zoom: 18
+        entities:
+          - device_tracker.tesla_model_y_location_tracker
+      - type: entities
+        entities:
+          - entity: sensor.tesla_model_y_odometer
+            name: Miles Driven
+
+    - type: 'custom:vertical-stack-in-card'
+      cards:
+        - type: custom:mini-graph-card
+          name: Battery
+          points_per_hour: 2
+          icon: 'mdi:battery'
+          entities:
+            - entity: sensor.tesla_model_y_battery
+              name: Battery      
+        - type: entities
+          title: Battery & Range
+          entities:
+            - entity: sensor.tesla_model_y_battery
+              name: Battery
+            - entity: binary_sensor.tesla_model_y_charger
+              name: Charger
+            - entity: lock.tesla_model_y_charge_port_latch
+              name: Charger Lock
+            - entity: sensor.tesla_model_y_charging_rate
+              name: Charging Rate
+            - entity: sensor.tesla_model_y_time_charge_complete
+              name: Time to Target Level
+            - entity: sensor.tesla_model_y_range
+              name: Max Range
+
+    - type: 'custom:vertical-stack-in-card'
+      cards:
+        - type: custom:mini-graph-card
+          name: Temperature
+          points_per_hour: 2
+          icon: 'mdi:thermometer'
+          entities:
+            - entity: sensor.tesla_model_y_temperature_inside
+              name: Inside
+            - entity: sensor.tesla_model_y_temperature_outside
+              name: Outside
+          line_color: blue      
+        - type: 'custom:simple-thermostat'
+          entity: climate.tesla_model_y_hvac_climate_system
+          name: Climate
+          layout:
+            mode:
+              headings: false          
+          control:
+            hvac:
+                'heat_cool':
+                  name: "Heat/Cool"
+            preset:
+              'normal': 
+                name: 'Normal'
+              'defrost':
+                name: 'Defrost'
+        - type: entities
+          entities:
+              - type: custom:fold-entity-row
+                head:
+                  type: section
+                  label: Heated Seats and Steering Wheel
+                entities:
+                  - entity: select.tesla_model_y_heated_steering_wheel
+                    name: Steering Wheel
+                  - entity: select.tesla_model_y_heated_seat_left
+                    name: Driver's Seat
+                  - entity: select.tesla_model_y_heated_seat_right
+                    name: Front Passenger's Seat
+                  - entity: select.tesla_model_y_heated_seat_rear_left
+                    name: Rear Driver's Side Seat
+                  - entity: select.tesla_model_y_heated_seat_rear_center
+                    name: Rear Center Seat
+                  - entity: select.tesla_model_y_heated_seat_rear_right
+                    name: Rear Passenger's Seat
+    - type: entities            
+      title: Access
+      entities:
+        - entity: lock.tesla_model_y_doors
+          name: Doors
+        - entity: cover.tesla_model_y_charger_door
+          name: Charger Door
+        - entity: cover.tesla_model_y_frunk
+          name: Frunk
+        - entity: cover.tesla_model_y_trunk
+          name: Trunk
+    - type: entities
+      title: Switches
+      entities:
+        - entity: select.tesla_model_y_cabin_overheat_protection
+          name: Overheat Protection
+        - entity: switch.tesla_model_y_sentry_mode
+          name: Sentry Mode
+        
+
   - title: Media Players
     icon: mdi:television
     cards:
