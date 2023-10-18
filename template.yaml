@@ -1,0 +1,16 @@
+- sensor:
+  - name: next_hippo_departure_hrs
+    unique_id: next_hippo_departure_hrs
+    attributes:
+      friendly_name: "number of hours until the adventure starts"
+    state: "{{(as_timestamp(states('sensor.next_hippo_departure' ), as_timestamp(now()) + 90000 ) -  as_timestamp(now())) / 3600 }}"
+
+- trigger:
+    - platform: time_pattern
+      minutes: "/3"
+  sensor:
+    - name: next_hippo_departure
+      unique_id: next_hippo_departure
+      attributes:
+        friendly_name: "Next time the Hippo is set to go on an adventure"
+      state: "{{integration_entities('scheduler')| select('is_state', 'on') | map('state_attr','next_trigger') | sort | first | as_datetime }}"

@@ -2,6 +2,8 @@ title: Home
 
 preload:
   - entity-filter
+
+
 views:
   - title: Status
     icon: mdi:home
@@ -37,8 +39,10 @@ views:
         entity: weather.kbfi_hourly
       - type: vertical-stack
         cards:
-        - type: light
+        - type: tile
           entity: light.all_lights
+          features:
+            - type: "light-brightness"
         - type: horizontal-stack
           cards:
             - type: button
@@ -48,23 +52,28 @@ views:
             - type: button
               entity: switch.office_plants
               icon: mdi:sprout
-              icon_height: 100px            
+              icon_height: 100px           
       - type: 'custom:paper-buttons-row'
+        base_config:
+          style:
+            button:
+              background-color: var(--table-row-alternative-background-color)    
+              width: 100%
+              margin: var(--horizontal-stack-card-margin,var(--stack-card-margin,0 4px))
+              border-radius: var(--ha-card-border-radius,12px);
+            icon:
+              --mdc-icon-size: 100px   
         buttons:
           - entity: switch.coffee
             icon: mdi:coffee-maker
             align_icon: top
-            style:
-              icon:
-                --mdc-icon-size: 100px      
-              # button:
-                # background-color: var(--table-row-alternative-background-color)
             tap_action:
               action: call-service 
               service: homeassistant.turn_on
               service_data:
                 entity_id: script.coffee_start
-
+              confirmation:
+                text: "Start Coffee?"
           - entity: input_boolean.coffee_set
             align_icon: top
             name: false
@@ -75,9 +84,6 @@ views:
             state_text:
               "off": "not ready to brew"
               "on": "coffee is set"
-            style:
-              icon:
-                --mdc-icon-size: 100px 
           - entity: input_boolean.one_two_lamps
             align_icon: top
             name: false
@@ -87,10 +93,7 @@ views:
               "on": "mdi:lamps"
             state_text:
               "off": "Just One Lamp"
-              "on": "Both Lamps"
-            style:
-              icon:
-                --mdc-icon-size: 100px                 
+              "on": "Both Lamps"              
       - type: 'custom:vertical-stack-in-card'
         cards:
           - type: 'custom:mini-graph-card'
@@ -98,6 +101,7 @@ views:
             hours_to_show: 12
             points_per_hour: 1
             hour24: true
+            line_width: 2
             decimals: 0
             entities:
               - sensor.house_avg_temp
@@ -145,24 +149,14 @@ views:
               name: Air Conditioner
               decimals: 0
               step_size: 1
-              # control:
-                # hvac:
-                  # cool:
-                    # include: false
-                  # heat:
-                    # include: false
-                  # 'off':
-                    # include: false
-            # - type: 'custom:mini-graph-card'
-              # title: A/C Power
-              # entities: 
-                # - sensor.window_a_c_energy_current
+
       - type: 'custom:vertical-stack-in-card'
         cards:
           - type: 'custom:mini-graph-card'
             title: Humidity
             hours_to_show: 12
             points_per_hour: 1
+            line_width: 2
             hour24: true
             decimals: 0
             entities:
@@ -204,69 +198,105 @@ views:
               name: Active
               tap_action: 
                 action: toggle
+  
   - title: Lights
     icon: mdi:lightbulb
     cards:
       - type: horizontal-stack
         cards:
-        - type: light
+        - type: tile
           entity: light.hallway_light
-        - type: light
+          features:
+            - type: "light-brightness"
+        - type: tile
           entity: light.bathroom_light
-      - type: horizontal-stack
-        cards:
-        - type: light
-          entity: light.office_lamp
-        - type: light
-          entity: light.office_lights
-          name: Office Ceiling Light
+          features:
+            - type: "light-brightness"
 
       - type: horizontal-stack
         cards:
-        - type: light
+        - type: tile
+          entity: light.office_lamp
+          features:
+            - type: "light-brightness"
+
+        - type: tile
+          entity: light.office_lights
+          name: Office Ceiling Light
+          features:
+            - type: "light-brightness"
+
+      - type: horizontal-stack
+        cards:
+        - type: tile
           entity: light.spare_bedroom_lights
-        - type: light
+          features:
+            - type: "light-brightness"
+
+        - type: tile
           entity: light.living_room
+          features:
+            - type: "light-brightness"
+
       - type: 'custom:vertical-stack-in-card'
         cards:
-        - type: light
+        - type: tile
           entity: light.bedroom_light      
           name: Bedroom Ceiling Light
+          features:
+            - type: "light-brightness"
+
         - type: horizontal-stack
           cards:
-          - type: light
+          - type: tile
             entity: light.bedroom_color_1
-          - type: light
+            features:
+              - type: "light-brightness"
+
+          - type: tile
             entity: light.bedroom_color_2
+            features:
+              - type: "light-brightness"
             name: Emily's Lamp
       - type: horizontal-stack
         cards:
-        - type: light
+        - type: tile
           entity: light.kitchen_light_1
-        - type: light
+          features:
+            - type: "light-brightness"
+        - type: tile
           entity: light.kitchen_light_2
+          features:
+            - type: "light-brightness"
+
       - type: 'custom:vertical-stack-in-card'
         cards:
-          - type: light
+          - type: tile
+            features:
+              - type: "light-brightness"
             entity: light.dining_lights
-          - type: glance
-            show_name: false
+          - type: entities
             entities:
-              - entity: light.dining_room_1
-                tap_action:  
-                  action: toggle
-              - entity: light.dining_room_2
-                tap_action:  
-                  action: toggle
-              - entity: light.dining_room_3
-                tap_action:  
-                  action: toggle
-              - entity: light.dining_room_4
-                tap_action:  
-                  action: toggle
-              - entity: light.dining_room_5
-                tap_action:  
-                  action: toggle
+            - type: custom:fold-entity-row
+              head:
+                type: section
+                label: Chandelier Bulbs
+              entities:
+                - entity: light.dining_room_1
+                  tap_action:  
+                    action: toggle
+                - entity: light.dining_room_2
+                  tap_action:  
+                    action: toggle
+                - entity: light.dining_room_3
+                  tap_action:  
+                    action: toggle
+                - entity: light.dining_room_4
+                  tap_action:  
+                    action: toggle
+                - entity: light.dining_room_5
+                  tap_action:  
+                    action: toggle
       - type: horizontal-stack
         cards:
           - type: button
@@ -277,18 +307,36 @@ views:
             entity: switch.office_plants
             icon: mdi:sprout
             icon_height: 100px  
-  - title: Tesla
+
+  - title: Tesla 
     icon: mdi:car
     cards:
     - type: 'custom:vertical-stack-in-card'
       cards:
+      - type: custom:mini-graph-card
+        entities:
+          - entity: binary_sensor.tesla_model_y_asleep
+            name: Sleeping 
+        state_map:
+          - value: "on"
+            label: Asleep
+          - value: "off"
+            label: Awake
+        smoothing: false
+        group_by: hour
+        aggregate_func: max
+        line_width: 2
+        height: 70
+        hours_to_show: 48
+        show:
+          name: false
+          icon: false
+
       - type: entities
         title: Data Update
         entities:
           - entity: sensor.tesla_model_y_data_last_update_time
             name: Data last updated
-          - entity: switch.tesla_model_y_polling
-            name: Automatic Polling
           - entity: button.tesla_model_y_force_data_update
             name: Manually Trigger Update
       - type: map
@@ -300,21 +348,53 @@ views:
         entities:
           - entity: sensor.tesla_model_y_odometer
             name: Miles Driven
+    - type: 'custom:paper-buttons-row'
+      base_config:
+        style:
+          button:
+            background-color: var(--table-row-alternative-background-color)    
+            width: 100%
+            height: 100%
+            margin: var(--horizontal-stack-card-margin,var(--stack-card-margin,0 4px))
+            border-radius: var(--ha-card-border-radius,12px);
+          icon:
+            --mdc-icon-size: 80px 
+        layout: icon_name
+      buttons:
+        - entity: switch.tesla_model_y_sentry_mode
+          name: Sentry Mode
+        - entity: lock.tesla_model_y_doors
+          name: Doors
+        - entity: cover.tesla_model_y_frunk
+          name: Frunk
+          tap_action:
+            action: call-service
+            service: cover.open_cover
+            entity_id: cover.tesla_model_y_frunk
+            confirmation:
+              text: "WARNING: manual close required"
+        - entity: cover.tesla_model_y_trunk
+          name: Trunk
+          tap_action:
+            action: call-service
+            service: cover.open_cover
+            entity_id: cover.tesla_model_y_trunk
+            confirmation:
+              text: "WARNING: clearance required"
 
     - type: 'custom:vertical-stack-in-card'
       cards:
         - type: custom:mini-graph-card
-          name: Battery
+          name: Battery & Range
           points_per_hour: 2
           icon: 'mdi:battery'
+          line_width: 2
           entities:
             - entity: sensor.tesla_model_y_battery
               name: Battery      
         - type: entities
-          title: Battery & Range
           entities:
-            - entity: sensor.tesla_model_y_battery
-              name: Battery
+            - entity: number.tesla_model_y_charge_limit          
             - entity: binary_sensor.tesla_model_y_charger
               name: Charger
             - entity: lock.tesla_model_y_charge_port_latch
@@ -332,18 +412,29 @@ views:
           name: Temperature
           points_per_hour: 2
           icon: 'mdi:thermometer'
+          line_width: 2
           entities:
             - entity: sensor.tesla_model_y_temperature_inside
               name: Inside
             - entity: sensor.tesla_model_y_temperature_outside
               name: Outside
           line_color: blue      
+        - type: entities
+          entities: 
+            - entity: select.tesla_model_y_cabin_overheat_protection
+              name: Overheat Protection
         - type: 'custom:simple-thermostat'
           entity: climate.tesla_model_y_hvac_climate_system
           name: Climate
           layout:
+            step: row
             mode:
-              headings: false          
+              headings: false 
+              # names: false
+              # icons: false
+          hide:
+            temperature: true
+            state: true
           control:
             hvac:
                 'heat_cool':
@@ -355,42 +446,59 @@ views:
                 name: 'Defrost'
         - type: entities
           entities:
-              - type: custom:fold-entity-row
-                head:
-                  type: section
-                  label: Heated Seats and Steering Wheel
-                entities:
-                  - entity: select.tesla_model_y_heated_steering_wheel
-                    name: Steering Wheel
-                  - entity: select.tesla_model_y_heated_seat_left
-                    name: Driver's Seat
-                  - entity: select.tesla_model_y_heated_seat_right
-                    name: Front Passenger's Seat
-                  - entity: select.tesla_model_y_heated_seat_rear_left
-                    name: Rear Driver's Side Seat
-                  - entity: select.tesla_model_y_heated_seat_rear_center
-                    name: Rear Center Seat
-                  - entity: select.tesla_model_y_heated_seat_rear_right
-                    name: Rear Passenger's Seat
-    - type: entities            
-      title: Access
-      entities:
-        - entity: lock.tesla_model_y_doors
-          name: Doors
-        - entity: cover.tesla_model_y_charger_door
-          name: Charger Door
-        - entity: cover.tesla_model_y_frunk
-          name: Frunk
-        - entity: cover.tesla_model_y_trunk
-          name: Trunk
-    - type: entities
-      title: Switches
-      entities:
-        - entity: select.tesla_model_y_cabin_overheat_protection
-          name: Overheat Protection
-        - entity: switch.tesla_model_y_sentry_mode
-          name: Sentry Mode
-        
+            - type: custom:fold-entity-row
+              head:
+                type: section
+                label: Heated Seats and Steering Wheel
+              entities:
+                - entity: select.tesla_model_y_heated_steering_wheel
+                  name: Steering Wheel
+                - entity: select.tesla_model_y_heated_seat_left
+                  name: Driver's Seat
+                - entity: select.tesla_model_y_heated_seat_right
+                  name: Front Passenger's Seat
+                - entity: select.tesla_model_y_heated_seat_rear_left
+                  name: Rear Driver's Side Seat
+                - entity: select.tesla_model_y_heated_seat_rear_center
+                  name: Rear Center Seat
+                - entity: select.tesla_model_y_heated_seat_rear_right
+                  name: Rear Passenger's Seat
+    - type: custom:scheduler-card
+      title: Precondition Schedule
+      include:
+         - input_number.hippo_charge_limit
+      time_step: 15
+      sort_by: relative-time
+      show_header_toggle: true
+      tags: Hippo
+      groups:
+        - name: "Cars"
+          icon: mdi:car-multiple
+          include:
+            - input_number.hippo_charge_limit
+      customize:
+        input_number.hippo_charge_limit:
+          icon: mdi:car-clock
+          name: The Forest Hippo
+          actions:
+            - service: input_number.set_value
+              icon: mdi:battery-charging-80
+              name:  80% 
+              service_data:
+                value: 80
+            - service: input_number.set_value
+              icon: mdi:battery-charging-90
+              name: 90% 
+              service_data:
+                value: 90
+            - service: input_number.set_value
+              # name set as such for sorting purposes
+              icon: mdi:battery-charging-100
+              name: 99% 
+              service_data:
+                value: 100
+          # exclude_actions: 
+            # - turn off
 
   - title: Media Players
     icon: mdi:television

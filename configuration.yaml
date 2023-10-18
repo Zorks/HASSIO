@@ -42,7 +42,9 @@ lovelace:
       type: module                                
     - url: /hacsfiles/lovelace-fold-entity-row/fold-entity-row.js
       type: module 
-
+    - url: /hacsfiles/scheduler-card/scheduler-card.js
+      type: module
+                
 # If an item is excluded here, it will not show up on history or logbook pages
 # history_graph won't work if the item is excluded here
 recorder:
@@ -296,6 +298,10 @@ google_assistant:
     switch.computer:
       expose: true
       name: Computer
+    climate.tesla_model_y_hvac_climate_system:
+      expose: True
+      name: The Hippo
+      
 ###########################
 #####     Switch     ######
 ###########################   
@@ -322,6 +328,5 @@ mobile_app:
 
 group: !include groups.yaml
 automation: !include_dir_list automation
-
 script: !include_dir_merge_named scripts
-
+template: !include template.yaml
