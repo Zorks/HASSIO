@@ -32,16 +32,16 @@ action:
         path_vars:
           vehicle_id: >-
             {{ state_attr('binary_sensor.tesla_model_y_online', 'id') }}
-        enable: false
+        enable: true
         # #same as end_off_peak_time - converts the sensor value from a full date time value to just the local time and then converts that into minutes from midnight due to the formatting that Tesla requires
-        # departure_time: >-
-            # {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
+        departure_time: >-
+            {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
         preconditioning_enabled: false
-        # preconditioning_weekdays_only: false
+        preconditioning_weekdays_only: false
         off_peak_charging_enabled: false
-        # off_peak_charging_weekdays_only: false
-        # end_off_peak_time: >-
-            # {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
+        off_peak_charging_weekdays_only: false
+        end_off_peak_time: >-
+            {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
         # vehicle should wake up at some point and get the info?
         wake_if_asleep: false
     # resets charge limit to 80
