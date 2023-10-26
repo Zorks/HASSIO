@@ -17,7 +17,12 @@ trigger:
     to: "on"
 condition:
     # Is the next adventure more than 24 hrs from now? (note that no scheduled departures will default to +24 hrs to make this condition trigger too)
-  - "{{int(states('sensor.next_hippo_departure_hrs')) > 24 }}"
+  - "{{int(states('sensor.next_hippo_departure_hrs')) > 24 }}" 
+    # Hassio automated scheduled departures only apply to Home so this should only clear those (ideally)
+    # leaving after a scheduled departure means unplugging and should trigger automation before leaving home zone
+  - condition: state 
+    entity_id: device_tracker.tesla_model_y_location_tracker
+    state: "home"
 action:
     # the service call only works if the vehicle is both awake and in park
   - alias: "Wait until car is awake"

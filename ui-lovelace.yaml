@@ -340,7 +340,8 @@ views:
           - entity: button.tesla_model_y_force_data_update
             name: Manually Trigger Update
       - type: map
-        aspect_ratio: 16:9
+        aspect_ratio: 16x9
+        auto_fit: true
         default_zoom: 18
         entities:
           - device_tracker.tesla_model_y_location_tracker
@@ -365,22 +366,24 @@ views:
           name: Sentry Mode
         - entity: lock.tesla_model_y_doors
           name: Doors
+        - entity: cover.tesla_model_y_trunk
+          name: Trunk
+          tap_action:
+            action: call-service
+            service: cover.toggle
+            service_data:
+              entity_id: cover.tesla_model_y_trunk
+            confirmation:
+              text: "WARNING: clearance required"
         - entity: cover.tesla_model_y_frunk
           name: Frunk
           tap_action:
             action: call-service
             service: cover.open_cover
-            entity_id: cover.tesla_model_y_frunk
+            service_data: 
+              entity_id: cover.tesla_model_y_frunk
             confirmation:
               text: "WARNING: manual close required"
-        - entity: cover.tesla_model_y_trunk
-          name: Trunk
-          tap_action:
-            action: call-service
-            service: cover.open_cover
-            entity_id: cover.tesla_model_y_trunk
-            confirmation:
-              text: "WARNING: clearance required"
 
     - type: 'custom:vertical-stack-in-card'
       cards:
@@ -464,7 +467,7 @@ views:
                 - entity: select.tesla_model_y_heated_seat_rear_right
                   name: Rear Passenger's Seat
     - type: custom:scheduler-card
-      title: Precondition Schedule
+      title: Home Precondition Schedule
       include:
          - input_number.hippo_charge_limit
       time_step: 15
