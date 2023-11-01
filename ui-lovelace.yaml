@@ -68,10 +68,7 @@ views:
             icon: mdi:coffee-maker
             align_icon: top
             tap_action:
-              action: call-service 
-              service: homeassistant.turn_on
-              service_data:
-                entity_id: script.coffee_start
+              action: toggle
               confirmation:
                 text: "Start Coffee?"
           - entity: input_boolean.coffee_set
@@ -84,6 +81,11 @@ views:
             state_text:
               "off": "not ready to brew"
               "on": "coffee is set"
+            tap_action:
+              action: call-service 
+              service: homeassistant.turn_on
+              service_data:
+                entity_id: script.coffee_clear
           - entity: input_boolean.one_two_lamps
             align_icon: top
             name: false
@@ -315,7 +317,7 @@ views:
       cards:
       - type: custom:mini-graph-card
         entities:
-          - entity: binary_sensor.tesla_model_y_asleep
+          - entity: binary_sensor.the_hippo_asleep
             name: Sleeping 
         state_map:
           - value: "on"
@@ -335,19 +337,19 @@ views:
       - type: entities
         title: Data Update
         entities:
-          - entity: sensor.tesla_model_y_data_last_update_time
+          - entity: sensor.the_hippo_data_last_update_time
             name: Data last updated
-          - entity: button.tesla_model_y_force_data_update
+          - entity: button.the_hippo_force_data_update
             name: Manually Trigger Update
       - type: map
         aspect_ratio: 16x9
         auto_fit: true
         default_zoom: 18
         entities:
-          - device_tracker.tesla_model_y_location_tracker
+          - device_tracker.the_hippo_location_tracker
       - type: entities
         entities:
-          - entity: sensor.tesla_model_y_odometer
+          - entity: sensor.the_hippo_odometer
             name: Miles Driven
     - type: 'custom:paper-buttons-row'
       base_config:
@@ -362,26 +364,26 @@ views:
             --mdc-icon-size: 80px 
         layout: icon_name
       buttons:
-        - entity: switch.tesla_model_y_sentry_mode
+        - entity: switch.the_hippo_sentry_mode
           name: Sentry Mode
-        - entity: lock.tesla_model_y_doors
+        - entity: lock.the_hippo_doors
           name: Doors
-        - entity: cover.tesla_model_y_trunk
+        - entity: cover.the_hippo_trunk
           name: Trunk
           tap_action:
             action: call-service
             service: cover.toggle
             service_data:
-              entity_id: cover.tesla_model_y_trunk
+              entity_id: cover.the_hippo_trunk
             confirmation:
               text: "WARNING: clearance required"
-        - entity: cover.tesla_model_y_frunk
+        - entity: cover.the_hippo_frunk
           name: Frunk
           tap_action:
             action: call-service
             service: cover.open_cover
             service_data: 
-              entity_id: cover.tesla_model_y_frunk
+              entity_id: cover.the_hippo_frunk
             confirmation:
               text: "WARNING: manual close required"
 
@@ -393,20 +395,20 @@ views:
           icon: 'mdi:battery'
           line_width: 2
           entities:
-            - entity: sensor.tesla_model_y_battery
+            - entity: sensor.the_hippo_battery
               name: Battery      
         - type: entities
           entities:
-            - entity: number.tesla_model_y_charge_limit          
-            - entity: binary_sensor.tesla_model_y_charger
+            - entity: number.the_hippo_charge_limit          
+            - entity: binary_sensor.the_hippo_charger
               name: Charger
-            - entity: lock.tesla_model_y_charge_port_latch
+            - entity: lock.the_hippo_charge_port_latch
               name: Charger Lock
-            - entity: sensor.tesla_model_y_charging_rate
+            - entity: sensor.the_hippo_charging_rate
               name: Charging Rate
-            - entity: sensor.tesla_model_y_time_charge_complete
+            - entity: sensor.the_hippo_time_charge_complete
               name: Time to Target Level
-            - entity: sensor.tesla_model_y_range
+            - entity: sensor.the_hippo_range
               name: Max Range
 
     - type: 'custom:vertical-stack-in-card'
@@ -417,18 +419,20 @@ views:
           icon: 'mdi:thermometer'
           line_width: 2
           entities:
-            - entity: sensor.tesla_model_y_temperature_inside
+            - entity: sensor.the_hippo_temperature_inside
               name: Inside
-            - entity: sensor.tesla_model_y_temperature_outside
+            - entity: sensor.the_hippo_temperature_outside
               name: Outside
           line_color: blue      
         - type: entities
           entities: 
-            - entity: select.tesla_model_y_cabin_overheat_protection
+            - entity: select.the_hippo_cabin_overheat_protection
               name: Overheat Protection
         - type: 'custom:simple-thermostat'
-          entity: climate.tesla_model_y_hvac_climate_system
+          entity: climate.the_hippo_hvac_climate_system
           name: Climate
+          decimals: 0
+          step_size: 1
           layout:
             step: row
             mode:
@@ -454,17 +458,17 @@ views:
                 type: section
                 label: Heated Seats and Steering Wheel
               entities:
-                - entity: select.tesla_model_y_heated_steering_wheel
+                - entity: select.the_hippo_heated_steering_wheel
                   name: Steering Wheel
-                - entity: select.tesla_model_y_heated_seat_left
+                - entity: select.the_hippo_heated_seat_left
                   name: Driver's Seat
-                - entity: select.tesla_model_y_heated_seat_right
+                - entity: select.the_hippo_heated_seat_right
                   name: Front Passenger's Seat
-                - entity: select.tesla_model_y_heated_seat_rear_left
+                - entity: select.the_hippo_heated_seat_rear_left
                   name: Rear Driver's Side Seat
-                - entity: select.tesla_model_y_heated_seat_rear_center
+                - entity: select.the_hippo_heated_seat_rear_center
                   name: Rear Center Seat
-                - entity: select.tesla_model_y_heated_seat_rear_right
+                - entity: select.the_hippo_heated_seat_rear_right
                   name: Rear Passenger's Seat
     - type: custom:scheduler-card
       title: Home Precondition Schedule
