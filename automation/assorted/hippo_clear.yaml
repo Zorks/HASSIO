@@ -7,12 +7,12 @@ trigger:
     above: '24'
     # triggers when car is unplugged (as a backup)
   - platform: state
-    entity_id: binary_sensor.tesla_model_y_charger
+    entity_id: binary_sensor.the_hippo_charger
     from: "on"
     to: "off"
     # triggers when car is plugged in (as a backup)
   - platform: state
-    entity_id: binary_sensor.tesla_model_y_charger
+    entity_id: binary_sensor.the_hippo_charger
     from: "off"
     to: "on"
 condition:
@@ -21,14 +21,14 @@ condition:
     # Hassio automated scheduled departures only apply to Home so this should only clear those (ideally)
     # leaving after a scheduled departure means unplugging and should trigger automation before leaving home zone
   - condition: state 
-    entity_id: device_tracker.tesla_model_y_location_tracker
+    entity_id: device_tracker.the_hippo_location_tracker
     state: "home"
 action:
     # the service call only works if the vehicle is both awake and in park
   - alias: "Wait until car is awake"
-    wait_template: "{{ is_state('binary_sensor.tesla_model_y_asleep', 'off') }}"  
+    wait_template: "{{ is_state('binary_sensor.the_hippo_asleep', 'off') }}"  
   - alias: "Wait until car is in park"
-    wait_template: "{{ is_state('sensor.tesla_model_y_shift_state', 'P') }}"
+    wait_template: "{{ is_state('sensor.the_hippo_shift_state', 'P') }}"
     
   - service: tesla_custom.api
     data:
@@ -36,7 +36,7 @@ action:
       parameters:
         path_vars:
           vehicle_id: >-
-            {{ state_attr('binary_sensor.tesla_model_y_online', 'id') }}
+            {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
         enable: true
         # #same as end_off_peak_time - converts the sensor value from a full date time value to just the local time and then converts that into minutes from midnight due to the formatting that Tesla requires
         departure_time: >-
@@ -56,5 +56,5 @@ action:
       parameters:
         path_vars:
           vehicle_id: >-
-            {{ state_attr('binary_sensor.tesla_model_y_online', 'id') }}
+            {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
         percent: 80      

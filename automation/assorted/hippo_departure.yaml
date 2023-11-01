@@ -8,14 +8,14 @@ condition:
     # is the next adventure within 23 hrs? (note that no scheduled departures will default to +24 hrs to make this condition not-true)
   - "{{int(states('sensor.next_hippo_departure_hrs')) < 23 }}"
     # does not match the last set departure time (aka, is it new departure?) 
-  - "{{state_attr('binary_sensor.tesla_model_y_scheduled_departure', 'Departure timestamp' ) != as_timestamp(states('sensor.next_hippo_departure' )) }}"
+  - "{{state_attr('binary_sensor.the_hippo_scheduled_departure', 'Departure timestamp' ) != as_timestamp(states('sensor.next_hippo_departure' )) }}"
     # the service call doesn't work unless the vehicle is in park
   - condition: state 
-    entity_id: sensor.tesla_model_y_shift_state
+    entity_id: sensor.the_hippo_shift_state
     state: "P"
   # Scheduled Departure is location dependant - HASSIO automations should only effect Home location
   - condition: state 
-    entity_id: device_tracker.tesla_model_y_location_tracker
+    entity_id: device_tracker.the_hippo_location_tracker
     state: "home"
 action:
   - service: tesla_custom.api
@@ -24,7 +24,7 @@ action:
       parameters:
         path_vars:
           vehicle_id: >-
-            {{ state_attr('binary_sensor.tesla_model_y_online', 'id') }}
+            {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
         enable: true
         #same as end_off_peak_time - converts the sensor value from a full date time value to just the local time and then converts that into minutes from midnight due to the formatting that Tesla requires
         departure_time: >-
@@ -43,7 +43,7 @@ action:
       parameters:
         path_vars:
           vehicle_id: >-
-            {{ state_attr('binary_sensor.tesla_model_y_online', 'id') }}
+            {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
         percent: >-
           {{integration_entities('scheduler') 
           | select('is_state', 'on')
@@ -54,7 +54,7 @@ action:
           | regex_replace ("[^0-9]","") 
           | int(default=79)
           }}
-    # logs the Hassio set departure time to compare against the next departure time so that the automation doesn't trigger unnecessarily  
+    # logs the Hassio set departure time to compare against the next departure time 
   - service: input_datetime.set_datetime
     target:
       entity_id: input_datetime.hippo_departure

@@ -298,7 +298,7 @@ google_assistant:
     switch.computer:
       expose: true
       name: Computer
-    climate.tesla_model_y_hvac_climate_system:
+    climate.the_hippo_hvac_climate_system:
       expose: True
       name: The Hippo
       
