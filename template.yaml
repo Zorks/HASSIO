@@ -1,16 +1,48 @@
 - sensor:
-  - name: next_hippo_departure_hrs
+  - name: "Number of hours until the Hippo's next adventure starts"
     unique_id: next_hippo_departure_hrs
-    attributes:
-      friendly_name: "number of hours until the adventure starts"
     state: "{{(as_timestamp(states('sensor.next_hippo_departure' ), as_timestamp(now()) + 90000 ) -  as_timestamp(now())) / 3600 }}"
+  - name: "Downstairs Temperature"
+    unique_id: honeywell_temp 
+    unit_of_measurement: '°F'
+    state: "{{ states.climate.thermostat.attributes.current_temperature }}"
+  - name: "Humidity difference between bathroom and house"
+    unique_id: bathroom_humidity_diff
+    unit_of_measurement: '%'
+    state: "{{ states('sensor.bathroom_sensor_humidity')|float(0)|round(0) - states('sensor.home_humidity')|float(0)|round(0) | int }}"
+  - name: "Home Temperature"
+    unique_id: house_avg_temp
+    unit_of_measurement: '°F'
+    state: >-
+      {{ ((float(states('sensor.bedroom_temperature')) + float(states('sensor.home_temperature')) + float(states('sensor.living_room_temperature'))) / 3) | round(2) }}
+  - name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').0.datetime) | timestamp_custom('%a @ %H:%M') }}"
+    unique_id: temperature_0d
+    unit_of_measurement: '°F'
+    state: "{{ state_attr('weather.kbfi_daynight', 'forecast').0.temperature }}"
+  - name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').1.datetime) | timestamp_custom('%a @ %H:%M') }}"
+    unique_id: temperature_1d
+    unit_of_measurement: '°F'
+    state: "{{ state_attr('weather.kbfi_daynight', 'forecast').1.temperature }}"
+  - name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').2.datetime) | timestamp_custom('%a @ %H:%M') }}"
+    unique_id: temperature_2d
+    unit_of_measurement: '°F'
+    state: "{{ state_attr('weather.kbfi_daynight', 'forecast').2.temperature }}"
+  - name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').3.datetime) | timestamp_custom('%a @ %H:%M') }}"
+    unique_id: temperature_3d
+    unit_of_measurement: '°F'
+    state: "{{ state_attr('weather.kbfi_daynight', 'forecast').3.temperature }}"
+  - name:  "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').4.datetime) | timestamp_custom('%a @ %H:%M') }}"
+    unique_id: temperature_4d
+    unit_of_measurement: '°F'
+    state: "{{ state_attr('weather.kbfi_daynight', 'forecast').4.temperature }}"
+
+
+
 
 - trigger:
     - platform: time_pattern
       minutes: "/3"
   sensor:
-    - name: next_hippo_departure
+    - name: "Next time the Hippo is set to go on an adventure"
       unique_id: next_hippo_departure
-      attributes:
-        friendly_name: "Next time the Hippo is set to go on an adventure"
-      state: "{{integration_entities('scheduler')| select('is_state', 'on') | map('state_attr','next_trigger') | sort | first | as_datetime }}"
+      state: "{{integration_entities('scheduler')| select('is_state', 'on') | map('state_attr','next_trigger') | sort | first | as_datetime }}"   

@@ -20,15 +20,6 @@ media_tv:
     - media_player.living_room_tv
     - remote.harmony_hub
 
-temps:
-  name: Temperatures
-  entities:
-    # - sensor.home_temperature
-    # - sensor.living_room_temperature
-    # - sensor.bedroom_temperature
-    - sensor.house_avg_temp
-    - sensor.pws_temp_f
-    - sensor.honeywell_temp
 humidity:
     name: Humidity
     entities:

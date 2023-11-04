@@ -61,6 +61,7 @@ recorder:
       - sensor.time_utc
       - sensor.time
       - sensor.uptime
+      - sensor.next_hippo_departure_hrs
 history:
 logbook:
 # Enables the frontend
@@ -136,11 +137,6 @@ binary_sensor:
   # - platform: workday
     # country: US
 sensor:
-  # - platform: darksky
-    # api_key: !secret darksky_api
-    # monitored_conditions:
-      # - temperature
-    # scan_interval: '00:15:00'
   - platform: time_date
     display_options:
       - 'time'
@@ -149,41 +145,6 @@ sensor:
       - 'time_date'
       - 'time_utc'
       - 'beat'
-  - platform: template
-    sensors:
-      honeywell_temp:
-        friendly_name: "Downstairs Temperature"
-        unit_of_measurement: '°F'
-        value_template: "{{ states.climate.thermostat.attributes.current_temperature }}"
-      bathroom_humidity_diff:
-        friendly_name: "Humidity difference between bathroom and house"
-        unit_of_measurement: '%'
-        value_template: "{{ states('sensor.bathroom_sensor_humidity')|float(0)|round(0) - states('sensor.home_humidity')|float(0)|round(0) }}"
-      house_avg_temp:
-        friendly_name: "Home Temperature"
-        unit_of_measurement: '°F'
-        value_template: >-
-          {{ ((float(states.sensor.bedroom_temperature.state) + float(states.sensor.home_temperature.state) + float(states.sensor.living_room_temperature.state)) / 3) | round(2) }}
-      temperature_0d:
-        friendly_name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').0.datetime) | timestamp_custom('%a @ %H:%M') }}"
-        unit_of_measurement: '°F'
-        value_template: "{{ state_attr('weather.kbfi_daynight', 'forecast').0.temperature }}"
-      temperature_1d:
-        friendly_name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').1.datetime) | timestamp_custom('%a @ %H:%M') }}"
-        unit_of_measurement: '°F'
-        value_template: "{{ state_attr('weather.kbfi_daynight', 'forecast').1.temperature }}"
-      temperature_2d:
-        friendly_name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').2.datetime) | timestamp_custom('%a @ %H:%M') }}"
-        unit_of_measurement: '°F'
-        value_template: "{{ state_attr('weather.kbfi_daynight', 'forecast').2.temperature }}"
-      temperature_3d:
-        friendly_name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').3.datetime) | timestamp_custom('%a @ %H:%M') }}"
-        unit_of_measurement: '°F'
-        value_template: "{{ state_attr('weather.kbfi_daynight', 'forecast').3.temperature }}"
-      temperature_4d:
-        friendly_name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').4.datetime) | timestamp_custom('%a @ %H:%M') }}"
-        unit_of_measurement: '°F'
-        value_template: "{{ state_attr('weather.kbfi_daynight', 'forecast').4.temperature }}"
 # Text to speech
 tts:
   - platform: google_translate

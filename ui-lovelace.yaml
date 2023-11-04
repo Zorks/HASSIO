@@ -402,8 +402,8 @@ views:
             - entity: number.the_hippo_charge_limit          
             - entity: binary_sensor.the_hippo_charger
               name: Charger
-            - entity: lock.the_hippo_charge_port_latch
-              name: Charger Lock
+            - entity: switch.the_hippo_charger
+              name: Charging
             - entity: sensor.the_hippo_charging_rate
               name: Charging Rate
             - entity: sensor.the_hippo_time_charge_complete
@@ -488,6 +488,11 @@ views:
           icon: mdi:car-clock
           name: The Forest Hippo
           actions:
+            - service: input_number.set_value
+              icon: mdi:battery-charging-70
+              name:  70% 
+              service_data:
+                value: 70
             - service: input_number.set_value
               icon: mdi:battery-charging-80
               name:  80% 
