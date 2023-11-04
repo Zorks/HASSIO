@@ -1,4 +1,5 @@
-alias: 'clear the Hippos schedule'
+id: hippo_clear
+alias: 'clear the Hippos schedule and/or make certain it has enough charge'
   # if there's no scheduled departure within the next 24 hrs, the precondition system will turn off
 trigger:
     # triggers when the next scheduled departure updates to +24 hrs
@@ -15,46 +16,75 @@ trigger:
     entity_id: binary_sensor.the_hippo_charger
     from: "off"
     to: "on"
-condition:
-    # Is the next adventure more than 24 hrs from now? (note that no scheduled departures will default to +24 hrs to make this condition trigger too)
-  - "{{int(states('sensor.next_hippo_departure_hrs')) > 24 }}" 
-    # Hassio automated scheduled departures only apply to Home so this should only clear those (ideally)
-    # leaving after a scheduled departure means unplugging and should trigger automation before leaving home zone
-  - condition: state 
-    entity_id: device_tracker.the_hippo_location_tracker
-    state: "home"
 action:
-    # the service call only works if the vehicle is both awake and in park
-  - alias: "Wait until car is awake"
-    wait_template: "{{ is_state('binary_sensor.the_hippo_asleep', 'off') }}"  
-  - alias: "Wait until car is in park"
-    wait_template: "{{ is_state('sensor.the_hippo_shift_state', 'P') }}"
-    
-  - service: tesla_custom.api
-    data:
-      command: SCHEDULED_DEPARTURE
-      parameters:
-        path_vars:
-          vehicle_id: >-
-            {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
-        enable: true
-        # #same as end_off_peak_time - converts the sensor value from a full date time value to just the local time and then converts that into minutes from midnight due to the formatting that Tesla requires
-        departure_time: >-
-            {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
-        preconditioning_enabled: false
-        preconditioning_weekdays_only: false
-        off_peak_charging_enabled: false
-        off_peak_charging_weekdays_only: false
-        end_off_peak_time: >-
-            {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
-        # vehicle should wake up at some point and get the info?
-        wake_if_asleep: false
-    # resets charge limit to 80
-  - service: tesla_custom.api
-    data:
-      command: CHANGE_CHARGE_LIMIT
-      parameters:
-        path_vars:
-          vehicle_id: >-
-            {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
-        percent: 80      
+  - choose:
+      #  If the target SoC is 70+, the battery is low, and the next scheduled departure is more than 6 hrs away, this will ensure a minimum level of charge for unexpected trips
+    - conditions: 
+      - condition: template
+        # if the set SoC is >70
+        value_template: >-
+            {{(integration_entities('scheduler') 
+            | select('is_state', 'on')
+            | expand 
+            | sort(attribute="attributes.next_trigger")
+            | first 
+            | regex_findall("\'value\'\: \d+","")
+            | regex_replace ("[^0-9]","") 
+            | int(default=69)) > 70
+            }}
+        # if the next adventure is more than 6 hrs from now?
+      - condition: template
+        value_template: "{{int(states('sensor.next_hippo_departure_hrs')) > 6 }}"
+        # Is the next adventure less than 24 hrs from now? (if it more, skips to next set of choose sequence)
+      - "{{int(states('sensor.next_hippo_departure_hrs')) < 24 }}" 
+      # is the battery low enough to bother
+      - condition: numeric_state
+        entity_id: sensor.the_hippo_battery
+        below: 65
+      sequence: 
+        - service: script.turn_on
+          data:
+            entity_id: script.hippo_minimum_charge 
+    - conditions: 
+        # Is the next adventure more than 24 hrs from now? (note that no scheduled departures will default to +24 hrs to make this condition trigger too)
+      - "{{int(states('sensor.next_hippo_departure_hrs')) > 24 }}" 
+        # Hassio automated scheduled departures only apply to Home so this should only clear those (ideally)
+        # leaving after a scheduled departure means unplugging and should trigger automation before leaving home zone
+      - condition: state 
+        entity_id: device_tracker.the_hippo_location_tracker
+        state: "home"
+      # the service call only works if the vehicle is both awake and in park
+      sequence: 
+        - alias: "Wait until car is awake"
+          wait_template: "{{ is_state('binary_sensor.the_hippo_asleep', 'off') }}"  
+        - alias: "Wait until car is in park"
+          wait_template: "{{ is_state('sensor.the_hippo_shift_state', 'P') }}"    
+        - service: tesla_custom.api
+          data:
+            command: SCHEDULED_DEPARTURE
+            parameters:
+              path_vars:
+                vehicle_id: >-
+                  {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
+              enable: true
+              # #same as end_off_peak_time - converts the sensor value from a full date time value to just the local time and then converts that into minutes from midnight due to the formatting that Tesla requires
+              departure_time: >-
+                  {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
+              preconditioning_enabled: false
+              preconditioning_weekdays_only: false
+              off_peak_charging_enabled: false
+              off_peak_charging_weekdays_only: false
+              end_off_peak_time: >-
+                  {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
+              # vehicle should wake up at some point and get the info?
+              wake_if_asleep: false
+          # resets charge limit to 70
+        - service: tesla_custom.api
+          data:
+            command: CHANGE_CHARGE_LIMIT
+            parameters:
+              path_vars:
+                vehicle_id: >-
+                  {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
+              percent: 70      
+            

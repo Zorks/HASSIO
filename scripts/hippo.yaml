@@ -1,0 +1,23 @@
+hippo_minimum_charge:
+  alias: 'Make certain the Hippo has enough charge for unexpected trips'
+  sequence:
+    - wait_template: "{{ is_state('binary_sensor.the_hippo_charger', 'on') }}"
+      timeout: "00:10:00"
+    - service: switch.turn_on
+      target:
+        entity_id: switch.the_hippo_charger
+    - alias: "Wait until SoC is above 70, is unplugged, or scheduled charging is about to kick in"
+    # first: end automation if 70% SoC is reached
+    # second: end automation if unplugged
+    # third: end automation just before scheduled charging would starts 
+          # the 48amp wall connector charges at approximately 12.5%/hr.
+          # compares the time it would take to reach target SoC (rounded up by assuming a slower 10%/hr) to the time left before departure              
+      wait_template: >-
+        {{ 
+        (states('sensor.the_hippo_battery') | float >= 70) 
+        or (is_state('binary_sensor.the_hippo_charger', 'off' )) 
+        or  (((int(states('number.the_hippo_charge_limit')) - int(states('sensor.the_hippo_battery'))))/10) >= (int(states('sensor.next_hippo_departure_hrs')))
+        }}    
+    - service: switch.turn_off
+      target:
+        entity_id: switch.the_hippo_charger
