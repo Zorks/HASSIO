@@ -1,0 +1,27 @@
+alias: 'Open the windows if it is cooler outside than in'
+trigger:
+  # when the outside temperature drops within 3 degrees of the inside temperature, this becomes true
+  - platform: template
+    value_template: "{{ (states('sensor.kbfi_temperature')|float(0)|round(0) - (states('sensor.house_avg_temp')|float(0)|round(0) | int) + 3 ) <= 0 }}"
+  # or if the overnight temps is lower than 60 degrees 
+  - platform: template
+    value_template: "{{(state_attr('weather.home','forecast')[1].templow|round) <= 60}}"
+condition:
+  # the house has to be equal or above 70 degrees F
+  - "{{(states('sensor.house_avg_temp')|float(0)|round(0) | int) >= 70 }}"
+  # it has to be within four hours of sunset
+  - condition: sun
+    after: sunset
+    after_offset: "-04:00:00"
+  # but before its too late
+  - condition: time
+    before: "22:00:00"
+  # and we're home to actually open the windows
+  - condition: state
+    entity_id: group.presence
+    state: "home"
+action:
+  - service: notify.phones
+    data:
+      title: 'Throw open the windows'
+      message: "It is currently {{states('sensor.kbfi_temperature')|float(0)|round(0) | int}}°F outside and {{states('sensor.house_avg_temp')|float(0)|round(0) | int}}°F inside with an overnight low of {{state_attr('weather.home','forecast')[1].templow|round}}°F"
