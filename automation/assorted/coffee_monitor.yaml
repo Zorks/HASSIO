@@ -1,0 +1,10 @@
+alias: "Beat Moccamaster's timer to the punch"
+# simple automation with one mission: turn off the smart switch before the coffee-pot's 100 min timer turns off the physical switch 
+trigger:
+  - platform: state
+    entity_id: switch.coffee
+    to: 'on'
+    for: '01:25:00'
+action:
+  - service: switch.turn_off
+    entity_id: switch.coffee  
