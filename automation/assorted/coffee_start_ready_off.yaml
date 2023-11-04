@@ -1,0 +1,10 @@
+alias: "Turn off the ready switch when the Coffee starts"
+# If the coffee turns on, its no longer "ready to brew"
+trigger:
+  - platform: state
+    entity_id: switch.coffee
+    to: 'on'
+action:
+# switch "coffee set" back to off
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.coffee_set
