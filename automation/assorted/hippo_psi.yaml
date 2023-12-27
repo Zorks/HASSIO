@@ -1,0 +1,16 @@
+id: hippo_psi
+alias: 'Check the Hippo tire pressure'
+# monitor Hippo tire pressure and alert if it gets below the idea cold PSI
+trigger:
+  - platform: numeric_state
+    entity_id:
+      - sensor.the_hippo_tpms_front_right
+      - sensor.the_hippo_tpms_rear_right
+      - sensor.the_hippo_tpms_front_left
+      - sensor.the_hippo_tpms_rear_left
+    below: 38
+action:
+  - service: notify.phones
+    data:
+      title: "Below optimal tire pressure"
+      message: "one of the tires is below 38 PSI"

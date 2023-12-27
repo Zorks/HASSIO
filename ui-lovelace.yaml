@@ -470,6 +470,49 @@ views:
                   name: Rear Center Seat
                 - entity: select.the_hippo_heated_seat_rear_right
                   name: Rear Passenger's Seat
+    - type: grid
+      square: false
+      columns: 2
+      cards:
+        - type: custom:mini-graph-card
+          entities: 
+            - sensor.the_hippo_tpms_front_left
+          name: Front Left
+          hour24: true
+          line_width: 3
+          decimals: 1
+          hours_to_show: 168
+          points_per_hour: 0.25
+          
+        - type: custom:mini-graph-card
+          entities: 
+            - sensor.the_hippo_tpms_front_right
+          name: Front Right
+          hour24: true
+          line_width: 3
+          decimals: 1
+          hours_to_show: 168
+          points_per_hour: 0.25
+          
+        - type: custom:mini-graph-card
+          entities: 
+            - sensor.the_hippo_tpms_rear_left
+          name: Rear Left
+          hour24: true
+          line_width: 3
+          decimals: 1
+          hours_to_show: 168
+          points_per_hour: 0.25
+          
+        - type: custom:mini-graph-card
+          entities: 
+            - sensor.the_hippo_tpms_rear_right
+          name: Rear Right
+          hour24: true
+          line_width: 3
+          decimals: 1
+          hours_to_show: 168
+          points_per_hour: 0.25
     - type: custom:scheduler-card
       title: Home Precondition Schedule
       include:
