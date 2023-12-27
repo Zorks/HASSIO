@@ -7,8 +7,8 @@ trigger:
   - platform: template
     value_template: "{{(state_attr('weather.home','forecast')[1].templow|round) <= 60}}"
 condition:
-  # the house has to be equal or above 70 degrees F
-  - "{{(states('sensor.house_avg_temp')|float(0)|round(0) | int) >= 70 }}"
+  # the house has to be equal or above 72 degrees F
+  - "{{(states('sensor.house_avg_temp')|float(0)|round(0) | int) >= 72 }}"
   # it has to be within four hours of sunset
   - condition: sun
     after: sunset
