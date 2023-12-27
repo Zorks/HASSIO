@@ -1,7 +1,8 @@
 - sensor:
   - name: "Number of hours until the Hippo's next adventure starts"
     unique_id: next_hippo_departure_hrs
-    state: "{{(as_timestamp(states('sensor.next_hippo_departure' ), as_timestamp(now()) + 90000 ) -  as_timestamp(now())) / 3600 }}"
+    # note that if there is no future departures, it defaults to 25 hrs + 10 seconds to avoid floating point math issues
+    state: "{{(as_timestamp(states('sensor.next_hippo_departure' ), as_timestamp(now()) + 90010 ) -  as_timestamp(now())) / 3600 }}"
   - name: "Downstairs Temperature"
     unique_id: honeywell_temp 
     unit_of_measurement: '°F'

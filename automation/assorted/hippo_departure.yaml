@@ -1,3 +1,4 @@
+id: hippo_departure
 alias: 'Schedule the next Forest Hippo adventure'
 # once there's a scheduled departure within the next 24 hrs, the hippo will be told to get ready at the appropriate time
 trigger:
