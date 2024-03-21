@@ -7,16 +7,18 @@ hippo_minimum_charge:
       target:
         entity_id: switch.the_hippo_charger
     - alias: "Wait until SoC is above 70, is unplugged, or scheduled charging is about to kick in"
-    # first: end automation if 70% SoC is reached
-    # second: end automation if unplugged
-    # third: end automation just before scheduled charging would starts 
+    # first: end script if 70% SoC is reached
+    # second: end script if unplugged
+    # third: end script just before scheduled charging would starts 
           # the 48amp wall connector charges at approximately 12.5%/hr.
           # compares the time it would take to reach target SoC (rounded up by assuming a slower 10%/hr) to the time left before departure              
+    # fourth: end script if no charging has been detected for 20 min (timeout provision to kill script) 
       wait_template: >-
         {{ 
         (states('sensor.the_hippo_battery') | float >= 70) 
         or (is_state('binary_sensor.the_hippo_charger', 'off' )) 
         or  (((int(states('number.the_hippo_charge_limit')) - int(states('sensor.the_hippo_battery'))))/10) >= (int(states('sensor.next_hippo_departure_hrs')))
+        or  (not is_state('binary_sensor.the_hippo_charging', 'on')) and (now() > states.binary_sensor.the_hippo_charging.last_changed + timedelta(minutes=20))
         }}    
     - service: switch.turn_off
       target:

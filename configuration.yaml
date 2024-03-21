@@ -144,7 +144,6 @@ sensor:
       - 'date_time'
       - 'time_date'
       - 'time_utc'
-      - 'beat'
 # Text to speech
 tts:
   - platform: google_translate
