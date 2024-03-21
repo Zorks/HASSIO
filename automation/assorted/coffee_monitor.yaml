@@ -1,10 +1,15 @@
 alias: "Beat Moccamaster's timer to the punch"
 # simple automation with one mission: turn off the smart switch before the coffee-pot's 100 min timer turns off the physical switch 
 trigger:
+  # TP-Link instability means the switch is flipping from 'on' to 'unavailable' and back repeatedly, which would trigger multiple times an hour if the 'from' wasn't there
   - platform: state
     entity_id: switch.coffee
+    from: 'off'
     to: 'on'
-    for: '01:25:00'
-action:
+action: 
+  # should (harmlessly) fire and end if the switch is manually turned off 
+  # otherwise will turn off power just before the built in timer triggers
+  - wait_template: "{{ is_state('switch.coffee', 'off') }}"
+    timeout: "01:25:00"
   - service: switch.turn_off
     entity_id: switch.coffee  
