@@ -20,7 +20,7 @@
 system_health:
 # Show links to resources in log and frontend
 #introduction: 
-
+my:
 lovelace:
   mode: yaml
   resources:
