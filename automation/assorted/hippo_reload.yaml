@@ -1,0 +1,23 @@
+#If the car is asleep when the system is loaded, some features may not work until it is reloaded
+id: hippo_reload
+alias: 'reload the Tesla integration if the Hippo was asleep during a reboot'
+trigger:
+  # If Hassio was rebooted while the Hippo was asleep, the last updated time be the start of Unix time adjusted for our time zone (so sometime Dec 31, 1969)
+  - platform: template
+  # converts to Unix timestamps and sees if it was before or after the turn of the 21st century
+    value_template: "{{as_timestamp(states('sensor.the_hippo_data_last_update_time')) < 946713600}}"
+action:
+   # wakes up the car by forcing a data update
+  - service: button.press
+    target:
+      entity_id: button.the_hippo_force_data_update
+  # Waits until the Hippo is confirmed awake 
+  - wait_template: "{{is_state('binary_sensor.the_hippo_asleep', 'off' ) }}"
+    timeout: "00:30:00" 
+    continue_on_timeout: false # no point to continue if the car is asleep
+  # reloads the integration in question
+  - service: homeassistant.reload_config_entry
+    data:
+      # yes, it is supposed to be "entry" not "entity". ID is of the Tesla Custom Integration which is found in .storage/core.config_entries
+      entry_id: 770d25d81dbcd7adcf532c404d8cc324
+      
