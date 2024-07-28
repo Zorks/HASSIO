@@ -43,3 +43,4 @@ custom_components/
 www/community/
 blueprints/
 image/
+*.pem
