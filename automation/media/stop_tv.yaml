@@ -1,37 +1,19 @@
-alias: "Turn off TV"
+alias: 'Stop sound system when living room tv turns off'
 trigger:
-  - platform: state
-    entity_id: media_player.living_room_tv
-    to: "unavailable"
-    for:
-      minutes: 3
-  - platform: state
-    entity_id: media_player.living_room_tv
-    to: "off"
-    for:
-      minutes: 10
-  - platform: state
-    entity_id: media_player.living_room_tv
-    to: "idle"
-    for:
-      minutes: 30
+  platform: state
+  entity_id: remote.smart_tv_pro
+  # from: 'off'
+  to: 'off'
 condition:
-  - condition: and
-    conditions:
-    - condition: state
-      entity_id: remote.harmony_hub
-      state: "on"
-    - condition: not
-      conditions:
-      - condition: state
-        entity_id: media_player.plex_living_room_tv
-        state: "playing"
-# "paused" seems to be the natural state of this media player so it won't turn off if this is enabled
-      # - condition: state
-        # entity_id: media_player.plex_living_room_tv
-        # state: "paused"
+# # Harmony Hub state doesn't consistently update
+  # - condition: state
+    # entity_id: remote.harmony_hub
+    # state: 'on'
 action:
-  - service: remote.turn_off
+  service: remote.send_command
+  target:
     entity_id: remote.harmony_hub
-  # - service: script.turn_off
-    # entity_id: script.tv_stretch_command
+  data:
+    command:
+      - PowerToggle
+    device: 40193695

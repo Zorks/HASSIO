@@ -271,10 +271,51 @@ switch:
     host: !secret wol_host
     name: Computer
 
-###########################
-#####     Vacuum     ######
-###########################   
-
+##################################
+##### Unversal Media Player ######
+################################## 
+  
+media_player:
+  - platform: universal
+    name: living_room_tv
+    unique_id: living_room_tv
+    device_class: tv
+    children:
+      - media_player.smart_tv_pro_2
+      - media_player.smart_tv_pro
+      - remote.harmony_hub
+    browse_media_entity: media_player.smart_tv_pro
+    commands:
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.smart_tv_pro_2
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.smart_tv_pro_2
+      volume_up:
+        service: remote.send_command
+        target:
+          entity_id: remote.harmony_hub
+        data:
+          device: 40193695
+          command: VolumeUp
+      volume_down:
+        service: remote.send_command
+        target:
+          entity_id: remote.harmony_hub
+        data:
+          command:
+          device: 40193695
+          command: VolumeDown
+      volume_mute:
+        service: remote.send_command
+        target:
+          entity_id: remote.harmony_hub
+        data:
+          device: 40193695
+          command: Mute
 
 ###########################
 ###### Custom Panels ######

@@ -36,7 +36,7 @@ views:
                 yellow: 45
                 red: 0          
       - type: weather-forecast
-        entity: weather.kbfi_hourly
+        entity: weather.kbfi_daynight
       - type: vertical-stack
         cards:
         - type: tile
@@ -557,101 +557,297 @@ views:
 
   - title: Media Players
     icon: mdi:television
-    cards:
-      - type: 'custom:vertical-stack-in-card'
+    cards:       
+      - type: 'custom:vertical-stack-in-card' #Media Player
         cards:
         - type: conditional
           conditions:
-            - entity: media_player.living_room_tv
-              state: "playing"
+            - entity: media_player.living_room_tv_plex
+              state: 
+                - playing
+                - paused
           card:
             type: custom:mini-media-player
-            entity: media_player.plex_living_room_tv
+            entity: media_player.living_room_tv_plex
             artwork: full-cover
             name: Plex
             icon: mdi:plex
+            tap_action: false
+            group: true
             hide: 
               volume: true
               power: true  
               controls: true
               name: true
-        - type: conditional
-          conditions:
-            - entity: media_player.living_room_tv
-              state: "paused"
-          card:
-            type: custom:mini-media-player
-            entity: media_player.living_room_tv
-            artwork: full-cover
-            name: Plex
-            icon: mdi:plex
-            hide: 
-              volume: true
-              power: true  
-              controls: true
-              name: true
+              progress: true
+              icon: true
         - type: custom:mini-media-player
           entity: media_player.living_room_tv
-          artwork: full-cover
-          name: Plex
-          icon: mdi:plex
-          hide: 
-            volume: true
-            power: true 
-            progress: true
-        - type: horizontal-stack
-          cards:
-          - type: 'custom:vertical-stack-in-card'
-            cards:
-            - type: button
-              name: System Power
-              icon: mdi:power
-              state_color: false
-              entity: remote.harmony_hub
-              tap_action:  
-                action: toggle
-            - type: button
-              name: "Mute / Unmute"
-              icon: mdi:volume-off
-              state_color: false
-              entity: remote.harmony_hub
-              tap_action:  
-                action: call-service
-                service: remote.send_command
-                service_data:
-                  entity_id: remote.harmony_hub
-                  device: 40193695
-                  command: Mute
-          - type: 'custom:vertical-stack-in-card'
-            cards:
-            - type: button
-              name: Volume Up
-              state_color: false
-              icon: mdi:volume-high
-              entity: remote.harmony_hub
-              tap_action:  
-                action: call-service
-                service: remote.send_command
-                service_data:
-                  entity_id: remote.harmony_hub
-                  device: 40193695
-                  command: VolumeUp
-            - type: button
-              name: Volume Down
-              state_color: false
-              icon: mdi:volume-low
-              entity: remote.harmony_hub
-              tap_action:  
-                action: call-service
-                service: remote.send_command
-                service_data:
-                  entity_id: remote.harmony_hub
-                  device: 40193695
-                  command: VolumeDown
+          artwork: cover
+          name: Living Room TV
+          group: true
+          scale: 1.5
+          volume_stateless: true
+          hide:
+            jump: false
+            icon: true
         - type: sensor
           name: Current Plex Streams
           entity: sensor.plex_huginn
 
+      - type: vertical-stack #Remote 
+        cards:
+          - square: true
+            columns: 3
+            type: grid
+            cards:
+              - type: button
+                show_icon: false
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+              - type: button
+                icon: mdi:arrow-up-bold
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: DPAD_UP
+                  target:
+                    entity_id: remote.smart_tv_pro
+                hold_action:
+                  action: none
+              - type: button
+                show_icon: false
+                tap_action:
+                  action: none
+                hold_action:
+                  action: none
+              - type: button
+                icon: mdi:arrow-left-bold
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: DPAD_LEFT
+                  target:
+                    entity_id: remote.smart_tv_pro
+                hold_action:
+                  action: none
+              - type: button
+                icon: mdi:circle
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: DPAD_CENTER
+                  target:
+                    entity_id: remote.smart_tv_pro
+                hold_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: DPAD_CENTER
+                    hold_secs: 0.5
+                  target:
+                    entity_id: remote.smart_tv_pro
+              - type: button
+                icon: mdi:arrow-right-bold
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: DPAD_RIGHT
+                  target:
+                    entity_id: remote.smart_tv_pro
+                hold_action:
+                  action: none
+              - type: button
+                icon: mdi:arrow-left
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: BACK
+                  target:
+                    entity_id: remote.smart_tv_pro
+                hold_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: BACK
+                    hold_secs: 0.5
+                  target:
+                    entity_id: remote.smart_tv_pro
+              - type: button
+                icon: mdi:arrow-down-bold
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: DPAD_DOWN
+                  target:
+                    entity_id: remote.smart_tv_pro
+                hold_action:
+                  action: none
+              - type: button
+                icon: mdi:home-outline
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: HOME
+                  target:
+                    entity_id: remote.smart_tv_pro
+                hold_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: HOME
+                    hold_secs: 0.5
+                  target:
+                    entity_id: remote.smart_tv_pro
+          - square: false #media controls
+            columns: 3
+            type: grid
+            cards:
+              - type: button
+                icon: mdi:skip-previous
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: MEDIA_PREVIOUS
+                  target:
+                    entity_id: remote.smart_tv_pro
+                hold_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: MEDIA_REWIND
+                  target:
+                    entity_id: remote.smart_tv_pro
+              - type: button
+                icon: mdi:play-pause
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: MEDIA_PLAY_PAUSE
+                  target:
+                    entity_id: remote.smart_tv_pro
+                hold_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: MEDIA_STOP
+                  target:
+                    entity_id: remote.smart_tv_pro
+              - type: button
+                icon: mdi:skip-next
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: MEDIA_NEXT
+                  target:
+                    entity_id: remote.smart_tv_pro
+                hold_action:
+                  action: call-service
+                  service: remote.smart_tv_pro
+                  data:
+                    command: MEDIA_FAST_FORWARD
+                  target:
+                    entity_id: remote.smart_tv_pro
+              - type: button
+                icon: mdi:volume-off
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: MUTE
+                  target:
+                    entity_id: media_player.living_room_tv
+                hold_action:
+                  action: none
+              - type: button
+                icon: mdi:volume-medium
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: VOLUME_DOWN
+                  target:
+                    entity_id: media_player.living_room_tv
+                hold_action:
+                  action: none
+              - type: button
+                icon: mdi:volume-high
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  data:
+                    command: VOLUME_UP
+                  target:
+                    entity_id: media_player.living_room_tv
+                hold_action:
+                  action: none
+
+          - square: false #Media buttons
+            columns: 2
+            type: grid
+            cards:
+              - type: button #plex
+                icon: mdi:plex
+                tap_action:
+                  action: call-service
+                  service: media_player.play_media
+                  data:
+                    media_content_type: app
+                    media_content_id: com.plexapp.android
+                  target:
+                    entity_id: media_player.living_room_tv
+                hold_action:
+                  action: none
+              - type: button #youtube
+                icon: mdi:youtube
+                tap_action:
+                  action: call-service
+                  service: media_player.play_media
+                  data:
+                    media_content_type: app
+                    media_content_id: com.google.android.youtube.tv
+                  target:
+                    entity_id: media_player.living_room_tv
+                hold_action:
+                  action: none
+              # - type: picture
+                # image: >-
+                  # https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Amazon_Prime_Video_logo.svg/450px-Amazon_Prime_Video_logo.svg.png
+                # tap_action:
+                  # action: call-service
+                  # service: remote.turn_on
+                  # data:
+                    # activity: com.amazon.amazonvideo.livingroom
+                  # target:
+                    # entity_id: remote.smart_tv_pro
+                # hold_action:
+                  # action: none
+              # - type: picture
+                image: >-
+                  https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Disney%2B_logo.svg/440px-Disney%2B_logo.svg.png
+                tap_action:
+                  action: call-service
+                  service: remote.turn_on
+                  data:
+                    activity: com.disney.disneyplus
+                  target:
+                    entity_id: remote.smart_tv_pro
+                hold_action:
+                  action: none
+ 
+ 
       - type: horizontal-stack
         cards:
         - type: custom:mini-media-player
@@ -661,7 +857,7 @@ views:
             power: true
         - type: custom:mini-media-player
           artwork: cover
-          entity: media_player.tv_and_speakers
+          entity: media_player.all_but_bedroom
           hide:
             power: true
       - type: vertical-stack

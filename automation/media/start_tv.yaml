@@ -1,12 +1,19 @@
-alias: 'Start TV when chromecast starts'
+alias: 'Start sound system when living room tv starts'
 trigger:
   platform: state
-  entity_id: media_player.living_room_tv
+  entity_id: remote.smart_tv_pro
   # from: 'off'
-  to: 'playing'
+  to: 'on'
 condition:
-  - condition: state
-    entity_id: remote.harmony_hub
-    state: 'off'
+## Harmony Hub state doesn't consistently update
+  # - condition: state
+    # entity_id: remote.harmony_hub
+    # state: 'off'
 action:
-  service: script.tv_start
+  service: remote.send_command
+  target:
+    entity_id: remote.harmony_hub
+  data:
+    command:
+      - PowerToggle
+    device: 40193695
