@@ -11,5 +11,6 @@ action:
   # otherwise will turn off power just before the built in timer triggers
   - wait_template: "{{ is_state('switch.coffee', 'off') }}"
     timeout: "01:25:00"
+    continue_on_timeout: true
   - service: switch.turn_off
     entity_id: switch.coffee  
