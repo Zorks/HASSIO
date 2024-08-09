@@ -2,7 +2,7 @@ alias: 'Stop sound system when living room tv turns off'
 trigger:
   platform: state
   entity_id: remote.smart_tv_pro
-  # from: 'off'
+  from: 'on'
   to: 'off'
 condition:
 # # Harmony Hub state doesn't consistently update
