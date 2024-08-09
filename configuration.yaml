@@ -50,6 +50,7 @@ lovelace:
 recorder:
   db_url: !secret db_url
   purge_keep_days: 30
+  commit_interval: 30 # 30 seconds to reduce SD card wear
   exclude:
 #    domains:
     entities:
@@ -306,7 +307,6 @@ media_player:
         target:
           entity_id: remote.harmony_hub
         data:
-          command:
           device: 40193695
           command: VolumeDown
       volume_mute:
