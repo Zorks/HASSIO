@@ -6,8 +6,9 @@ trigger:
     # checks for a new departure every 15 minutes
     minutes: "/15"
 condition:
-    # is the next adventure within 23 hrs? (note that no scheduled departures will default to +24 hrs to make this condition not-true)
-  - "{{int(states('sensor.next_hippo_departure_hrs')) < 23 }}"
+    # is the next adventure within 14 hrs? (note that no scheduled departures will default to +24 hrs to make this condition not-true)
+    # the official tesla schedule departure system will ignore the end time if it is >18 hrs in the future
+  - "{{int(states('sensor.next_hippo_departure_hrs')) < 14 }}"
     # does not match the last set departure time (aka, is it new departure?) 
   - "{{state_attr('binary_sensor.the_hippo_scheduled_departure', 'Departure timestamp' ) != as_timestamp(states('sensor.next_hippo_departure' )) }}"
     # the service call doesn't work unless the vehicle is in park
@@ -19,6 +20,32 @@ condition:
     entity_id: device_tracker.the_hippo_location_tracker
     state: "home"
 action:
+  # sets state of charge to chosen percentage for next departure
+  - service: tesla_custom.api
+    data:
+      command: CHANGE_CHARGE_LIMIT
+      parameters:
+        path_vars:
+          vehicle_id: >-
+            {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
+        wake_if_asleep: true
+        percent: >-
+          {{integration_entities('scheduler') 
+          | select('is_state', 'on')
+          | expand 
+          | sort(attribute="attributes.next_trigger")
+          | first 
+          | regex_findall("\'value\'\: \d+","")
+          | regex_replace ("[^0-9]","") 
+          | int(default=69)
+          }}
+# wait briefly for it to start charging to the new limit
+  - delay: '00:00:30'
+# turn off charger
+  - service: switch.turn_off
+    entity_id: switch.the_hippo_charger
+# set scheduled departure
+  # may charge briefly afterwards to estimate completion time needed.
   - service: tesla_custom.api
     data:
       command: SCHEDULED_DEPARTURE
@@ -48,26 +75,8 @@ action:
         # same logic as departure_time
         end_off_peak_time: >-
             {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
-        wake_if_asleep: true
-  # sets state of charge to chosen percentage for next departure
-  - service: tesla_custom.api
-    data:
-      command: CHANGE_CHARGE_LIMIT
-      parameters:
-        path_vars:
-          vehicle_id: >-
-            {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
-        percent: >-
-          {{integration_entities('scheduler') 
-          | select('is_state', 'on')
-          | expand 
-          | sort(attribute="attributes.next_trigger")
-          | first 
-          | regex_findall("\'value\'\: \d+","")
-          | regex_replace ("[^0-9]","") 
-          | int(default=69)
-          }}
-    # logs the Hassio set departure time to compare against the next departure time 
+
+# logs the Hassio set departure time to compare against the next departure time 
   - service: input_datetime.set_datetime
     target:
       entity_id: input_datetime.hippo_departure
