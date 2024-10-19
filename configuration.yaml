@@ -24,8 +24,6 @@ my:
 lovelace:
   mode: yaml
   resources:
-    - url: /hacsfiles/simple-thermostat/simple-thermostat.js
-      type: module
     - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
       type: module
     - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
@@ -44,7 +42,9 @@ lovelace:
       type: module 
     - url: /hacsfiles/scheduler-card/scheduler-card.js
       type: module
-                
+    - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
+      type: module
+                                
 # If an item is excluded here, it will not show up on history or logbook pages
 # history_graph won't work if the item is excluded here
 recorder:
@@ -64,7 +64,13 @@ recorder:
       - sensor.uptime
       - sensor.next_hippo_departure_hrs
 history:
+  exclude:
+    entity_globs:
+    - sensor.*_last_seen
 logbook:
+  exclude:
+    entity_globs:
+    - sensor.*_last_seen
 # Enables the frontend
 frontend:
   themes: !include_dir_merge_named themes
@@ -105,21 +111,65 @@ sun:
     # api_key: !secret darksky_api
     # mode: daily
 
-###############################
-##### Push Notificatoins ######
-###############################
-notify:
-  - platform: html5
-    name: notify
-    vapid_pub_key: !secret vapid_pub_key
-    vapid_prv_key: !secret vapid_prv_key
-    vapid_email: !secret email   
+###########################################
+##### Push Notifications and Alerts  ######
+###########################################
+notify: 
   - platform: group
-    name: phones
+    name: 'all_devices'
     services:
-      - service: mobile_app_trevor_s_s21_app
-#      - service: mobile_app_emily
-
+      - service: mobile_app_s24u_trevor
+      - service: mobile_app_s24u_emily
+      - service: mobile_app_emily_s_tablet
+  - platform: group
+    name: 'phones'
+    services:
+      - service: mobile_app_s24u_trevor
+alert:
+  leak_detection_dishwasher:
+    name: 'Leak Detected'
+    message: 'The dishwasher might be leaking'
+    done_message: 'Water no longer detected'
+    entity_id: binary_sensor.dishwasher_water_leak_sensor_water_leak_detected
+    state: "on"
+    repeat: 1
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - all_devices
+  leak_detection_hot_water_heater:
+    name: 'Leak Detected'
+    message: 'The hot water tank might be leaking'
+    done_message: 'Water no longer detected'
+    entity_id: binary_sensor.hot_water_heater_water_leak_sensor_water_leak_detected
+    state: "on"
+    repeat: 1
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - all_devices
+  leak_detection_washer:
+    name: 'Leak Detected'
+    message: 'The laundry washer might be leaking'
+    done_message: 'Water no longer detected'
+    entity_id: binary_sensor.washer_water_leak_sensor_water_leak_detected
+    state: "on"
+    repeat: 1
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - all_devices
+  garage_circuit:
+    name: 'Possible Power Loss'
+    message: 'Garage Freezer is no longer drawing power'
+    done_message: 'Power has been restored'
+    entity_id: binary_sensor.garage_power_off
+    state: "on"
+    repeat: 15
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - all_devices
 ####################
 ##### Sensors ######
 ####################
@@ -219,7 +269,7 @@ ecobee:
 ################################## 
 google_assistant: 
   project_id: !secret ga_project_id
-  service_account: !include service_account.json
+  service_account: !include SERVICE_ACCOUNT.JSON
   report_state: true
   expose_by_default: false
   entity_config:
@@ -262,7 +312,7 @@ google_assistant:
     climate.the_hippo_hvac_climate_system:
       expose: True
       name: The Hippo
-      
+        
 ###########################
 #####     Switch     ######
 ###########################   

@@ -6,6 +6,6 @@
     input:
       time: '17:00:00'
       actions:
-      - service: notify.mobile_app_s21
+      - service: notify.mobile_app_s24u_trevor
         data:
           message: Low Battery {{sensors}}

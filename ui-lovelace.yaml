@@ -8,7 +8,71 @@ views:
   - title: Status
     icon: mdi:home
     cards:      
-      - type: vertical-stack
+      - type: conditional #water leak alerts
+        conditions:
+        - condition: or
+          conditions:
+          - condition: state
+            entity: alert.leak_detection_dishwasher
+            state: "on"
+          - condition: state
+            entity: alert.leak_detection_hot_water_heater
+            state: "on"
+          - condition: state
+            entity: alert.leak_detection_washer
+            state: "on"
+        card:
+          type: glance
+          entities:
+            - entity: binary_sensor.dishwasher_water_leak_sensor_water_leak_detected
+              name: Dishwasher
+            - entity: binary_sensor.hot_water_heater_water_leak_sensor_water_leak_detected
+              name: Hot Water Tank
+            - entity: binary_sensor.washer_water_leak_sensor_water_leak_detected
+              name: Washer
+      - type: 'custom:auto-entities'  #zwave battery status
+        card:
+          type: entities
+          title: AWOL Z-Wave Devices 
+          show_header_toggle: false
+        unique: true
+        filter:
+          template: |
+            {% for s in states.sensor -%}
+              {%- set value = s.entity_id -%}
+              {%- set pattern = '_last_seen' -%}
+              {%- set res = value | regex_findall_index(pattern) if value is search(pattern) else "" -%}
+              {%- if res == pattern -%}
+                {%- set lastseen = s.state | as_timestamp | int -%}
+                {%- set yesterday = (utcnow() | as_timestamp | int) - 86400  -%}
+                   {%- if lastseen <= yesterday -%}
+                    {%- set name = s.name.replace(' Last seen', '') -%}
+                    {%- set tapname = value.replace('_last_seen', '_battery_level') -%} 
+                   {%- if states(tapname) != 'unknown' -%}
+                     {{-
+                      {
+                        'entity': tapname,
+                        'name': name, 
+                        
+                      }
+                    -}},  
+                  {%- endif -%}
+                 {%- endif -%}
+              {%- endif -%}
+            {%- endfor %}
+        sort: 
+          method: last_changed
+          numeric: false
+          reverse: false
+        else:
+          type: conditional
+          conditions:
+            - condition: screen 
+              media_query: "(min-width: 128000px)"
+          card:
+            type: markdown
+            content: All z-wave devices have been seen in the last day, Mr Big Screen.
+      - type: vertical-stack #location & lock
         cards:
         - type: entity-filter
           entities: !include devices.yaml
@@ -35,9 +99,10 @@ views:
                 green: 85
                 yellow: 45
                 red: 0          
-      - type: weather-forecast
+
+      - type: weather-forecast #weather
         entity: weather.kbfi_daynight
-      - type: vertical-stack
+      - type: vertical-stack # lights
         cards:
         - type: tile
           entity: light.all_lights
@@ -53,7 +118,54 @@ views:
               entity: switch.office_plants
               icon: mdi:sprout
               icon_height: 100px           
-      - type: 'custom:paper-buttons-row'
+    
+      - type: 'custom:vertical-stack-in-card' # Home temps
+        cards:
+          - type: 'custom:mini-graph-card'
+            title: Temperatures
+            hours_to_show: 12
+            points_per_hour: 1
+            hour24: true
+            line_width: 2
+            decimals: 0
+            entities:
+              - sensor.house_avg_temp
+              - sensor.honeywell_temp
+
+          - type: horizontal-stack
+            cards:
+              - type: thermostat
+                entity: climate.home
+                name: Furnace
+                decimals: 0
+                step_size: 1            
+              - type: thermostat
+                entity: climate.window_a_c
+                name: Air Conditioner
+                decimals: 0
+                step_size: 1
+      - type: 'custom:vertical-stack-in-card' #humidity
+        cards:
+          - type: 'custom:mini-graph-card'
+            title: Humidity
+            hours_to_show: 12
+            points_per_hour: 1
+            line_width: 2
+            hour24: true
+            decimals: 0
+            entities:
+              - sensor.bathroom_sensor_humidity
+              - sensor.home_humidity
+          - type: horizontal-stack
+            cards:
+            - type: button
+              entity: switch.bathroom_fan
+              tap_action:  
+                action: toggle  
+            - type: gauge
+              entity: sensor.bathroom_humidity_diff
+              name: Humidity Diff.             
+      - type: 'custom:paper-buttons-row' #coffee
         base_config:
           style:
             button:
@@ -95,85 +207,8 @@ views:
               "on": "mdi:lamps"
             state_text:
               "off": "Just One Lamp"
-              "on": "Both Lamps"              
-      - type: 'custom:vertical-stack-in-card'
-        cards:
-          - type: 'custom:mini-graph-card'
-            title: Temperatures
-            hours_to_show: 12
-            points_per_hour: 1
-            hour24: true
-            line_width: 2
-            decimals: 0
-            entities:
-              - sensor.house_avg_temp
-              - sensor.honeywell_temp
-
-          - type: horizontal-stack
-            cards:
-              - type: 'custom:simple-thermostat'
-                entity: climate.home
-                name: Upstairs
-                decimals: 0
-                step_size: 1
-                fallback: '00'
-                label:
-                  temperature: Temp
-                control:
-                  hvac:
-                    cool:
-                      include: false
-                    heat:
-                      include: false
-                    'off':
-                      include: false                
-              - type: 'custom:simple-thermostat'
-                entity: climate.thermostat
-                name: Basement
-                decimals: 0
-                step_size: 1
-                fallback: '00'
-                label: 
-                  temperature: Temp
-                control:
-                  hvac:
-                    cool:
-                      include: false
-                    heat:
-                      include: false
-                    'off':
-                      include: false
-
-          - type: horizontal-stack
-            cards:
-            - type: thermostat
-              entity: climate.window_a_c
-              name: Air Conditioner
-              decimals: 0
-              step_size: 1
-
-      - type: 'custom:vertical-stack-in-card'
-        cards:
-          - type: 'custom:mini-graph-card'
-            title: Humidity
-            hours_to_show: 12
-            points_per_hour: 1
-            line_width: 2
-            hour24: true
-            decimals: 0
-            entities:
-              - sensor.bathroom_sensor_humidity
-              - sensor.home_humidity
-          - type: horizontal-stack
-            cards:
-            - type: button
-              entity: switch.bathroom_fan
-              tap_action:  
-                action: toggle  
-            - type: gauge
-              entity: sensor.bathroom_humidity_diff
-              name: Humidity Diff.             
-      - type: vertical-stack
+              "on": "Both Lamps"          
+      - type: vertical-stack 
         cards:
         - type: horizontal-stack
           cards:
@@ -351,24 +386,18 @@ views:
         entities:
           - entity: sensor.the_hippo_odometer
             name: Miles Driven
-    - type: 'custom:paper-buttons-row'
-      base_config:
-        style:
-          button:
-            background-color: var(--table-row-alternative-background-color)    
-            width: 100%
-            height: 100%
-            margin: var(--horizontal-stack-card-margin,var(--stack-card-margin,0 4px))
-            border-radius: var(--ha-card-border-radius,12px);
-          icon:
-            --mdc-icon-size: 80px 
-        layout: icon_name
-      buttons:
-        - entity: switch.the_hippo_sentry_mode
+    - type: grid
+      square: false
+      columns: 4
+      cards:
+        - type: button
+          entity: switch.the_hippo_sentry_mode
           name: Sentry Mode
-        - entity: lock.the_hippo_doors
+        - type: button 
+          entity: lock.the_hippo_doors
           name: Doors
-        - entity: cover.the_hippo_trunk
+        - type: button 
+          entity: cover.the_hippo_trunk
           name: Trunk
           tap_action:
             action: call-service
@@ -377,7 +406,8 @@ views:
               entity_id: cover.the_hippo_trunk
             confirmation:
               text: "WARNING: clearance required"
-        - entity: cover.the_hippo_frunk
+        - type: button
+          entity: cover.the_hippo_frunk
           name: Frunk
           tap_action:
             action: call-service
@@ -386,7 +416,6 @@ views:
               entity_id: cover.the_hippo_frunk
             confirmation:
               text: "WARNING: manual close required"
-
     - type: 'custom:vertical-stack-in-card'
       cards:
         - type: custom:mini-graph-card
@@ -558,7 +587,7 @@ views:
   - title: Media Players
     icon: mdi:television
     cards:       
-      - type: 'custom:vertical-stack-in-card' #Media Player
+      - type: 'custom:vertical-stack-in-card' #Media Player Living Room
         cards:
         - type: conditional # Shows artwork if we're watching Plex
           conditions:
@@ -882,38 +911,38 @@ views:
           name: Current Plex Streams
           entity: sensor.plex_huginn
 
-      - type: horizontal-stack
-        cards:
-        - type: custom:mini-media-player
-          artwork: cover
-          entity: media_player.home_group
-          hide:
-            power: true
-        - type: custom:mini-media-player
-          artwork: cover
-          entity: media_player.all_but_bedroom
-          hide:
-            power: true
-      - type: vertical-stack
-        cards:      
-        - type: custom:mini-media-player
-          entity: media_player.bedroom_speaker
-          artwork: cover
-          hide:
-            power: true
-        - type: custom:mini-media-player
-          entity: media_player.kitchen_speaker
-          artwork: cover
-          hide:
-            power: true
-        - type: custom:mini-media-player
-          entity: media_player.bathroom_speaker
-          artwork: cover
-          hide:
-            power: true
+      # - type: horizontal-stack
+        # cards:
+        # - type: custom:mini-media-player
+          # artwork: cover
+          # entity: media_player.home_group
+          # hide:
+            # power: true
+        # - type: custom:mini-media-player
+          # artwork: cover
+          # entity: media_player.all_but_bedroom
+          # hide:
+            # power: true
+      # - type: vertical-stack
+        # cards:      
+        # - type: custom:mini-media-player
+          # entity: media_player.bedroom_speaker
+          # artwork: cover
+          # hide:
+            # power: true
+        # - type: custom:mini-media-player
+          # entity: media_player.kitchen_speaker
+          # artwork: cover
+          # hide:
+            # power: true
+        # - type: custom:mini-media-player
+          # entity: media_player.bathroom_speaker
+          # artwork: cover
+          # hide:
+            # power: true
 
-#Front Door Code            
-  - title: 'front_door Codes and Configuration'
+         
+  - title: 'front_door Codes and Configuration' #Front Door Code   
     path: keypad-front_door
     icon: 'mdi:lock-smart'
     panel: false

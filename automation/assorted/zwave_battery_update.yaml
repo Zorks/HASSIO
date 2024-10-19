@@ -1,0 +1,28 @@
+alias: Update Z-Wave battery levels
+# runs every third night requesting a battery update the next time your battery powered zwave-js devices wake up.
+trigger:
+- platform: time
+  at: 03:00:00
+#calculates the number of days since Unix Epoch and checks whether it's divisible by three
+condition:  "{{ (as_timestamp(now()) / 86400) | int % 3 == 1 }}"
+action:
+- service: zwave_js.refresh_value
+  data:
+    entity_id: >
+      {%- set find_integration = 'zwave_js' %} 
+      {% set entities = states | map(attribute='entity_id') | list %}
+      {%- set ns = namespace(entities = []) %}
+      {%- for entity_id in entities %}
+        {% if 'battery' in entity_id %}
+          {%- set ids = device_attr(entity_id, 'identifiers') %}
+          {%- if ids %}
+            {%- set ids = ids | list | first %}
+            {%- if ids and ids | length == 2 and ids[0] == find_integration %}
+              {%- set ns.entities = ns.entities + [ entity_id ] %}
+            {%- endif %}
+          {%- endif %}
+        {%- endif %}
+      {%- endfor %}
+      {{ ns.entities }}
+    refresh_all_values: true
+mode: single

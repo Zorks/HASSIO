@@ -1,6 +1,9 @@
 relock_front_door:
   alias: 'Relock Front Door'
   sequence:
+    - wait_template: "{{ is_state('binary_sensor.front_door_sensor_window_door_is_open', 'off') }}"
+      timeout: "00:05:00"
+    - delay: "00:00:45" #so it doesn't lock as soon as the door closes 
     - service: lock.lock
       data:
         entity_id: lock.lock_front_door_lock
