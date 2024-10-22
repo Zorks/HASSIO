@@ -64,9 +64,7 @@ recorder:
       - sensor.uptime
       - sensor.next_hippo_departure_hrs
 history:
-  exclude:
-    entity_globs:
-    - sensor.*_last_seen
+
 logbook:
   exclude:
     entity_globs:
@@ -240,6 +238,9 @@ input_boolean:
   one_two_lamps:
     name: "Sunrise Alarm Lamp Number"
     icon: mdi:lamps
+  ac_or_furnace:
+    name: "AC or Furnace operational"
+    icon: mdi:sun-snowflake-variant
 ###########################
 ##### Device Tracker ######
 ###########################
@@ -321,7 +322,25 @@ switch:
     mac: !secret wol_mac
     host: !secret wol_host
     name: Computer
-
+  - platform: template
+    switches:
+      ac_or_furnace:
+        friendly_name: "{{ 'Furnace' if is_state('input_boolean.ac_or_furnace', 'on') else 'A/C' }}"
+        value_template: "{{ is_state('input_boolean.ac_or_furnace','on') }}"
+        turn_on:
+          action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.ac_or_furnace
+        turn_off:
+          action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.ac_or_furnace
+        icon_template: >-
+          {% if is_state('input_boolean.ac_or_furnace', 'on') %}
+            mdi:hvac
+          {% else %}
+            mdi:air-conditioner
+          {% endif %}
 ##################################
 ##### Unversal Media Player ######
 ################################## 

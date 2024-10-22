@@ -132,18 +132,40 @@ views:
               - sensor.house_avg_temp
               - sensor.honeywell_temp
 
-          - type: horizontal-stack
+          - type: vertical-stack
             cards:
-              - type: thermostat
-                entity: climate.home
-                name: Furnace
-                decimals: 0
-                step_size: 1            
-              - type: thermostat
-                entity: climate.window_a_c
-                name: Air Conditioner
-                decimals: 0
-                step_size: 1
+              - type: conditional
+                conditions:
+                  - condition: state  
+                    entity: input_boolean.ac_or_furnace
+                    state: 'on'
+                card:
+                  type: thermostat
+                  entity: climate.home
+                  name: Furnace
+                  decimals: 0
+                  step_size: 1            
+              - type: conditional
+                conditions:
+                  - condition: state  
+                    entity: input_boolean.ac_or_furnace
+                    state: 'off'
+                card:
+                  type: thermostat
+                  entity: climate.window_a_c
+                  name: Air Conditioner
+                  decimals: 0
+                  step_size: 1
+              - type: heading
+                heading: 'HVAC Type'
+                tap_action: 
+                  action: toggle
+                entity: switch.ac_or_furnace
+                badges:
+                  - entity: switch.ac_or_furnace
+                    state_content: name
+                    tap_action: 
+                      action: toggle
       - type: 'custom:vertical-stack-in-card' #humidity
         cards:
           - type: 'custom:mini-graph-card'
@@ -457,29 +479,23 @@ views:
           entities: 
             - entity: select.the_hippo_cabin_overheat_protection
               name: Overheat Protection
-        - type: 'custom:simple-thermostat'
+        - type: 'tile'
           entity: climate.the_hippo_hvac_climate_system
           name: Climate
+          features:
+            - type: "climate-hvac-modes"
+              style: "icons"
+              hvac_modes:
+#              - auto
+              - 'heat_cool'
+              - 'off'
+            - type: "climate-preset-modes"
+              style: "icons"
+              preset_modes:
+                - 'normal'
+                - 'defrost'
           decimals: 0
           step_size: 1
-          layout:
-            step: row
-            mode:
-              headings: false 
-              # names: false
-              # icons: false
-          hide:
-            temperature: true
-            state: true
-          control:
-            hvac:
-                'heat_cool':
-                  name: "Heat/Cool"
-            preset:
-              'normal': 
-                name: 'Normal'
-              'defrost':
-                name: 'Defrost'
         - type: entities
           entities:
             - type: custom:fold-entity-row

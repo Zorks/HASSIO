@@ -1,0 +1,25 @@
+alias: Display correct HVAC controls
+# toggles if the AC or Furnace controls are showing based on what is currently on
+triggers: 
+  - trigger: state
+    entity_id: 
+      - climate.home
+      - climate.window_a_c
+    from: 'off'
+
+actions:
+  - choose:
+    - conditions: "{{ trigger.to_state.object_id == 'home' }}"
+# If the Furnace was turned on
+      sequence:
+        - service: switch.turn_on
+          entity_id: switch.ac_or_furnace
+        - service: climate.turn_off
+          entity_id: climate.window_a_c
+# If the AC was turned on
+    - conditions: "{{ trigger.to_state.object_id == 'window_a_c' }}"
+      sequence:
+        - service: switch.turn_off
+          entity_id: switch.ac_or_furnace
+        - service: climate.turn_off
+          entity_id: climate.home     
