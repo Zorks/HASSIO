@@ -49,17 +49,18 @@ action:
       kelvin: 2700
       # 360 seconds = 6 minutes
       transition: 260
-#wait 5 min and turn on kitchen light if coffee was brewed
-  - condition: and
-    conditions:
-      - condition: state
-        entity_id: switch.coffee
-        state: 'on'
-      - condition: state
-        entity_id: light.kitchen_light_2
-        state: 'off'
-  - delay: "00:05:00"     
-  - service: light.turn_on
-    entity_id: light.kitchen_light_2
-    data:
-      brightness_pct: 10
+# following superseded by new movement-based coffee light automation
+# #wait 5 min and turn on kitchen light if coffee was brewed
+  # - condition: and
+    # conditions:
+      # - condition: state
+        # entity_id: switch.coffee
+        # state: 'on'
+      # - condition: state
+        # entity_id: light.kitchen_light_2
+        # state: 'off'
+  # - delay: "00:05:00"     
+  # - service: light.turn_on
+    # entity_id: light.kitchen_light_2
+    # data:
+      # brightness_pct: 10

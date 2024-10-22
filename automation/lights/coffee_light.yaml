@@ -1,0 +1,34 @@
+alias: 'Kitchen lights to get coffee'
+# If the coffee pot is on and the hallway senses someone going to get coffee, turns on the closest kitchen light temporarily 
+trigger:
+  - platform: state
+    entity_id: binary_sensor.hallway_sensor_motion
+    to: 'on'
+condition:
+  condition: and
+  conditions:
+    - condition: numeric_state #is it dark?
+      entity_id: sun.sun
+      value_template: '{{ state.attributes.elevation }}'
+      below: 4
+    - condition: state #is the coffee pot on?
+      entity_id: switch.coffee
+      state: 'on'
+    - condition: state #has anyone already turned on the lights?
+      entity_id: light.kitchen_light_2
+      state: 'off'
+action:
+  - service: light.turn_on #turn on the light closest to the coffee pot
+    target:
+      entity_id: light.kitchen_light_2
+    data:
+      brightness_pct: 10
+  - delay: "00:05:00" #leave the lights on for a few minutes
+  - condition: and
+    conditions:
+      - condition: state #if someone turned on the other kitchen light, leave them be, otherwise turn the light off
+        entity_id: light.kitchen_light_1
+        state: 'off'
+  - service: light.turn_off 
+    target:
+      entity_id: light.kitchen_light_2        
