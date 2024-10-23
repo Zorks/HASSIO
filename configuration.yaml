@@ -26,25 +26,20 @@ lovelace:
   resources:
     - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
       type: module
-    - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
-      type: module   
-    - url: /hacsfiles/light-entity-card/light-entity-card.js
-      type: module
-    - url: /hacsfiles/lovelace-card-preloader/lovelace-card-preloader.js
-      type: module
     - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
       type: module
-    - url: /hacsfiles/lovelace-paper-buttons-row/paper-buttons-row.js
-      type: module
-    - url: /hacsfiles/numberbox-card/numberbox-card.js
+    - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
       type: module                                
-    - url: /hacsfiles/lovelace-fold-entity-row/fold-entity-row.js
-      type: module 
     - url: /hacsfiles/scheduler-card/scheduler-card.js
       type: module
-    - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
+    - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
+      type: module 
+    - url: /hacsfiles/lovelace-fold-entity-row/fold-entity-row.js
       type: module
-                                
+    - url: /hacsfiles/numberbox-card/numberbox-card.js
+      type: module
+    - url: /hacsfiles/lovelace-card-preloader/lovelace-card-preloader.js
+      type: module                                
 # If an item is excluded here, it will not show up on history or logbook pages
 # history_graph won't work if the item is excluded here
 recorder:
@@ -340,6 +335,40 @@ switch:
             mdi:hvac
           {% else %}
             mdi:air-conditioner
+          {% endif %}
+      coffee_set:
+        friendly_name: "{{ 'Ready to Brew' if is_state('input_boolean.coffee_set', 'on') else 'Not Ready' }}"
+        value_template: "{{ is_state('input_boolean.coffee_set','on') }}"
+        turn_on:
+          action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.coffee_set
+        turn_off:
+          action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.coffee_set
+        icon_template: >-
+          {% if is_state('input_boolean.coffee_set', 'on') %}
+            mdi:coffee
+          {% else %}
+            mdi:coffee-off
+          {% endif %}
+      one_two_lamps:
+        friendly_name: "{{ 'Both Lamps' if is_state('input_boolean.one_two_lamps', 'on') else 'One Lamp' }}"
+        value_template: "{{ is_state('input_boolean.one_two_lamps','on') }}"
+        turn_on:
+          action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.one_two_lamps
+        turn_off:
+          action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.one_two_lamps
+        icon_template: >-
+          {% if is_state('input_boolean.one_two_lamps', 'on') %}
+            mdi:lamps
+          {% else %}
+            mdi:lamp
           {% endif %}
 ##################################
 ##### Unversal Media Player ######

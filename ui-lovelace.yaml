@@ -108,7 +108,9 @@ views:
           entity: light.all_lights
           features:
             - type: "light-brightness"
-        - type: horizontal-stack
+        - type: grid
+          columns: 3
+          square: true
           cards:
             - type: button
               entity: switch.kitchen_plants
@@ -118,7 +120,10 @@ views:
               entity: switch.office_plants
               icon: mdi:sprout
               icon_height: 100px           
-    
+            - type: button
+              entity: switch.porch_light
+              icon: mdi:coach-lamp
+              icon_height: 100px       
       - type: 'custom:vertical-stack-in-card' # Home temps
         cards:
           - type: 'custom:mini-graph-card'
@@ -187,49 +192,26 @@ views:
             - type: gauge
               entity: sensor.bathroom_humidity_diff
               name: Humidity Diff.             
-      - type: 'custom:paper-buttons-row' #coffee
-        base_config:
-          style:
-            button:
-              background-color: var(--table-row-alternative-background-color)    
-              width: 100%
-              margin: var(--horizontal-stack-card-margin,var(--stack-card-margin,0 4px))
-              border-radius: var(--ha-card-border-radius,12px);
-            icon:
-              --mdc-icon-size: 100px   
-        buttons:
-          - entity: switch.coffee
-            icon: mdi:coffee-maker
-            align_icon: top
+      - type: grid #coffee
+        columns: 3
+        square: true
+        cards:
+          - type: button
+            entity: switch.coffee
             tap_action:
               action: toggle
               confirmation:
                 text: "Start Coffee?"
-          - entity: input_boolean.coffee_set
-            align_icon: top
-            name: false
-            layout: icon_state
-            state_icons:
-              "off": "mdi:coffee-off"
-              "on": "mdi:coffee"
-            state_text:
-              "off": "not ready to brew"
-              "on": "coffee is set"
+          - type: button
+            entity: switch.coffee_set
             tap_action:
               action: call-service 
               service: homeassistant.turn_on
               service_data:
                 entity_id: script.coffee_clear
-          - entity: input_boolean.one_two_lamps
-            align_icon: top
-            name: false
-            layout: icon_state
-            state_icons:
-              "off": "mdi:lamp"
-              "on": "mdi:lamps"
-            state_text:
-              "off": "Just One Lamp"
-              "on": "Both Lamps"          
+          - type: button
+            entity: switch.one_two_lamps
+
       - type: vertical-stack 
         cards:
         - type: horizontal-stack
@@ -356,7 +338,9 @@ views:
                 - entity: light.dining_room_5
                   tap_action:  
                     action: toggle
-      - type: horizontal-stack
+      - type: grid
+        columns: 3
+        square: false
         cards:
           - type: button
             entity: switch.kitchen_plants
@@ -366,30 +350,34 @@ views:
             entity: switch.office_plants
             icon: mdi:sprout
             icon_height: 100px  
-
+          - type: button
+            entity: switch.porch_light
+            icon: mdi:coach-lamp
+            icon_height: 100px  
   - title: Tesla 
     icon: mdi:car
     cards:
     - type: 'custom:vertical-stack-in-card'
       cards:
-      - type: custom:mini-graph-card
-        entities:
-          - entity: binary_sensor.the_hippo_asleep
-            name: Sleeping 
-        state_map:
-          - value: "on"
-            label: Asleep
-          - value: "off"
-            label: Awake
-        smoothing: false
-        group_by: hour
-        aggregate_func: max
-        line_width: 2
-        height: 70
-        hours_to_show: 48
-        show:
-          name: false
-          icon: false
+      #current bug prevents the binary sensor from displaying the correct value
+      # - type: custom:mini-graph-card
+        # entities:
+          # - entity: binary_sensor.the_hippo_asleep
+            # name: Sleeping 
+        # state_map:
+          # - value: "on"
+            # label: Asleep
+          # - value: "off"
+            # label: Awake
+        # smoothing: false
+        # group_by: hour
+        # aggregate_func: max
+        # line_width: 2
+        # height: 70
+        # hours_to_show: 48
+        # show:
+          # name: false
+          # icon: false
 
       - type: entities
         title: Data Update
@@ -410,7 +398,7 @@ views:
             name: Miles Driven
     - type: grid
       square: false
-      columns: 4
+      columns: 2
       cards:
         - type: button
           entity: switch.the_hippo_sentry_mode
