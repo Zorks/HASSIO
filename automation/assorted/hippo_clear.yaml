@@ -56,10 +56,11 @@ action:
       - condition: state 
         entity_id: device_tracker.the_hippo_location_tracker
         state: "home"
-      # the service call only works if the vehicle is both awake and in park
+      # the service call only works if the vehicle is in park
       sequence: 
-        - alias: "Wait until car is awake"
-          wait_template: "{{ is_state('binary_sensor.the_hippo_asleep', 'off') }}"  
+                # binary sensor is currently not accurately reporting 10/23/24
+        # - alias: "Wait until car is awake"
+          # wait_template: "{{ is_state('binary_sensor.the_hippo_asleep', 'off') }}"  
         - alias: "Wait until car is in park"
           wait_template: "{{ is_state('sensor.the_hippo_shift_state', 'P') }}"    
         - service: tesla_custom.api
@@ -79,7 +80,7 @@ action:
               # set to 1 minute after midnight, a departure we'll never choose, so the hippo_departure animation conditions will never match a "turned off" schedule
               end_off_peak_time: 1
               # vehicle should wake up at some point and get the info?
-              wake_if_asleep: false
+              wake_if_asleep: true
           # resets charge limit to 70
         - service: tesla_custom.api
           data:
