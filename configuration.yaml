@@ -64,6 +64,10 @@ logbook:
   exclude:
     entity_globs:
     - sensor.*_last_seen
+logger:
+  default: warning
+  logs:
+    pychromecast.socket_client: fatal #socket connection error logs fill up logger otherwise, chromecast is just unstable
 # Enables the frontend
 frontend:
   themes: !include_dir_merge_named themes

@@ -212,7 +212,7 @@ views:
           - type: button
             entity: switch.one_two_lamps
 
-      - type: vertical-stack 
+      - type: vertical-stack # Tech
         cards:
         - type: horizontal-stack
           cards:
@@ -220,14 +220,15 @@ views:
             title: Hass.io
             entities:
               - entity: sensor.cert_expiry_timestamp_home_trevortaylor_net
-                name: SSL Cert Expiry
+                name: SSL Expiry
               - entity: sensor.uptime
                 name: Uptime
           - type: button
             entity: switch.computer
             name: Computer
             icon: mdi:desktop-tower-monitor
-            icon_height: 100px           
+            icon_height: 100px  
+        
         - type: glance
           title: AdGuard
           entities:
