@@ -1,4 +1,4 @@
-- sensor:
+- sensor: 
   - name: "Number of hours until the Hippo's next adventure starts"
     unique_id: next_hippo_departure_hrs
     # note that if there is no future departures, it defaults to 25 hrs + 10 seconds to avoid floating point math issues
@@ -16,27 +16,60 @@
     unit_of_measurement: '°F'
     state: >-
       {{ ((float(states('sensor.bedroom_temperature')) + float(states('sensor.home_temperature')) + float(states('sensor.living_room_temperature'))) / 3) | round(2) }}
-#commented out until NWS triggered template sensor is working
-  # - name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').0.datetime) | timestamp_custom('%a @ %H:%M') }}"
-    # unique_id: temperature_0d
-    # unit_of_measurement: '°F'
-    # state: "{{ state_attr('weather.kbfi_daynight', 'forecast').0.temperature }}"
-  # - name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').1.datetime) | timestamp_custom('%a @ %H:%M') }}"
-    # unique_id: temperature_1d
-    # unit_of_measurement: '°F'
-    # state: "{{ state_attr('weather.kbfi_daynight', 'forecast').1.temperature }}"
-  # - name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').2.datetime) | timestamp_custom('%a @ %H:%M') }}"
-    # unique_id: temperature_2d
-    # unit_of_measurement: '°F'
-    # state: "{{ state_attr('weather.kbfi_daynight', 'forecast').2.temperature }}"
-  # - name: "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').3.datetime) | timestamp_custom('%a @ %H:%M') }}"
-    # unique_id: temperature_3d
-    # unit_of_measurement: '°F'
-    # state: "{{ state_attr('weather.kbfi_daynight', 'forecast').3.temperature }}"
-  # - name:  "Forecast - {{ as_timestamp(state_attr('weather.kbfi_daynight', 'forecast').4.datetime) | timestamp_custom('%a @ %H:%M') }}"
-    # unique_id: temperature_4d
-    # unit_of_measurement: '°F'
-    # state: "{{ state_attr('weather.kbfi_daynight', 'forecast').4.temperature }}"
+
+- trigger:
+    - platform: time_pattern
+      minutes: "/5"
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: weather.kbfi_daynight
+    - platform: event
+      event_type: event_template_reloaded
+  action:
+    - service: weather.get_forecasts
+      data:
+        type: twice_daily
+      target:
+        entity_id: weather.kbfi_daynight
+      response_variable: daily
+    - service: nws.get_forecasts_extra
+      data:
+        type: twice_daily
+      target:
+        entity_id: weather.kbfi_daynight
+      response_variable: weather_forecast
+  sensor:
+    - name: kbfi daynight
+      state: "{{ states('weather.kbfi_daynight') }}"
+      icon: mdi:weather-cloudy
+      attributes:
+        forecast: "{{ daily['weather.kbfi_daynight'].forecast }}"
+    - name: kbfi daynight extra
+      state:  "{{ states('weather.kbfi_daynight') }}"
+      icon: mdi:weather-cloudy
+      attributes:
+        forecast: "{{ weather_forecast['weather.kbfi_daynight'].forecast }}"
+    - name: "{{ as_timestamp(state_attr('sensor.kbfi_daynight', 'forecast').0.datetime) | timestamp_custom('%A') }} {{'morning' if (state_attr('sensor.kbfi_daynight', 'forecast').0.is_daytime) else 'night'}} temperature"
+      unique_id: temperature_0d
+      unit_of_measurement: '°F'
+      state: "{{ state_attr('sensor.kbfi_daynight', 'forecast').0.temperature }}"
+    - name: "{{ as_timestamp(state_attr('sensor.kbfi_daynight', 'forecast').1.datetime) | timestamp_custom('%A') }} {{'morning' if (state_attr('sensor.kbfi_daynight', 'forecast').1.is_daytime) else 'night'}} temperature"
+      unique_id: temperature_1d
+      unit_of_measurement: '°F'
+      state: "{{ state_attr('sensor.kbfi_daynight', 'forecast').1.temperature }}"
+    - name: "{{ as_timestamp(state_attr('sensor.kbfi_daynight', 'forecast').2.datetime) | timestamp_custom('%A') }} {{'morning' if (state_attr('sensor.kbfi_daynight', 'forecast').2.is_daytime) else 'night'}} temperature"
+      unique_id: temperature_2d
+      unit_of_measurement: '°F'
+      state: "{{ state_attr('sensor.kbfi_daynight', 'forecast').2.temperature }}"
+    - name: "{{ as_timestamp(state_attr('sensor.kbfi_daynight', 'forecast').3.datetime) | timestamp_custom('%A') }} {{'morning' if (state_attr('sensor.kbfi_daynight', 'forecast').3.is_daytime) else 'night'}} temperature"
+      unique_id: temperature_3d
+      unit_of_measurement: '°F'
+      state: "{{ state_attr('sensor.kbfi_daynight', 'forecast').3.temperature }}"
+    - name: "{{ as_timestamp(state_attr('sensor.kbfi_daynight', 'forecast').4.datetime) | timestamp_custom('%A') }} {{'morning' if (state_attr('sensor.kbfi_daynight', 'forecast').4.is_daytime) else 'night'}} temperature"
+      unique_id: temperature_4d
+      unit_of_measurement: '°F'
+      state: "{{ state_attr('sensor.kbfi_daynight', 'forecast').4.temperature }}"
 
 - trigger:
     - platform: time_pattern
@@ -50,27 +83,3 @@
         {%else%}
           unknown
         {% endif %}
-
-
-- trigger:
-  - platform: time_pattern
-    hours: "/4"
-  - platform: state
-    entity_id: weather.kbfi_daynight
-  - platform: homeassistant
-    event: start
-  - platform: event
-    event_type: event_template_reloaded
-  action:
-    - service: weather.get_forecasts
-      data:
-        type: twice_daily  
-      target:
-        entity_id: weather.kbfi_daynight
-      response_variable: daily
-  sensor:
-    - name: Local Weather Forecast Daily
-      unique_id: local_weather_forecast_daily
-      state: "{{ now() }}"
-      attributes:
-        forecast: "{{ daily['weather.kbfi_daynight'].forecast }}"    

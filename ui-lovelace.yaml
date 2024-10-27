@@ -106,6 +106,7 @@ views:
         cards:
         - type: tile
           entity: light.all_lights
+          icon: mdi:home-lightbulb
           features:
             - type: "light-brightness"
         - type: grid
@@ -211,35 +212,71 @@ views:
                 entity_id: script.coffee_clear
           - type: button
             entity: switch.one_two_lamps
-
-      - type: vertical-stack # Tech
+      - type: grid #Tech 2
+        columns: 3
+        title: Tech
+        square: true
         cards:
-        - type: horizontal-stack
-          cards:
-          - type: glance
-            title: Hass.io
-            entities:
-              - entity: sensor.cert_expiry_timestamp_home_trevortaylor_net
-                name: SSL Expiry
-              - entity: sensor.uptime
-                name: Uptime
+          - type: tile
+            entity: sensor.adguard_dns_queries_blocked
+            vertical: true
+            icon: mdi:help-network
+            tap_action: 
+              action: navigate
+              navigation_path: /a0d7b954_adguard/ingress
+            name: DNS Queries
+          - type: tile
+            entity: sensor.adguard_dns_queries_blocked_ratio
+            vertical: true
+            name: DNS blocked
+            icon: mdi:network-off
+            tap_action: 
+              action: navigate
+              navigation_path: /a0d7b954_adguard/ingress
+          - type: button
+            entity: switch.adguard_protection
+          - type: tile
+            name: Adguard Active
+            entity: sensor.cert_expiry_timestamp_home_trevortaylor_net
+            vertical: true
+            name: SSL Expiration
+          - type: tile
+            entity: sensor.uptime
+            vertical: true
+            name: HASS Uptime
+            icon: mdi:database-clock
           - type: button
             entity: switch.computer
-            name: Computer
-            icon: mdi:desktop-tower-monitor
-            icon_height: 100px  
+            icon: mdi:desktop-tower-monitor            
+
+      # - type: vertical-stack # Tech
+        # cards:
+        # - type: horizontal-stack
+          # cards:
+          # - type: glance
+
+            # entities:
+              # - entity: sensor.cert_expiry_timestamp_home_trevortaylor_net
+                # name: SSL Expiry
+              # - entity: sensor.uptime
+                # name: Uptime
+          # - type: button
+            # entity: switch.computer
+            # name: Computer
+            # icon: mdi:desktop-tower-monitor
+            # icon_height: 100px  
         
-        - type: glance
-          title: AdGuard
-          entities:
-            - entity: sensor.adguard_dns_queries_blocked
-              name: Total
-            - entity: sensor.adguard_dns_queries_blocked_ratio
-              name: Blocked
-            - entity: switch.adguard_protection
-              name: Active
-              tap_action: 
-                action: toggle
+        # - type: glance
+          # title: AdGuard
+          # entities:
+            # - entity: sensor.adguard_dns_queries_blocked
+              # name: Total
+            # - entity: sensor.adguard_dns_queries_blocked_ratio
+              # name: Blocked
+            # - entity: switch.adguard_protection
+              # name: Active
+              # tap_action: 
+                # action: toggle
   
   - title: Lights
     icon: mdi:lightbulb
@@ -248,10 +285,12 @@ views:
         cards:
         - type: tile
           entity: light.hallway_light
+          icon: mdi:light-recessed
           features:
             - type: "light-brightness"
         - type: tile
           entity: light.bathroom_light
+          icon: mdi:vanity-light
           features:
             - type: "light-brightness"
 
@@ -259,12 +298,14 @@ views:
         cards:
         - type: tile
           entity: light.office_lamp
+          icon: mdi:lamp
           features:
             - type: "light-brightness"
 
         - type: tile
           entity: light.office_lights
           name: Office Ceiling Light
+          icon: mdi:light-recessed
           features:
             - type: "light-brightness"
 
@@ -272,11 +313,13 @@ views:
         cards:
         - type: tile
           entity: light.spare_bedroom_lights
+          icon: mdi:light-recessed
           features:
             - type: "light-brightness"
 
         - type: tile
           entity: light.living_room
+          icon: mdi:floor-lamp
           features:
             - type: "light-brightness"
 
@@ -285,18 +328,21 @@ views:
         - type: tile
           entity: light.bedroom_light      
           name: Bedroom Ceiling Light
+          icon: mdi:light-recessed
           features:
             - type: "light-brightness"
 
         - type: horizontal-stack
           cards:
           - type: tile
+            icon: mdi:lamp
             entity: light.bedroom_color_1
             features:
               - type: "light-brightness"
 
           - type: tile
             entity: light.bedroom_color_2
+            icon: mdi:lamp
             features:
               - type: "light-brightness"
             name: Emily's Lamp
@@ -304,10 +350,12 @@ views:
         cards:
         - type: tile
           entity: light.kitchen_light_1
+          icon: mdi:light-recessed
           features:
             - type: "light-brightness"
         - type: tile
           entity: light.kitchen_light_2
+          icon: mdi:light-recessed
           features:
             - type: "light-brightness"
 
@@ -317,6 +365,7 @@ views:
             features:
               - type: "light-brightness"
             entity: light.dining_lights
+            icon: mdi:chandelier
           - type: entities
             entities:
             - type: custom:fold-entity-row
@@ -760,11 +809,18 @@ views:
               hold_action:
                 action: none
             - type: button
-              show_icon: false
+              entity: light.living_room
+              show_name: false
+              icon: mdi:ceiling-light
               tap_action:
-                action: none
+                action: toggle
               hold_action:
-                action: none
+                action: more-info
+              double_tap_action:
+                action: perform-action
+                perform_action: light.turn_off
+                target: 
+                  entity_id: light.all_lights
             - type: button
               icon: mdi:arrow-left-bold
               tap_action:
@@ -876,7 +932,7 @@ views:
               hold_action:
                 action: none
             - type: button #redbull
-              icon: mdi:ski
+              icon: mdi:camera-gopro
               tap_action:
                 action: call-service
                 service: remote.turn_on
