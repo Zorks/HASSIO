@@ -1,0 +1,35 @@
+alias: 'Set theme at startup, sunrise, and sunset'
+id: theme_set
+# Just because I discover and forget it periodically, setting the mode to light/dark changes the *default theme* for those modes, it does not change the specific mode to light/dark on individual devices
+# one way around this is to manual split a specific theme into two but keep both light/dark the same "mode" in the yaml.
+triggers:
+    # runs after startup to set the correct mode
+  - trigger: homeassistant
+    event: start
+    #Theme changes to light or dark mode automatically around dawn or dusk, when the elevation crosses the threshold either direction. 
+  - trigger: numeric_state
+    entity_id: sun.sun
+    attribute: elevation
+    above: 4
+  - trigger: numeric_state
+    entity_id: sun.sun
+    attribute: elevation
+    below: 4
+  
+action:
+  - if:
+    - alias: "Is it day or night"
+      condition: numeric_state
+      entity_id: sun.sun
+      attribute: elevation
+      above: 4
+    then: # if morning
+    - service: frontend.set_theme
+      data:
+        name: Google Theme Light
+        mode: dark   
+    else: # if evening
+    - service: frontend.set_theme
+      data:
+        name: Google Theme Dark
+        mode: dark
