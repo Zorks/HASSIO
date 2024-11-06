@@ -92,8 +92,8 @@ http:
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
-
-
+# allows integrations to expose media for use
+media_source:
 
 # Track the sun
 sun:
@@ -122,6 +122,10 @@ notify:
     name: 'phones'
     services:
       - service: mobile_app_s24u_trevor
+  - platform: tts
+    name: tts_google_translate
+    entity_id: tts.google_translate_en_com
+    media_player: media_player.home_group
 alert:
   leak_detection_dishwasher:
     name: 'Leak Detected'
@@ -129,33 +133,36 @@ alert:
     done_message: 'Water no longer detected'
     entity_id: binary_sensor.dishwasher_water_leak_sensor_water_leak_detected
     state: "on"
-    repeat: 1
+    repeat: 3
     can_acknowledge: true
     skip_first: false
     notifiers:
       - all_devices
+      - tts_google_translate
   leak_detection_hot_water_heater:
     name: 'Leak Detected'
     message: 'The hot water tank might be leaking'
     done_message: 'Water no longer detected'
     entity_id: binary_sensor.hot_water_heater_water_leak_sensor_water_leak_detected
     state: "on"
-    repeat: 1
+    repeat: 3
     can_acknowledge: true
     skip_first: false
     notifiers:
       - all_devices
+      - tts_google_translate      
   leak_detection_washer:
     name: 'Leak Detected'
     message: 'The laundry washer might be leaking'
     done_message: 'Water no longer detected'
     entity_id: binary_sensor.washer_water_leak_sensor_water_leak_detected
     state: "on"
-    repeat: 1
+    repeat: 3
     can_acknowledge: true
     skip_first: false
     notifiers:
       - all_devices
+      - tts_google_translate
   garage_circuit:
     name: 'Possible Power Loss'
     message: 'Garage Freezer is no longer drawing power'
@@ -164,9 +171,10 @@ alert:
     state: "on"
     repeat: 15
     can_acknowledge: true
-    skip_first: false
+    skip_first: true #prevents alerting if it blinks off, but will alert during extended power loss situations
     notifiers:
       - all_devices
+      - tts_google_translate
 ####################
 ##### Sensors ######
 ####################
@@ -192,10 +200,7 @@ sensor:
       - 'date_time'
       - 'time_date'
       - 'time_utc'
-# Text to speech
-tts:
-  - platform: google_translate
-    service_name: google_say
+
 
 ####################
 ##### Lights #######

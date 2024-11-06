@@ -192,7 +192,8 @@ views:
                 action: toggle  
             - type: gauge
               entity: sensor.bathroom_humidity_diff
-              name: Humidity Diff.             
+              name: Humidity Diff. 
+
       - type: grid #coffee
         columns: 3
         square: true
@@ -235,8 +236,8 @@ views:
               navigation_path: /a0d7b954_adguard/ingress
           - type: button
             entity: switch.adguard_protection
-          - type: tile
             name: Adguard Active
+          - type: tile
             entity: sensor.cert_expiry_timestamp_home_trevortaylor_net
             vertical: true
             name: SSL Expiration

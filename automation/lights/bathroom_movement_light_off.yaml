@@ -9,7 +9,7 @@ condition:
   conditions:
     - condition: numeric_state
       entity_id: sun.sun
-      value_template: '{{ state.attributes.elevation }}'
+      attribute: elevation
       below: 4
     - condition: state
       entity_id: group.all_lights
@@ -17,9 +17,10 @@ condition:
     - condition: state
       entity_id: light.bathroom_light
       state: 'off'
-  # time condition set so that it doesn't trigger after midnight to prevent accidental lights if the house thinks another light is on
+  # time condition set so that it doesn't trigger during hours when we might want to go back to sleep, so to prevent accidental lights if the house thinks another light is on
     - condition: time
-      after: "15:00:00"
+      before: "22:00:00"
+      after: "05:00:00"
 action:
   service: homeassistant.turn_on
   entity_id: script.timed_light_bathroom_dark

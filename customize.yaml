@@ -39,3 +39,5 @@ light.kitchen_light_2:
   friendly_name: Kitchen Lights 2
 climate.thermostat:
   friendly_name: Basement
+climate.home:
+  target_temp_step: 1

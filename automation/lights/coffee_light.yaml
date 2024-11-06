@@ -9,7 +9,7 @@ condition:
   conditions:
     - condition: numeric_state #is it dark?
       entity_id: sun.sun
-      value_template: '{{ state.attributes.elevation }}'
+      attribute: elevation
       below: 4
     - condition: state #is the coffee pot on?
       entity_id: switch.coffee
