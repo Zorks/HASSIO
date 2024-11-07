@@ -6,7 +6,15 @@ triggers:
       - climate.home
       - climate.window_a_c
     from: 'off'
-
+conditions:
+  #prevents firing if the trigger is from 'off' to 'unknown'
+  - not:
+    - condition: state
+      entity_id: climate.home
+      state: 'unknown'
+    - condition: state
+      entity_id: climate.window_a_c
+      state: 'unknown'
 actions:
   - choose:
     - conditions: "{{ trigger.to_state.object_id == 'home' }}"
