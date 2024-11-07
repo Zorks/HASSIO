@@ -250,7 +250,15 @@ input_boolean:
 ###########################
 device_tracker:
   - platform: unifi_direct
-    host: 10.11.12.8
+    host: 10.11.12.3
+    username: !secret unifi_user
+    password: !secret unifi_pw
+    interval_seconds: 20
+    consider_home: 180
+    new_device_defaults:
+      track_new_devices: false
+  - platform: unifi_direct
+    host: 10.11.12.4
     username: !secret unifi_user
     password: !secret unifi_pw
     interval_seconds: 20
