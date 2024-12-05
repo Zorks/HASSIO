@@ -16,7 +16,26 @@
     unit_of_measurement: '°F'
     state: >-
       {{ ((float(states('sensor.bedroom_temperature')) + float(states('sensor.home_temperature')) + float(states('sensor.living_room_temperature'))) / 3) | round(2) }}
-
+  - unique_id: "trevor_location"
+    attributes:
+      friendly_name: "Trevor's Location"
+      entity_picture: "/local/trevor.jpg"
+    state: >-
+        {% if states('sensor.trevor_ble_area') != 'unknown' and states('sensor.trevor_ble_area') != 'unavailable'%}
+          {{ states('sensor.trevor_ble_area') }}
+        {% else %}
+          {{ states('person.trevor').replace('not_home', 'Away').title() }}
+        {% endif %}
+  - unique_id: "emily_location"
+    attributes:
+      friendly_name: "Emily's Location"
+      entity_picture: "/local/emily.jpg"
+    state: >-
+        {% if states('sensor.emily_ble_area') != 'unknown' and states('sensor.emily_ble_area') != 'unavailable'%}
+          {{ states('sensor.emily_ble_area') }}
+        {% else %}
+          {{ states('person.emily').replace('not_home', 'Away').title() }}
+        {% endif %}
 - trigger:
     - platform: time_pattern
       minutes: "/5"

@@ -75,9 +75,14 @@ views:
       - type: vertical-stack #location & lock
         cards:
         - type: entity-filter
-          entities: !include devices.yaml
-          state_filter:
-            - home        
+          entities:
+            - entity: sensor.trevor_location
+              name: Trevor
+            - entity: sensor.emily_location
+              name: Emily
+          conditions:
+            - condition: state
+              state_not: "away"   
           card:
             type: glance
             title: Location        
@@ -250,34 +255,7 @@ views:
             entity: switch.computer
             icon: mdi:desktop-tower-monitor            
 
-      # - type: vertical-stack # Tech
-        # cards:
-        # - type: horizontal-stack
-          # cards:
-          # - type: glance
 
-            # entities:
-              # - entity: sensor.cert_expiry_timestamp_home_trevortaylor_net
-                # name: SSL Expiry
-              # - entity: sensor.uptime
-                # name: Uptime
-          # - type: button
-            # entity: switch.computer
-            # name: Computer
-            # icon: mdi:desktop-tower-monitor
-            # icon_height: 100px  
-        
-        # - type: glance
-          # title: AdGuard
-          # entities:
-            # - entity: sensor.adguard_dns_queries_blocked
-              # name: Total
-            # - entity: sensor.adguard_dns_queries_blocked_ratio
-              # name: Blocked
-            # - entity: switch.adguard_protection
-              # name: Active
-              # tap_action: 
-                # action: toggle
   
   - title: Lights
     icon: mdi:lightbulb
@@ -1008,19 +986,19 @@ views:
     path: keypad-front_door
     icon: 'mdi:lock-smart'
     panel: false
-    badges:
-      - input_text.front_door_lockname
-      - input_boolean.front_door_lock_notifications
-      - input_boolean.front_door_dooraccess_notifications
-      - input_boolean.front_door_garageacess_notifications
-      - entity: >-
-          lock.lock_front_door_lock
+    # badges:
+     # - input_text.front_door_lockname
+     # - input_boolean.front_door_lock_notifications #user notifications only work if this input_boolean is set to off
+     # - input_boolean.front_door_dooraccess_notifications
+     # - input_boolean.front_door_garageacess_notifications
+     # - entity: >-
+          # lock.lock_front_door_lock
       # - entity: >-
           # binary_sensor.fake
-      - entity: input_text.keymaster_front_door_autolock_door_time_day
-      - entity: input_text.keymaster_front_door_autolock_door_time_night
-      - entity: input_boolean.keymaster_front_door_autolock
-      - entity: timer.keymaster_front_door_autolock
+      # - entity: input_text.keymaster_front_door_autolock_door_time_day
+      # - entity: input_text.keymaster_front_door_autolock_door_time_night
+      # - entity: input_boolean.keymaster_front_door_autolock
+      # - entity: timer.keymaster_front_door_autolock
     cards:
       - type: vertical-stack
         cards:
@@ -1670,3 +1648,1644 @@ views:
                       - input_boolean.sat_inc_front_door_9
                       - input_datetime.sat_start_date_front_door_9
                       - input_datetime.sat_end_date_front_door_9
+  - title: sensors
+    icon: 'mdi:motion-sensor'
+    cards:
+    - type: vertical-stack #living room presence
+      title: 'living_room_presence'
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'switch.living_room_presence_engineering_mode'
+                  name: engineering mode
+        - type: vertical-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'number.living_room_presence_timeout'
+                  name: timeout
+                - entity: 'number.living_room_presence_max_move_distance_gate'
+                  name: max move distance gate
+                - entity: 'number.living_room_presence_max_still_distance_gate'
+                  name: max still distance gate
+                - entity: 'select.living_room_presence_light_function'
+                  name: light function
+                - entity: 'number.living_room_presence_light_threshold'
+                  name: light threshold
+            - type: horizontal-stack
+              cards:
+                - type: entity
+                  entity: 'sensor.living_room_presence_detection_distance'
+                  name: distance
+                - type: entity
+                  entity: 'sensor.living_room_presence_moving_distance'
+                  name: move
+                - type: entity
+                  entity: 'sensor.living_room_presence_still_distance'
+                  name: still
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'sensor.living_room_presence_move_energy'
+              name: move energy
+            - type: entity
+              entity: 'sensor.living_room_presence_still_energy'
+              name: still energy
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'binary_sensor.living_room_presence_out_pin_presence_status'
+              name: gpio presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.living_room_presence_presence'
+              name: presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.living_room_presence_moving_target'
+              name: movement
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.living_room_presence_still_target'
+              name: still
+              state_color: true
+        - type: conditional
+          conditions:
+            - entity: 'switch.living_room_presence_engineering_mode'
+              state: 'on'
+          card:
+            type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.living_room_presence_light'
+                    name: light
+                  - type: entity
+                    entity: 'binary_sensor.living_room_presence_out_pin_presence_status'
+                    name: out pin presence
+                    state_color: true
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g0_move_energy'
+                    name: 'g0'
+                  - type: entity
+                    entity: 'number.living_room_presence_g0_move_threshold'
+                    name: ' '
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g0_still_energy'
+                    name: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g0_still_threshold'
+                    name: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g1_move_energy'
+                    name: 'g1'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g1_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g1_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g1_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g2_move_energy'
+                    name: 'g2'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g2_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g2_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g2_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g3_move_energy'
+                    name: 'g3'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g3_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g3_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g3_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g4_move_energy'
+                    name: 'g4'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g4_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g4_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g4_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g5_move_energy'
+                    name: 'g5'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g5_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g5_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g5_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g6_move_energy'
+                    name: 'g6'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g6_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g6_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g6_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g7_move_energy'
+                    name: 'g7'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g7_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g7_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g7_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g8_move_energy'
+                    name: 'g8'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g8_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.living_room_presence_g8_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.living_room_presence_g8_still_threshold'
+                    name: ' '
+                    icon: ' '  
+    - type: vertical-stack #bathroom presence
+      title: 'bathroom_presence'
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'switch.bathroom_presence_engineering_mode'
+                  name: engineering mode
+        - type: vertical-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'number.bathroom_presence_timeout'
+                  name: timeout
+                - entity: 'number.bathroom_presence_max_move_distance_gate'
+                  name: max move distance gate
+                - entity: 'number.bathroom_presence_max_still_distance_gate'
+                  name: max still distance gate
+                - entity: 'select.bathroom_presence_light_function'
+                  name: light function
+                - entity: 'number.bathroom_presence_light_threshold'
+                  name: light threshold
+            - type: horizontal-stack
+              cards:
+                - type: entity
+                  entity: 'sensor.bathroom_presence_detection_distance'
+                  name: distance
+                - type: entity
+                  entity: 'sensor.bathroom_presence_moving_distance'
+                  name: move
+                - type: entity
+                  entity: 'sensor.bathroom_presence_still_distance'
+                  name: still
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'sensor.bathroom_presence_move_energy'
+              name: move energy
+            - type: entity
+              entity: 'sensor.bathroom_presence_still_energy'
+              name: still energy
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'binary_sensor.bathroom_presence_out_pin_presence_status'
+              name: gpio presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.bathroom_presence_presence'
+              name: presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.bathroom_presence_moving_target'
+              name: movement
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.bathroom_presence_still_target'
+              name: still
+              state_color: true
+        - type: conditional
+          conditions:
+            - entity: 'switch.bathroom_presence_engineering_mode'
+              state: 'on'
+          card:
+            type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_light'
+                    name: light
+                  - type: entity
+                    entity: 'binary_sensor.bathroom_presence_out_pin_presence_status'
+                    name: out pin presence
+                    state_color: true
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g0_move_energy'
+                    name: 'g0'
+                  - type: entity
+                    entity: 'number.bathroom_presence_g0_move_threshold'
+                    name: ' '
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g0_still_energy'
+                    name: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g0_still_threshold'
+                    name: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g1_move_energy'
+                    name: 'g1'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g1_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g1_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g1_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g2_move_energy'
+                    name: 'g2'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g2_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g2_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g2_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g3_move_energy'
+                    name: 'g3'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g3_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g3_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g3_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g4_move_energy'
+                    name: 'g4'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g4_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g4_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g4_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g5_move_energy'
+                    name: 'g5'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g5_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g5_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g5_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g6_move_energy'
+                    name: 'g6'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g6_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g6_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g6_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g7_move_energy'
+                    name: 'g7'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g7_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g7_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g7_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g8_move_energy'
+                    name: 'g8'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g8_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bathroom_presence_g8_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bathroom_presence_g8_still_threshold'
+                    name: ' '
+                    icon: ' '   
+    - type: vertical-stack # bedroom presence
+      title: 'bedroom_presence'
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'switch.bedroom_presence_engineering_mode'
+                  name: engineering mode
+        - type: vertical-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'number.bedroom_presence_timeout'
+                  name: timeout
+                - entity: 'number.bedroom_presence_max_move_distance_gate'
+                  name: max move distance gate
+                - entity: 'number.bedroom_presence_max_still_distance_gate'
+                  name: max still distance gate
+                - entity: 'select.bedroom_presence_light_function'
+                  name: light function
+                - entity: 'number.bedroom_presence_light_threshold'
+                  name: light threshold
+            - type: horizontal-stack
+              cards:
+                - type: entity
+                  entity: 'sensor.bedroom_presence_detection_distance'
+                  name: distance
+                - type: entity
+                  entity: 'sensor.bedroom_presence_moving_distance'
+                  name: move
+                - type: entity
+                  entity: 'sensor.bedroom_presence_still_distance'
+                  name: still
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'sensor.bedroom_presence_move_energy'
+              name: move energy
+            - type: entity
+              entity: 'sensor.bedroom_presence_still_energy'
+              name: still energy
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'binary_sensor.bedroom_presence_out_pin_presence_status'
+              name: gpio presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.bedroom_presence_presence'
+              name: presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.bedroom_presence_moving_target'
+              name: movement
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.bedroom_presence_still_target'
+              name: still
+              state_color: true
+        - type: conditional
+          conditions:
+            - entity: 'switch.bedroom_presence_engineering_mode'
+              state: 'on'
+          card:
+            type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_light'
+                    name: light
+                  - type: entity
+                    entity: 'binary_sensor.bedroom_presence_out_pin_presence_status'
+                    name: out pin presence
+                    state_color: true
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g0_move_energy'
+                    name: 'g0'
+                  - type: entity
+                    entity: 'number.bedroom_presence_g0_move_threshold'
+                    name: ' '
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g0_still_energy'
+                    name: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g0_still_threshold'
+                    name: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g1_move_energy'
+                    name: 'g1'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g1_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g1_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g1_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g2_move_energy'
+                    name: 'g2'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g2_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g2_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g2_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g3_move_energy'
+                    name: 'g3'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g3_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g3_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g3_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g4_move_energy'
+                    name: 'g4'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g4_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g4_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g4_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g5_move_energy'
+                    name: 'g5'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g5_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g5_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g5_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g6_move_energy'
+                    name: 'g6'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g6_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g6_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g6_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g7_move_energy'
+                    name: 'g7'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g7_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g7_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g7_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g8_move_energy'
+                    name: 'g8'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g8_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.bedroom_presence_g8_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.bedroom_presence_g8_still_threshold'
+                    name: ' '
+                    icon: ' '                      
+    - type: vertical-stack # kitchen presence
+      title: 'kitchen_presence'
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'switch.kitchen_presence_engineering_mode'
+                  name: engineering mode
+        - type: vertical-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'number.kitchen_presence_timeout'
+                  name: timeout
+                - entity: 'number.kitchen_presence_max_move_distance_gate'
+                  name: max move distance gate
+                - entity: 'number.kitchen_presence_max_still_distance_gate'
+                  name: max still distance gate
+                - entity: 'select.kitchen_presence_light_function'
+                  name: light function
+                - entity: 'number.kitchen_presence_light_threshold'
+                  name: light threshold
+            - type: horizontal-stack
+              cards:
+                - type: entity
+                  entity: 'sensor.kitchen_presence_detection_distance'
+                  name: distance
+                - type: entity
+                  entity: 'sensor.kitchen_presence_moving_distance'
+                  name: move
+                - type: entity
+                  entity: 'sensor.kitchen_presence_still_distance'
+                  name: still
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'sensor.kitchen_presence_move_energy'
+              name: move energy
+            - type: entity
+              entity: 'sensor.kitchen_presence_still_energy'
+              name: still energy
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'binary_sensor.kitchen_presence_out_pin_presence_status'
+              name: gpio presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.kitchen_presence_presence'
+              name: presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.kitchen_presence_moving_target'
+              name: movement
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.kitchen_presence_still_target'
+              name: still
+              state_color: true
+        - type: conditional
+          conditions:
+            - entity: 'switch.kitchen_presence_engineering_mode'
+              state: 'on'
+          card:
+            type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_light'
+                    name: light
+                  - type: entity
+                    entity: 'binary_sensor.kitchen_presence_out_pin_presence_status'
+                    name: out pin presence
+                    state_color: true
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g0_move_energy'
+                    name: 'g0'
+                  - type: entity
+                    entity: 'number.kitchen_presence_g0_move_threshold'
+                    name: ' '
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g0_still_energy'
+                    name: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g0_still_threshold'
+                    name: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g1_move_energy'
+                    name: 'g1'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g1_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g1_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g1_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g2_move_energy'
+                    name: 'g2'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g2_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g2_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g2_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g3_move_energy'
+                    name: 'g3'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g3_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g3_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g3_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g4_move_energy'
+                    name: 'g4'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g4_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g4_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g4_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g5_move_energy'
+                    name: 'g5'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g5_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g5_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g5_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g6_move_energy'
+                    name: 'g6'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g6_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g6_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g6_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g7_move_energy'
+                    name: 'g7'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g7_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g7_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g7_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g8_move_energy'
+                    name: 'g8'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g8_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.kitchen_presence_g8_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.kitchen_presence_g8_still_threshold'
+                    name: ' '
+                    icon: ' '                      
+    - type: vertical-stack # office presence
+      title: 'office_presence'
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'switch.office_presence_engineering_mode'
+                  name: engineering mode
+        - type: vertical-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'number.office_presence_timeout'
+                  name: timeout
+                - entity: 'number.office_presence_max_move_distance_gate'
+                  name: max move distance gate
+                - entity: 'number.office_presence_max_still_distance_gate'
+                  name: max still distance gate
+                - entity: 'select.office_presence_light_function'
+                  name: light function
+                - entity: 'number.office_presence_light_threshold'
+                  name: light threshold
+            - type: horizontal-stack
+              cards:
+                - type: entity
+                  entity: 'sensor.office_presence_detection_distance'
+                  name: distance
+                - type: entity
+                  entity: 'sensor.office_presence_moving_distance'
+                  name: move
+                - type: entity
+                  entity: 'sensor.office_presence_still_distance'
+                  name: still
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'sensor.office_presence_move_energy'
+              name: move energy
+            - type: entity
+              entity: 'sensor.office_presence_still_energy'
+              name: still energy
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'binary_sensor.office_presence_out_pin_presence_status'
+              name: gpio presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.office_presence_presence'
+              name: presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.office_presence_moving_target'
+              name: movement
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.office_presence_still_target'
+              name: still
+              state_color: true
+        - type: conditional
+          conditions:
+            - entity: 'switch.office_presence_engineering_mode'
+              state: 'on'
+          card:
+            type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.office_presence_light'
+                    name: light
+                  - type: entity
+                    entity: 'binary_sensor.office_presence_out_pin_presence_status'
+                    name: out pin presence
+                    state_color: true
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.office_presence_g0_move_energy'
+                    name: 'g0'
+                  - type: entity
+                    entity: 'number.office_presence_g0_move_threshold'
+                    name: ' '
+                  - type: entity
+                    entity: 'sensor.office_presence_g0_still_energy'
+                    name: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g0_still_threshold'
+                    name: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.office_presence_g1_move_energy'
+                    name: 'g1'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g1_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.office_presence_g1_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g1_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.office_presence_g2_move_energy'
+                    name: 'g2'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g2_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.office_presence_g2_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g2_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.office_presence_g3_move_energy'
+                    name: 'g3'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g3_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.office_presence_g3_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g3_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.office_presence_g4_move_energy'
+                    name: 'g4'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g4_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.office_presence_g4_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g4_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.office_presence_g5_move_energy'
+                    name: 'g5'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g5_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.office_presence_g5_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g5_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.office_presence_g6_move_energy'
+                    name: 'g6'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g6_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.office_presence_g6_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g6_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.office_presence_g7_move_energy'
+                    name: 'g7'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g7_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.office_presence_g7_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g7_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.office_presence_g8_move_energy'
+                    name: 'g8'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g8_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.office_presence_g8_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.office_presence_g8_still_threshold'
+                    name: ' '
+                    icon: ' '   
+    - type: vertical-stack # spare_bedroom presence
+      title: 'spare_bedroom_presence'
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'switch.spare_bedroom_presence_engineering_mode'
+                  name: engineering mode
+        - type: vertical-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'number.spare_bedroom_presence_timeout'
+                  name: timeout
+                - entity: 'number.spare_bedroom_presence_max_move_distance_gate'
+                  name: max move distance gate
+                - entity: 'number.spare_bedroom_presence_max_still_distance_gate'
+                  name: max still distance gate
+                - entity: 'select.spare_bedroom_presence_light_function'
+                  name: light function
+                - entity: 'number.spare_bedroom_presence_light_threshold'
+                  name: light threshold
+            - type: horizontal-stack
+              cards:
+                - type: entity
+                  entity: 'sensor.spare_bedroom_presence_detection_distance'
+                  name: distance
+                - type: entity
+                  entity: 'sensor.spare_bedroom_presence_moving_distance'
+                  name: move
+                - type: entity
+                  entity: 'sensor.spare_bedroom_presence_still_distance'
+                  name: still
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'sensor.spare_bedroom_presence_move_energy'
+              name: move energy
+            - type: entity
+              entity: 'sensor.spare_bedroom_presence_still_energy'
+              name: still energy
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'binary_sensor.spare_bedroom_presence_out_pin_presence_status'
+              name: gpio presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.spare_bedroom_presence_presence'
+              name: presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.spare_bedroom_presence_moving_target'
+              name: movement
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.spare_bedroom_presence_still_target'
+              name: still
+              state_color: true
+        - type: conditional
+          conditions:
+            - entity: 'switch.spare_bedroom_presence_engineering_mode'
+              state: 'on'
+          card:
+            type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_light'
+                    name: light
+                  - type: entity
+                    entity: 'binary_sensor.spare_bedroom_presence_out_pin_presence_status'
+                    name: out pin presence
+                    state_color: true
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g0_move_energy'
+                    name: 'g0'
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g0_move_threshold'
+                    name: ' '
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g0_still_energy'
+                    name: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g0_still_threshold'
+                    name: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g1_move_energy'
+                    name: 'g1'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g1_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g1_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g1_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g2_move_energy'
+                    name: 'g2'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g2_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g2_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g2_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g3_move_energy'
+                    name: 'g3'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g3_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g3_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g3_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g4_move_energy'
+                    name: 'g4'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g4_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g4_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g4_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g5_move_energy'
+                    name: 'g5'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g5_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g5_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g5_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g6_move_energy'
+                    name: 'g6'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g6_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g6_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g6_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g7_move_energy'
+                    name: 'g7'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g7_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g7_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g7_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g8_move_energy'
+                    name: 'g8'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g8_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.spare_bedroom_presence_g8_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.spare_bedroom_presence_g8_still_threshold'
+                    name: ' '
+                    icon: ' '  
+    - type: vertical-stack # presence_sensor_general presence
+      title: 'presence_sensor_general'
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'switch.presence_sensor_general_engineering_mode'
+                  name: engineering mode
+        - type: vertical-stack
+          cards:
+            - type: entities
+              entities:
+                - entity: 'number.presence_sensor_general_timeout'
+                  name: timeout
+                - entity: 'number.presence_sensor_general_max_move_distance_gate'
+                  name: max move distance gate
+                - entity: 'number.presence_sensor_general_max_still_distance_gate'
+                  name: max still distance gate
+                - entity: 'select.presence_sensor_general_light_function'
+                  name: light function
+                - entity: 'number.presence_sensor_general_light_threshold'
+                  name: light threshold
+            - type: horizontal-stack
+              cards:
+                - type: entity
+                  entity: 'sensor.presence_sensor_general_detection_distance'
+                  name: distance
+                - type: entity
+                  entity: 'sensor.presence_sensor_general_moving_distance'
+                  name: move
+                - type: entity
+                  entity: 'sensor.presence_sensor_general_still_distance'
+                  name: still
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'sensor.presence_sensor_general_move_energy'
+              name: move energy
+            - type: entity
+              entity: 'sensor.presence_sensor_general_still_energy'
+              name: still energy
+        - type: horizontal-stack
+          cards:
+            - type: entity
+              entity: 'binary_sensor.presence_sensor_general_out_pin_presence_status'
+              name: gpio presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.presence_sensor_general_presence'
+              name: presence
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.presence_sensor_general_moving_target'
+              name: movement
+              state_color: true
+            - type: entity
+              entity: 'binary_sensor.presence_sensor_general_still_target'
+              name: still
+              state_color: true
+        - type: conditional
+          conditions:
+            - entity: 'switch.presence_sensor_general_engineering_mode'
+              state: 'on'
+          card:
+            type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_light'
+                    name: light
+                  - type: entity
+                    entity: 'binary_sensor.presence_sensor_general_out_pin_presence_status'
+                    name: out pin presence
+                    state_color: true
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g0_move_energy'
+                    name: 'g0'
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g0_move_threshold'
+                    name: ' '
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g0_still_energy'
+                    name: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g0_still_threshold'
+                    name: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g1_move_energy'
+                    name: 'g1'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g1_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g1_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g1_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g2_move_energy'
+                    name: 'g2'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g2_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g2_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g2_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g3_move_energy'
+                    name: 'g3'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g3_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g3_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g3_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g4_move_energy'
+                    name: 'g4'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g4_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g4_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g4_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g5_move_energy'
+                    name: 'g5'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g5_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g5_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g5_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g6_move_energy'
+                    name: 'g6'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g6_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g6_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g6_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g7_move_energy'
+                    name: 'g7'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g7_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g7_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g7_still_threshold'
+                    name: ' '
+                    icon: ' '
+              - type: horizontal-stack
+                cards:
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g8_move_energy'
+                    name: 'g8'
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g8_move_threshold'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'sensor.presence_sensor_general_g8_still_energy'
+                    name: ' '
+                    icon: ' '
+                  - type: entity
+                    entity: 'number.presence_sensor_general_g8_still_threshold'
+                    name: ' '
+                    icon: ' '                      
