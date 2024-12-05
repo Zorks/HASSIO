@@ -11,6 +11,6 @@ trigger:
     below: 38
 action:
   - service: notify.phones
-    data:
+    data_template:
       title: "Below optimal tire pressure"
-      message: "one of the tires is below 38 PSI"
+      message: "{{ trigger.to_state.name }} is {{ trigger.to_state.state }}"

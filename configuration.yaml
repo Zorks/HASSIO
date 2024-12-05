@@ -58,6 +58,9 @@ recorder:
       - sensor.time
       - sensor.uptime
       - sensor.next_hippo_departure_hrs
+      - sensor.bermuda_global_total_device_count
+    entity_globs:
+      - sensor.*_distance_to_*    
 history:
 
 logbook:
@@ -122,6 +125,7 @@ notify:
     name: 'phones'
     services:
       - service: mobile_app_s24u_trevor
+      - service: mobile_app_s24u_emily
   - platform: tts
     name: tts_google_translate
     entity_id: tts.google_translate_en_com
@@ -167,14 +171,14 @@ alert:
     name: 'Possible Power Loss'
     message: 'Garage Freezer is no longer drawing power'
     done_message: 'Power has been restored'
-    entity_id: binary_sensor.garage_power_off
-    state: "on"
+    entity_id: device_tracker.uap_ac_lite #device is on the same circuit as the garage freezer
+    state: "away"
     repeat: 15
     can_acknowledge: true
     skip_first: true #prevents alerting if it blinks off, but will alert during extended power loss situations
     notifiers:
       - all_devices
-      - tts_google_translate
+
 ####################
 ##### Sensors ######
 ####################
@@ -257,14 +261,14 @@ device_tracker:
     consider_home: 180
     new_device_defaults:
       track_new_devices: false
-  - platform: unifi_direct
-    host: 10.11.12.4
-    username: !secret unifi_user
-    password: !secret unifi_pw
-    interval_seconds: 20
-    consider_home: 180
-    new_device_defaults:
-      track_new_devices: false
+  # - platform: unifi_direct
+    # host: 10.11.12.4
+    # username: !secret unifi_user
+    # password: !secret unifi_pw
+    # interval_seconds: 20
+    # consider_home: 180
+    # new_device_defaults:
+      # track_new_devices: false
 ###### commented out until solution is found: https://github.com/home-assistant/core/issues/94189
   # - platform: bluetooth_tracker
     # interval_seconds: 6
@@ -396,10 +400,12 @@ media_player:
     name: living_room_tv
     unique_id: living_room_tv
     device_class: tv
+    attributes:
+      state: media_player.smart_tv_pro_2
     children:
       - media_player.smart_tv_pro_2
       - media_player.smart_tv_pro
-      - remote.harmony_hub
+ #     - remote.harmony_hub
     browse_media_entity: media_player.smart_tv_pro
     commands:
       turn_off:
