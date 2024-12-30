@@ -282,7 +282,7 @@ views:
             - type: "light-brightness"
 
         - type: tile
-          entity: light.office_lights
+          entity: light.office_light
           name: Office Ceiling Light
           icon: mdi:light-recessed
           features:
@@ -291,7 +291,7 @@ views:
       - type: horizontal-stack
         cards:
         - type: tile
-          entity: light.spare_bedroom_lights
+          entity: light.spare_bedroom_light
           icon: mdi:light-recessed
           features:
             - type: "light-brightness"
@@ -328,13 +328,13 @@ views:
       - type: horizontal-stack
         cards:
         - type: tile
-          entity: light.kitchen_light_1
+          entity: light.ceiling_kitchen_lights
           icon: mdi:light-recessed
           features:
             - type: "light-brightness"
         - type: tile
-          entity: light.kitchen_light_2
-          icon: mdi:light-recessed
+          entity: light.kitchen_sink
+          icon: mdi:ceiling-light
           features:
             - type: "light-brightness"
 

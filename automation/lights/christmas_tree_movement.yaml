@@ -1,0 +1,66 @@
+alias: Christmas Tree - Movement
+id: christmas_tree_movement
+mode: single
+trigger:
+ # Living Room Presence
+  - platform: state
+    entity_id: binary_sensor.living_room_presence_presence
+    to: 'on'
+    id: 'on'
+  - platform: state
+    entity_id: binary_sensor.living_room_presence_presence
+    to: 'off'
+    id: 'off'
+    for:
+      minutes: 10 
+ # Kitchen Presence
+  - platform: state
+    entity_id: binary_sensor.kitchen_presence_presence
+    to: 'on'
+    id: 'on'
+  - platform: state
+    entity_id: binary_sensor.kitchen_presence_presence
+    to: 'off'
+    id: 'off'
+    for:
+      minutes: 10 
+  # Hallway Motion 
+  - platform: state
+    entity_id: binary_sensor.hallway_sensor_motion
+    to: 'on'
+    id: 'on'
+  - platform: state
+    entity_id: binary_sensor.hallway_sensor_motion
+    to: 'off'
+    id: 'off'
+    for:
+      minutes: 10 
+action:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: "on"
+          - condition: state
+            entity_id: group.presence
+            state: 'home'
+          - condition: state
+            entity_id: switch.christmas_tree
+            state: 'off'
+          - condition: time
+            before: "22:00:00"
+            after: "04:00:00"
+        sequence:
+          - action: switch.turn_on
+            target:
+              entity_id: switch.christmas_tree
+  - choose:
+      - conditions:
+          - condition: trigger 
+            id: "off"
+          - condition: time # reverse of christmas_tree_schedule
+            before: "05:30:00"
+            after: "20:30:00"
+        sequence:
+          - action: switch.turn_off
+            target:
+              entity_id: switch.christmas_tree              

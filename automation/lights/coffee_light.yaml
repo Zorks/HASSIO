@@ -1,5 +1,6 @@
 alias: 'Kitchen lights to get coffee'
 # If the coffee pot is on and the hallway senses someone going to get coffee, turns on the closest kitchen light temporarily 
+mode: single
 trigger:
   - platform: state
     entity_id: binary_sensor.hallway_sensor_motion
@@ -18,12 +19,23 @@ condition:
       entity_id: light.kitchen_light_2
       state: 'off'
 action:
+  - service: automation.turn_off # override the default movement automation
+    entity_id: automation.kitchen_movement
   - service: light.turn_on #turn on the light closest to the coffee pot
     target:
       entity_id: light.kitchen_light_2
     data:
-      brightness_pct: 10
-  - delay: "00:05:00" #leave the lights on for a few minutes
+      brightness_pct: 3
+  # Wait for kitchen sensor to sense movement
+  - wait_template: "{{ is_state('binary_sensor.kitchen_presence_presence', 'on') }}"
+    timeout: "00:10:00"
+    continue_on_timeout: true 
+  # wait for kitchen to be cleared
+  - wait_template: "{{ is_state('binary_sensor.kitchen_presence_presence', 'off') }}"
+    timeout: "00:10:00" 
+    continue_on_timeout: true
+  - service: automation.turn_on # turns the default movement automation back on
+    entity_id: automation.kitchen_movement
   - condition: and
     conditions:
       - condition: state #if someone turned on the other kitchen light, leave them be, otherwise turn the light off

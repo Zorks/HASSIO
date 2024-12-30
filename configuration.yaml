@@ -61,6 +61,7 @@ recorder:
       - sensor.bermuda_global_total_device_count
     entity_globs:
       - sensor.*_distance_to_*    
+#      - binary_sensor.*_presence_*_target
 history:
 
 logbook:
@@ -194,8 +195,44 @@ binary_sensor:
           {%- else -%}
             false
           {%- endif -%}
-  # - platform: workday
-    # country: US
+  # wrapping my head around bayesian sensors. Think of it as "Assume X is true (the event of the sensor), what observations are also likely to be true? 
+  - platform: bayesian
+    name: "In bed but might be awake"
+    unique_id: bed_presence
+    prior: 0.5 # roughly 12 hours a day in the bedroom (awake or asleep)
+    probability_threshold: 0.7 # I'd rather be conservative than turn lights on accidentally
+    observations:
+      - platform: state
+        entity_id: sensor.trevor_ble_area
+        prob_given_true: 0.63 # phone bounces between the office and bedroom BLE sensors often (false negative)
+        prob_given_false: 0.166 # Bedroom BLE sensor rarely gives false positives
+        to_state: 'Bedroom' #case sensitive
+      - platform: state
+        entity_id: sensor.emily_ble_area
+        prob_given_true: 0.71 # phone bounces between the office and bedroom BLE sensors often (false negative)
+        prob_given_false: 0.04166 # Bedroom BLE sensor rarely gives false positives
+        to_state: 'Bedroom' #case sensitive
+      - platform: state
+        entity_id: sensor.trevor_phone_charger_type
+        prob_given_true: 0.58 # I'm most likely charging the phone if I'm in bed
+        prob_given_false: 0.083 # When I am awake, I occasionally wirelessly charge my phone
+        to_state: 'wireless'
+      - platform: state
+        entity_id: sensor.emily_phone_charger_type
+        prob_given_true: 0.67 # She's most likely charging the phone if she i in bed
+        prob_given_false: 0.083 # When she is awake, she occasionally wirelessly charges her phone
+        to_state: 'wireless'
+      - platform: state
+        entity_id: binary_sensor.bedroom_presence_presence
+        prob_given_true: 0.71 # pretty accurate that either me or my partner is in the room
+        prob_given_false: 0.25 # sometimes we go into the bedroom during the day
+        to_state: 'on'
+      - platform: state
+        entity_id: binary_sensor.all_but_bedroom_presence
+        prob_given_true: 0.04 # sometimes a cat triggers it at night
+        prob_given_false: 0.916 # normal hours
+        to_state: 'on'
+
 sensor:
   - platform: time_date
     display_options:
@@ -224,9 +261,10 @@ light:
       - light.hallway_light
       - light.kitchen_light_1
       - light.kitchen_light_2
-      - light.office_lights
+      - light.office_light
       - light.office_lamp
-      - light.spare_bedroom_lights
+      - light.spare_bedroom_light
+      - light.kitchen_sink
   - platform: group
     name: Dining Lights
     entities:
@@ -235,7 +273,23 @@ light:
       - light.dining_room_3
       - light.dining_room_4
       - light.dining_room_5      
-
+  - platform: group
+    name: All Kitchen Lights
+    entities:
+      - light.kitchen_light_1
+      - light.kitchen_light_2
+      - light.kitchen_sink
+  - platform: group
+    name: Ceiling Kitchen Lights
+    entities:
+      - light.kitchen_light_1
+      - light.kitchen_light_2
+  - platform: group
+    name: All Bedroom Lights
+    entities:
+      - light.bedroom_color_1
+      - light.bedroom_color_2
+      - light.bedroom_light    
 ##########################
 ##### Input Boolean ######
 ##########################
@@ -249,6 +303,45 @@ input_boolean:
   ac_or_furnace:
     name: "AC or Furnace operational"
     icon: mdi:sun-snowflake-variant
+## indicates if a light was turned on by automation or not
+## from: https://blog.ceard.tech/2018/01/how-not-to-break-manual-control-of?m=1
+  bathroom_light_auto_on:
+    name: "Automatically turned on your bathroom light"
+    initial: off
+  bedroom_color_1_auto_on:
+    name: "Automatically turned on Trevor's lamp"
+    initial: off
+  bedroom_color_2_auto_on:
+    name: "Automatically turned on Emily's lamp"
+    initial: off
+  bedroom_light_auto_on:
+    name: "Automatically turned on your bedroom ceiling light"
+    initial: off
+  dining_lights_auto_on:
+    name: "Automatically turned on your dining lights"
+    initial: off
+  hallway_light_auto_on:
+    name: "Automatically turned on your hallway light"
+    initial: off
+  kitchen_light_1_auto_on:
+    name: "Automatically turned on your kitchen 1 light"
+    initial: off
+  kitchen_light_2_auto_on:
+    name: "Automatically turned on your kitchen 2 light"
+    initial: off
+  living_room_light_auto_on:
+    name: "Automatically turned on your living room light"
+    initial: off
+  office_lamp_auto_on:
+    name: "Automatically turned on your office lamp"
+    initial: off
+  office_light_auto_on:
+    name: "Automatically turned on your office light"
+    initial: off
+  spare_bedroom_light_auto_on:
+    name: "Automatically turned on your spare bedroom light"
+    initial: off
+
 ###########################
 ##### Device Tracker ######
 ###########################
@@ -308,10 +401,10 @@ google_assistant:
     switch.bathroom_fan:
       expose: true
       name: Bathroom Fan
-    light.spare_bedroom_lights:
+    light.spare_bedroom_light:
       expose: true
       name: Spare Bedroom Lights
-    light.office_lights:
+    light.office_light:
       expose: true
       name: Office Ceiling Light  
     switch.kitchen_plants:

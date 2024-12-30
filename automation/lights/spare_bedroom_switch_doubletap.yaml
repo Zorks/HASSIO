@@ -13,4 +13,4 @@ action:
         {% elif trigger.event.data.value == 0 %}
           10
         {% endif %}
-      entity_id: light.spare_bedroom_lights
+      entity_id: light.spare_bedroom_light

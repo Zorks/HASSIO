@@ -1,0 +1,31 @@
+alias: Christmas Tree schedule
+id: christmas_tree_schedule
+mode: single
+trigger:
+  - platform: time
+    id: start
+    at: "05:30:00"
+  - platform: time
+    id: end
+    at: "20:30:00"
+conditions:
+  - condition: state
+    entity_id: group.presence
+    state: 'home'
+action:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: "start"
+        sequence:
+          - action: switch.turn_on
+            target:
+              entity_id: switch.christmas_tree
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: "end"
+        sequence:
+          - action: switch.turn_off
+            target:
+              entity_id: switch.christmas_tree              

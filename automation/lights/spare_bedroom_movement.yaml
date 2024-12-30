@@ -1,12 +1,13 @@
-alias: 'Hallway Movement'
-id: hallway_movement
+## mmwave based automation 
+alias: 'Spare Bedroom light - presence detected'
+id: spare_bedroom_movement
 trigger:
   - platform: state
-    entity_id: binary_sensor.hallway_sensor_motion
+    entity_id: binary_sensor.spare_bedroom_presence_presence
     to: 'on'
     id: 'on'
   - platform: state
-    entity_id: binary_sensor.hallway_sensor_motion
+    entity_id: binary_sensor.spare_bedroom_presence_presence
     to: 'off'
     id: 'off'
     for:
@@ -17,7 +18,7 @@ action:
           - condition: trigger
             id: "on"
           - condition: state
-            entity_id: light.hallway_light
+            entity_id: light.spare_bedroom_light
             state: 'off'
       # temporary time condition so that it doesn't trigger during hours when we might want to go back to sleep
       # will eventually remove once BLE presence and sleep confidence comes into play
@@ -27,7 +28,7 @@ action:
         sequence:
         - action: light.turn_on
           data_template:
-            entity_id: light.hallway_light
+            entity_id: light.spare_bedroom_light
             transition: 2
             # brightness set to 3 between 7pm and 7am, 30 between 5pm and 7pm and 100 between 8am and 5pm.
             brightness: >- 
@@ -47,5 +48,5 @@ action:
         sequence:
         - action: light.turn_off
           target:
-            entity_id: light.hallway_light
-mode: single  
+            entity_id: light.spare_bedroom_light
+mode: single
