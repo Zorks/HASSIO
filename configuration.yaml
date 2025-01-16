@@ -6,17 +6,25 @@
   longitude: !secret longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 255
-  # metric for Metric, imperial for Imperial
-  unit_system: imperial
+  # metric for Metric,  us_customary for USA
+  unit_system:  us_customary
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/Los_Angeles
-  country: 'US'
+  country: US
+  currency: USD
   # Customization file
   customize: !include customize.yaml
   external_url: !secret external_url
   internal_url: !secret internal_url
   # Keymaster
   packages: !include_dir_named packages
+
+group: !include groups.yaml
+automation: !include automations.yaml
+automation mine: !include_dir_list automation
+script: !include_dir_merge_named scripts
+template: !include template.yaml
+
 system_health:
 # Show links to resources in log and frontend
 #introduction: 
@@ -72,6 +80,9 @@ logger:
   default: warning
   logs:
     pychromecast.socket_client: fatal #socket connection error logs fill up logger otherwise, chromecast is just unstable
+  filters:
+    homeassistant.helpers.entity: # Honeywell servers are garbage
+      - "Update of climate.thermostat is taking over 10 seconds"
 # Enables the frontend
 frontend:
   themes: !include_dir_merge_named themes
@@ -341,7 +352,6 @@ input_boolean:
   spare_bedroom_light_auto_on:
     name: "Automatically turned on your spare bedroom light"
     initial: off
-
 ###########################
 ##### Device Tracker ######
 ###########################
@@ -362,12 +372,7 @@ device_tracker:
     # consider_home: 180
     # new_device_defaults:
       # track_new_devices: false
-###### commented out until solution is found: https://github.com/home-assistant/core/issues/94189
-  # - platform: bluetooth_tracker
-    # interval_seconds: 6
-    # consider_home: 120
-    # new_device_defaults:
-      # track_new_devices: false
+
 
 ###########################
 #####  Thermostats   ######
@@ -541,7 +546,3 @@ media_player:
 ###########################
 mobile_app:
 
-group: !include groups.yaml
-automation: !include_dir_list automation
-script: !include_dir_merge_named scripts
-template: !include template.yaml

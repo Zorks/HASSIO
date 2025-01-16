@@ -1,12 +1,27 @@
 # Once the system has seen we have all left, make certain the door is locked, etc...
 alias: 'Goodbye Sequence'
+id: goodbye_sequence
 trigger:
   platform: state
   entity_id: group.presence
   from: 'home'
   to: 'not_home'
 action:
-  - service: script.relock_front_door
-  - service: light.turn_off
-    entity_id: all
-
+  - if:
+    - alias: "Is the door open"
+      condition: state
+      entity_id: binary_sensor.front_door_sensor_window_door_is_open
+      state: 'on'
+    - alias: "Is the door sensor live and updating" # has it updated in the last 12 hrs
+      condition: template
+      value_template: >-
+        {{ (utcnow() | as_timestamp - states('sensor.front_door_sensor_last_seen')| as_timestamp) | int(0) < 43200  }}
+    then: 
+      - action: notify.phones
+        data:
+          title: 'The front door might be open'
+          message: "The last person just left but the front door might still be open"    
+    else:
+      - action: light.turn_off
+        entity_id: all
+      - service: script.relock_front_door  
