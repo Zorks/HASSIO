@@ -1,4 +1,5 @@
 alias: 'Plant Schedule - Off'
+id: plant_schedule_off
 trigger:
   - platform: time
     at: "19:45:00"

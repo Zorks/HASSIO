@@ -1,4 +1,5 @@
 alias: 'Unlock Front Door Upon Arrivial'
+id: arrival_unlock_door
 trigger:
   platform: state
   entity_id:

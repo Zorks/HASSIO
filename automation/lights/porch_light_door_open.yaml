@@ -1,4 +1,5 @@
 alias: 'Turn on the porch light'
+id: porch_light_door_open
 triggers: 
     # front door opened
   - trigger: state

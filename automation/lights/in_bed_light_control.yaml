@@ -1,0 +1,34 @@
+alias: 'In Bed - Light Control'
+id: in_bed_light_control
+trigger:
+  - platform: state
+    entity_id: binary_sensor.in_bed_but_might_be_awake
+    to: 'on'
+    id: 'in bed'
+  - platform: state
+    entity_id:  binary_sensor.in_bed_but_might_be_awake
+    to: 'off'
+    id: 'out bed'
+    for:
+      minutes: 3 # smooth false negatives
+action: # Shut down lights that might affect us trying to go to sleep
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: "in bed"
+        sequence:
+        - action: input_boolean.turn_off 
+          entity_id: 
+            - input_boolean.office_light_auto_on 
+            - input_boolean.hallway_light_auto_on 
+            - input_boolean.spare_bedroom_light_auto_on    
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: "out bed"
+        sequence:
+        - action: input_boolean.turn_on
+          entity_id: 
+            - input_boolean.office_light_auto_on 
+            - input_boolean.hallway_light_auto_on 
+            - input_boolean.spare_bedroom_light_auto_on                

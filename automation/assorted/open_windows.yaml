@@ -1,4 +1,5 @@
 alias: 'Open the windows if it is cooler outside than in'
+id: open_windows
 trigger:
   # when the outside temperature drops within 3 degrees of the inside temperature, this becomes true
   - platform: template

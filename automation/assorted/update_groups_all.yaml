@@ -1,4 +1,5 @@
 alias: 'Update groups'
+id: update_groups_all
 # whenever hassio starts, this runs scripts to update any "all entity" groups (like group.all_lights)
 # Only need it for group.all_lights for now
 trigger:

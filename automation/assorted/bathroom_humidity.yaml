@@ -1,4 +1,5 @@
 alias: 'Bathroom Humidity Difference'
+id: bathroom_humidity_difference
 # if the bathroom humidity is above house's by 10% and over 70%, start bathroom fan until it is under 60% humidity
 trigger:
   - platform: numeric_state

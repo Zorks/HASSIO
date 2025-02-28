@@ -1,4 +1,5 @@
 alias: "Beat Moccamaster's timer to the punch"
+id: coffee_monitor
 # simple automation with one mission: turn off the smart switch before the coffee-pot's 100 min timer turns off the physical switch 
 trigger:
   # TP-Link instability means the switch is flipping from 'on' to 'unavailable' and back repeatedly, which would trigger multiple times an hour if the 'from' wasn't there

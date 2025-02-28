@@ -1,4 +1,5 @@
 alias: 'Kitchen lights to get coffee'
+id: coffee_light
 # If the coffee pot is on and the hallway senses someone going to get coffee, turns on the closest kitchen light temporarily 
 mode: single
 trigger:

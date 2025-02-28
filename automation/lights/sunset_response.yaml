@@ -1,4 +1,5 @@
 alias: 'it is getting dark'
+id: sunset_response
 trigger:
   platform: sun
   event: sunset

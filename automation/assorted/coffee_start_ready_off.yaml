@@ -1,4 +1,5 @@
 alias: "Turn off the ready switch when the Coffee starts"
+id: coffee_start_ready_off
 # If the coffee turns on, its no longer "ready to brew"
 trigger:
   - platform: state

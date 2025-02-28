@@ -1,4 +1,5 @@
 alias: 'Kitchen Lights Sync'
+id: kitchen_lights_sync
 # sometimes one of the lights doesn't register as off in lovelace when both are switched off (controlled by the same three way switch). This checks to see if that is that happened and turns it off a reasonable time afterwards, just in case.
 trigger:
   platform: state

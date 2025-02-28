@@ -1,4 +1,5 @@
 alias: 'Stop sound system when living room tv turns off'
+id: stop_tv
 trigger:
   platform: state
   entity_id: remote.smart_tv_pro

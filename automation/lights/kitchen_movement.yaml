@@ -1,6 +1,7 @@
 ## mmwave based automation 
 alias: 'Kitchen light - presence detected'
 id: kitchen_movement
+initial_state: true
 trigger:
   - platform: state
     entity_id: binary_sensor.kitchen_presence_presence

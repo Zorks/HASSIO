@@ -1,0 +1,14 @@
+alias: "Office switch turned off"
+id: office_switch_turned_off
+initial_state: "on"
+trigger:
+  - platform: state
+    entity_id: light.office_light
+    to: 'off'
+condition:
+  - condition: state
+    entity_id: input_boolean.office_light_auto_on
+    state: 'off'
+action:
+  - action: input_boolean.turn_on
+    entity_id: input_boolean.office_light_auto_on

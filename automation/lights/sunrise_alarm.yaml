@@ -1,4 +1,5 @@
 alias: 'Trevor Sunrise Alarm'
+id: trevor_sunrise_alarm
 trigger:
   - platform: mqtt
     topic: 'trevor/alarm'
@@ -36,7 +37,7 @@ action:
           entity_id: light.bedroom_color_2
           data:
             brightness_pct: 100
-            kelvin: 2700
+            color_temp_kelvin: 2700
             # 360 seconds = 6 minutes
             transition: 260
 # resets the input_boolean back to one lamp
@@ -46,6 +47,6 @@ action:
     entity_id: light.bedroom_color_1
     data:
       brightness_pct: 100
-      kelvin: 2700
+      color_temp_kelvin: 2700
       # 360 seconds = 6 minutes
       transition: 260

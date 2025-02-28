@@ -35,6 +35,13 @@ trigger:
     id: 'off'
     for:
       minutes: 10 
+conditions:
+  - condition: state
+    entity_id: group.presence
+    state: 'home'
+  - condition: state
+    entity_id: sensor.christmas_tree_node_status
+    state: "alive"
 action:
   - choose:
       - conditions:

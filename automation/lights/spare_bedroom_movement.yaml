@@ -20,11 +20,9 @@ action:
           - condition: state
             entity_id: light.spare_bedroom_light
             state: 'off'
-      # temporary time condition so that it doesn't trigger during hours when we might want to go back to sleep
-      # will eventually remove once BLE presence and sleep confidence comes into play
-          - condition: time
-            before: "22:00:00"
-            after: "05:00:00"
+          - condition: state
+            entity_id: input_boolean.spare_bedroom_light_auto_on
+            state: 'on'
         sequence:
         - action: light.turn_on
           data_template:

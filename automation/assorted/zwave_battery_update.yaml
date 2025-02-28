@@ -1,4 +1,5 @@
 alias: Update Z-Wave battery levels
+id: zwave_battery_update
 # runs every third night requesting a battery update the next time your battery powered zwave-js devices wake up.
 trigger:
 - platform: time

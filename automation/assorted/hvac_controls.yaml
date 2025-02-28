@@ -1,4 +1,5 @@
 alias: Display correct HVAC controls
+id: hvac_controls
 # toggles if the AC or Furnace controls are showing based on what is currently on
 triggers: 
   - trigger: state

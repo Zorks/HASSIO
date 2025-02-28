@@ -1,5 +1,5 @@
 # Between 9pm and 5am - once all the lights turn off, suggesting we went to bed, double check that door is locked.
-
+id: night_security_check
 alias: 'Check that the door is locked at night'
 trigger:
   platform: state

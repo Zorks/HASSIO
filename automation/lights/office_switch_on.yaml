@@ -1,0 +1,16 @@
+alias: "Office switch turned on"
+id: office_switch_turned_on
+initial_state: "on"
+# Tests to see if the lights were turned on by app or by automation. If neither, then must have been by the manual switch
+trigger:
+  - platform: state
+    entity_id: light.office_light
+    to: 'on'
+conditions:
+  - condition: template #if it was from the app there would be a user ID 
+    value_template: '{{ trigger.to_state.context.user_id == none }}' 
+  - condition: template #if an automation turned it on, then there would be a parent ID
+    value_template: '{{ trigger.to_state.context.parent_id == none }}' 
+action: # if neither source, conclude it was manually turned on and prevent the presence automation from turning it off
+  - action: input_boolean.turn_off
+    entity_id: input_boolean.office_light_auto_on

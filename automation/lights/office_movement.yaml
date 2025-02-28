@@ -11,7 +11,7 @@ trigger:
     to: 'off'
     id: 'off'
     for:
-      minutes: 1 # adjust as necessary 
+      minutes: 2 # adjust as necessary 
 action:
   - choose:
       - conditions: 
@@ -20,10 +20,9 @@ action:
           - condition: state
             entity_id: light.office_light
             state: 'off'
-          # extended hours
-          - condition: time
-            before: "22:00:00"
-            after: "06:00:00"
+          - condition: state
+            entity_id: input_boolean.office_light_auto_on
+            state: 'on'
         sequence:
           - action: light.turn_on
             data_template:
@@ -71,6 +70,9 @@ action:
       - conditions: 
           - condition: trigger
             id: "off"      
+          - condition: state
+            entity_id: input_boolean.office_light_auto_on
+            state: 'on'
         sequence:
         - action: light.turn_off
           target:

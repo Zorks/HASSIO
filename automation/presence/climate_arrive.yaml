@@ -1,5 +1,6 @@
 # Once the system has seen someone has arrived (upstairs or tenants), set thermostat to 'home'
 alias: 'Hello Climate'
+id: climate_arrive
 trigger:
   platform: state
   entity_id: group.climate_presence

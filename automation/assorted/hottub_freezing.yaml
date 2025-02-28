@@ -1,4 +1,5 @@
 alias: 'Is the hottub going to freeze?'
+id: hottub_freezing
 # reminder to turn on the hottub if there is a 36 hr period of extended freezing weather in the near future. 
 trigger:
   - platform: numeric_state
