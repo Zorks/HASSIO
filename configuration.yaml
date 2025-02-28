@@ -184,8 +184,11 @@ alert:
     message: 'Garage Freezer is no longer drawing power'
     done_message: 'Power has been restored'
     entity_id: device_tracker.uap_ac_lite #device is on the same circuit as the garage freezer
-    state: "away"
-    repeat: 15
+    state: "not_home"
+    repeat: 
+      - 20
+      - 10
+      - 30
     can_acknowledge: true
     skip_first: true #prevents alerting if it blinks off, but will alert during extended power loss situations
     notifiers:
@@ -314,44 +317,46 @@ input_boolean:
   ac_or_furnace:
     name: "AC or Furnace operational"
     icon: mdi:sun-snowflake-variant
-## indicates if a light was turned on by automation or not
-## from: https://blog.ceard.tech/2018/01/how-not-to-break-manual-control-of?m=1
+## Used as a condition to let presence automations fire or not
   bathroom_light_auto_on:
-    name: "Automatically turned on your bathroom light"
-    initial: off
+    name: "Automations can turn on the bathroom light"
+    initial: on
   bedroom_color_1_auto_on:
     name: "Automatically turned on Trevor's lamp"
-    initial: off
+    initial: on
   bedroom_color_2_auto_on:
     name: "Automatically turned on Emily's lamp"
-    initial: off
+    initial: on
   bedroom_light_auto_on:
-    name: "Automatically turned on your bedroom ceiling light"
-    initial: off
+    name: "Automations can turn on the bedroom ceiling light"
+    initial: on
+  christmas_tree_auto_on:
+    name: "Automations can turn on the Christmas Tree"
+    initial: on
   dining_lights_auto_on:
-    name: "Automatically turned on your dining lights"
-    initial: off
+    name: "Automations can turn on the dining lights"
+    initial: on
   hallway_light_auto_on:
-    name: "Automatically turned on your hallway light"
-    initial: off
+    name: "Automations can turn on the hallway light"
+    initial: on
   kitchen_light_1_auto_on:
-    name: "Automatically turned on your kitchen 1 light"
-    initial: off
+    name: "Automations can turn on the kitchen 1 light"
+    initial: on
   kitchen_light_2_auto_on:
-    name: "Automatically turned on your kitchen 2 light"
-    initial: off
+    name: "Automations can turn on the kitchen 2 light"
+    initial: on
   living_room_light_auto_on:
-    name: "Automatically turned on your living room light"
-    initial: off
+    name: "Automations can turn on the living room light"
+    initial: on
   office_lamp_auto_on:
-    name: "Automatically turned on your office lamp"
-    initial: off
+    name: "Automations can turn on the office lamp"
+    initial: on
   office_light_auto_on:
-    name: "Automatically turned on your office light"
-    initial: off
+    name: "Automations can turn on the office light"
+    initial: on
   spare_bedroom_light_auto_on:
-    name: "Automatically turned on your spare bedroom light"
-    initial: off
+    name: "Automations can turn on the spare bedroom light"
+    initial: on
 ###########################
 ##### Device Tracker ######
 ###########################
@@ -374,11 +379,7 @@ device_tracker:
       # track_new_devices: false
 
 
-###########################
-#####  Thermostats   ######
-###########################
-ecobee:
-  api_key: !secret ecobee_api_key
+
 ##################################
 #####  Google Assistant     ######
 ################################## 

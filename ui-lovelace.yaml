@@ -22,7 +22,7 @@ views:
             entity: alert.leak_detection_washer
             state: "on"
         card:
-          type: glance
+          type: entity-filter
           entities:
             - entity: binary_sensor.dishwasher_water_leak_sensor_water_leak_detected
               name: Dishwasher
@@ -30,6 +30,23 @@ views:
               name: Hot Water Tank
             - entity: binary_sensor.washer_water_leak_sensor_water_leak_detected
               name: Washer
+          conditions:
+            - condition: state
+              state: "idle"   
+          card:
+            type: glance
+            title: 'ALERT: Water Leak'      
+      - type: conditional #Power alerts
+        conditions:
+          - condition: state
+            entity: alert.garage_circuit
+            state: "on"
+        card:
+          type: glance
+          title: 'ALERT: Power Loss'
+          entities:
+          - entity: switch.garage_freezer
+
       - type: 'custom:auto-entities'  #zwave battery status
         card:
           type: entities
@@ -129,7 +146,18 @@ views:
             - type: button
               entity: switch.porch_light
               icon: mdi:coach-lamp
-              icon_height: 100px       
+              icon_height: 100px    
+            - type: conditional #christmas tree
+              conditions:
+              - condition: and
+                conditions:
+                - condition: state
+                  entity: sensor.christmas_tree_node_status
+                  state: "alive"
+              card:
+                type: button
+                entity: switch.christmas_tree
+                icon_height: 100px
       - type: 'custom:vertical-stack-in-card' # Home temps
         cards:
           - type: 'custom:mini-graph-card'
@@ -142,7 +170,6 @@ views:
             entities:
               - sensor.house_avg_temp
               - sensor.honeywell_temp
-
           - type: vertical-stack
             cards:
               - type: conditional
@@ -198,7 +225,6 @@ views:
             - type: gauge
               entity: sensor.bathroom_humidity_diff
               name: Humidity Diff. 
-
       - type: grid #coffee
         columns: 3
         square: true
@@ -254,9 +280,7 @@ views:
           - type: button
             entity: switch.computer
             icon: mdi:desktop-tower-monitor            
-
-
-  
+ 
   - title: Lights
     icon: mdi:lightbulb
     cards:
@@ -983,6 +1007,9 @@ views:
 
          
   - title: 'front_door Codes and Configuration' #Front Door Code   
+    visible:
+      - user: b8d9b9c34e554cf38cf27c9f347be50f
+      - user: f904b2797280408d9c062d2bc50640c1
     path: keypad-front_door
     icon: 'mdi:lock-smart'
     panel: false
@@ -1650,6 +1677,8 @@ views:
                       - input_datetime.sat_end_date_front_door_9
   - title: sensors
     icon: 'mdi:motion-sensor'
+    visible:
+      - user: b8d9b9c34e554cf38cf27c9f347be50f
     cards:
     - type: vertical-stack #living room presence
       title: 'living_room_presence'
