@@ -67,15 +67,17 @@ recorder:
       - sensor.uptime
       - sensor.next_hippo_departure_hrs
       - sensor.bermuda_global_total_device_count
+      - sensor.bermuda_global_visible_device_count
     entity_globs:
       - sensor.*_distance_to_*    
-#      - binary_sensor.*_presence_*_target
+      - binary_sensor.*_presence_*_target
 history:
 
 logbook:
   exclude:
     entity_globs:
     - sensor.*_last_seen
+    - binary_sensor.*_presence_*_target
 logger:
   default: warning
   logs:
@@ -116,12 +118,15 @@ sun:
 ####################
 ##### Weather ######
 ####################
+illuminance: #custom integration that roughly estimates LX based on current weather and sun elevation
+  - unique_id: 1
+    entity_id: weather.kbfi_daynight #service providing weather conditions
+    fallback: 5 #1-10 scale of clear to cloudy if the above entity is unavailable
+    mode: normal #'normal' is sun elevation, 'simple' uses time of day
+    name: Weather-Based Sun Illuminance 
+    scan_interval:
+      minutes: 10 
 
-#switched to NWS
-# weather:
-  # - platform: darksky
-    # api_key: !secret darksky_api
-    # mode: daily
 
 ###########################################
 ##### Push Notifications and Alerts  ######
