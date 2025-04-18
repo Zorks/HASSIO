@@ -40,7 +40,7 @@ action:
           | int(default=69)
           }}
 # wait briefly for it to start charging to the new limit
-  - delay: '00:00:30'
+  - delay: '00:00:45'
 # turn off charger
   - service: switch.turn_off
     entity_id: switch.the_hippo_charger
@@ -82,6 +82,13 @@ action:
       entity_id: input_datetime.hippo_departure
     data_template:
       datetime: "{{states('sensor.next_hippo_departure')}}"        
+  # peace of mind notification
+  - delay: '00:05:00' 
+  - service: notify.phones
+    data:
+      title: "Hippo charge level set"
+      message: "The Hippo's charge level was set to {{states('number.the_hippo_charge_limit')}}% for an adventure on {{states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%A at %H%M')}}. The charger is currently {{ iif(is_state('binary_sensor.the_hippo_charging', 'on'), 'charging', iif(is_state('binary_sensor.the_hippo_charging', 'off'), 'paused', 'unknown')) }}."
+
   #  If the target SoC is 70+, the battery is low, and the next scheduled departure is more than 6 hrs away, this will ensure a minimum level of charge for unexpected trips
   - choose:
     - conditions: 
