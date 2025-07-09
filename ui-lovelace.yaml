@@ -326,7 +326,7 @@ views:
           features:
             - type: "light-brightness"
 
-      - type: 'custom:vertical-stack-in-card'
+      - type: vertical-stack
         cards:
         - type: tile
           entity: light.bedroom_light      
@@ -334,21 +334,22 @@ views:
           icon: mdi:light-recessed
           features:
             - type: "light-brightness"
-
         - type: horizontal-stack
           cards:
-          - type: tile
-            icon: mdi:lamp
-            entity: light.bedroom_color_1
-            features:
-              - type: "light-brightness"
-
           - type: tile
             entity: light.bedroom_color_2
             icon: mdi:lamp
             features:
               - type: "light-brightness"
-            name: Emily's Lamp
+            name: Emily's Lamp       
+          - type: horizontal-stack
+            cards:
+            - type: tile
+              icon: mdi:lamp
+              entity: light.bedroom_color_1
+              features:
+                - type: "light-brightness"
+
       - type: horizontal-stack
         cards:
         - type: tile
@@ -1679,6 +1680,36 @@ views:
     icon: 'mdi:motion-sensor'
     visible:
       - user: b8d9b9c34e554cf38cf27c9f347be50f
+    badges:
+    - type: entity-filter
+      entities:
+        - entity: binary_sensor.spare_bedroom_presence_presence
+          show_name: true
+          show_state: false
+          name: Spare Bedroom
+        - entity: binary_sensor.office_presence_presence
+          show_name: true
+          show_state: false
+          name: Office
+        - entity: binary_sensor.living_room_presence_presence
+          show_name: true
+          show_state: false
+          name: Living Room
+        - entity: binary_sensor.kitchen_presence_presence
+          show_name: true
+          show_state: false
+          name: Kitchen
+        - entity: binary_sensor.bedroom_presence_presence
+          show_name: true
+          show_state: false
+          name: Bedroom
+        - entity: binary_sensor.bathroom_presence_presence
+          show_name: true
+          show_state: false
+          name: Bathroom
+      conditions:
+        - condition: state
+          state: "on"
     cards:
     - type: vertical-stack #living room presence
       title: 'living_room_presence'

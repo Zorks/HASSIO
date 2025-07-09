@@ -5,12 +5,14 @@ trigger:
     entity_id: binary_sensor.in_bed_but_might_be_awake
     to: 'on'
     id: 'in bed'
+    for:
+      minutes: 2 
   - platform: state
     entity_id:  binary_sensor.in_bed_but_might_be_awake
     to: 'off'
     id: 'out bed'
     for:
-      minutes: 3 # smooth false negatives
+      minutes: 10 # smooth false negatives
 action: # Shut down lights that might affect us trying to go to sleep
   - choose:
       - conditions:

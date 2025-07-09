@@ -82,8 +82,8 @@ action:
       entity_id: input_datetime.hippo_departure
     data_template:
       datetime: "{{states('sensor.next_hippo_departure')}}"        
-  # peace of mind notification
-  - delay: '00:05:00' 
+  # peace of mind notification - delayed so the charger has an opportunity to turn off
+  - delay: '00:07:00' 
   - service: notify.phones
     data:
       title: "Hippo charge level set"

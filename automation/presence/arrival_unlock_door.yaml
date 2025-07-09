@@ -5,7 +5,7 @@ trigger:
   entity_id:
     - person.trevor
     - person.emily
-    - device_tracker.the_hippo_location_tracker
+#    - device_tracker.the_hippo_location_tracker
   from: 'not_home'
   to: 'home'
 condition:
