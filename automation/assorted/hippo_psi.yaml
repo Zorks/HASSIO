@@ -8,9 +8,9 @@ trigger:
       - sensor.the_hippo_tpms_rear_right
       - sensor.the_hippo_tpms_front_left
       - sensor.the_hippo_tpms_rear_left
-    below: 38
+    below: 37.5
 action:
   - service: notify.phones
     data_template:
       title: "Below optimal tire pressure"
-      message: "{{ trigger.to_state.name }} is {{ trigger.to_state.state }}"
+      message: "{{ trigger.to_state.name }} is {{ trigger.to_state.state |  round(2) }}"
