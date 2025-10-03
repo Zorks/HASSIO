@@ -1,0 +1,9 @@
+# ESP presence sensors don't seem to work correctly after updates unless they've been rebooted
+reboot_presence_sensors:
+  alias: 'Reboot all presence sensors'
+  variables:
+    esp: "{{ states.button | selectattr('entity_id', 'match', 'button.*_esp_reboot') | map(attribute='entity_id') | list }}"
+  sequence:
+    - action: button.press
+      target:
+        entity_id: "{{esp}}"
