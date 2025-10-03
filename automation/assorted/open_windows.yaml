@@ -25,6 +25,10 @@ condition:
   - condition: state
     entity_id: climate.home
     state: "off"
+    # Only run if more than 12 hours (43,200 sec) since it last ran
+  - condition: template
+    value_template: "{{ state_attr('automation.open_the_windows_if_it_is_cooler_outside_than_in', 'last_triggered').date() < now().date() }}"
+
 action:
   - if:
     - alias: "Is it after 6pm?"

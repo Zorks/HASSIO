@@ -44,3 +44,4 @@ www/community/
 blueprints/
 image/
 *.pem
+.ha_run.lock
