@@ -132,7 +132,7 @@ views:
           features:
             - type: "light-brightness"
         - type: grid
-          columns: 3
+          columns: 4
           square: true
           cards:
             - type: button
@@ -158,6 +158,14 @@ views:
                 type: button
                 entity: switch.christmas_tree
                 icon_height: 100px
+            - type: button
+              entity: switch.hot_tub
+              icon: mdi:hot-tub
+              icon_height: 100px  
+              tap_action:
+                action: toggle
+                confirmation:
+                  text: "Hot Tub on/off?"
       - type: 'custom:vertical-stack-in-card' # Home temps
         cards:
           - type: 'custom:mini-graph-card'
@@ -2680,6 +2688,26 @@ views:
                     entity: 'number.presence_sensor_general_g8_still_threshold'
                     name: ' '
                     icon: ' '                      
+    - type: custom:auto-entities
+      show_empty: false
+      card: 
+        type: entities          
+        title: Reboot Sensors
+        footer:
+          type: buttons
+          entities:
+            - entity: script.reboot_presence_sensors
+              icon: mdi:restart
+              show_name: true
+              name: reboot all
+      filter:
+        include:
+          - entity_id: "button.*_esp_reboot"
+            options:
+              icon: mdi:restart
+              secondary_info: last-changed
+
+          
   - title: 'front_door Codes and Configuration' #Front Door Code   
     type: sections
     icon: mdi:lock-smart
