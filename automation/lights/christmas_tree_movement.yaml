@@ -62,11 +62,22 @@ action:
               entity_id: switch.christmas_tree
   - choose:
       - conditions:
-          - condition: trigger 
-            id: "off"
-          - condition: time # reverse of christmas_tree_schedule
-            before: "05:30:00"
-            after: "20:30:00"
+          - and:
+            - condition: trigger 
+              id: "off"
+            - condition: time # reverse of christmas_tree_schedule
+              before: "05:30:00"
+              after: "20:30:00"
+              #and there's no more presence elsewhere
+            - condition: state
+              entity_id: binary_sensor.living_room_presence_presence
+              state: 'off'
+            - condition: state
+              entity_id: binary_sensor.hallway_sensor_motion
+              state: 'off'
+            - condition: state
+              entity_id: binary_sensor.hallway_sensor_motion
+              state: 'off'
         sequence:
           - action: switch.turn_off
             target:

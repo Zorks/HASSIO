@@ -200,8 +200,8 @@ alert:
     name: 'Possible Power Loss'
     message: 'Garage Freezer is no longer drawing power'
     done_message: 'Power has been restored'
-    entity_id: device_tracker.uap_ac_lite #device is on the same circuit as the garage freezer
-    state: "not_home"
+    entity_id: switch.garage_freezer
+    state: "unavailable"
     repeat: 
       - 20
       - 10
@@ -216,16 +216,6 @@ alert:
 ####################
 
 binary_sensor:
-  - platform: template
-    sensors: 
-      hallway_motion:
-        friendly_name: "Hallway Motion"
-        value_template: >-
-          {%- if ((not is_state('sensor.hallway_motion_sensor_burglar', '0'))) -%}
-            true
-          {%- else -%}
-            false
-          {%- endif -%}
   # wrapping my head around bayesian sensors. Think of it as "Assume X is true (the event of the sensor), what observations are also likely to be true? 
   - platform: bayesian
     name: "In bed but might be awake"
@@ -445,7 +435,12 @@ google_assistant:
     climate.the_hippo_hvac_climate_system:
       expose: True
       name: The Hippo
-        
+    switch.porch_light:
+      expose: True
+      name: Porch Light
+    switch.hot_tub:
+      expose: True
+      name: Hot Tub
 ###########################
 #####     Switch     ######
 ###########################   
@@ -454,59 +449,7 @@ switch:
     mac: !secret wol_mac
     host: !secret wol_host
     name: Computer
-  - platform: template
-    switches:
-      ac_or_furnace:
-        friendly_name: "{{ 'Furnace' if is_state('input_boolean.ac_or_furnace', 'on') else 'A/C' }}"
-        value_template: "{{ is_state('input_boolean.ac_or_furnace','on') }}"
-        turn_on:
-          action: input_boolean.turn_on
-          target:
-            entity_id: input_boolean.ac_or_furnace
-        turn_off:
-          action: input_boolean.turn_off
-          target:
-            entity_id: input_boolean.ac_or_furnace
-        icon_template: >-
-          {% if is_state('input_boolean.ac_or_furnace', 'on') %}
-            mdi:hvac
-          {% else %}
-            mdi:air-conditioner
-          {% endif %}
-      coffee_set:
-        friendly_name: "{{ 'Ready to Brew' if is_state('input_boolean.coffee_set', 'on') else 'Not Ready' }}"
-        value_template: "{{ is_state('input_boolean.coffee_set','on') }}"
-        turn_on:
-          action: input_boolean.turn_on
-          target:
-            entity_id: input_boolean.coffee_set
-        turn_off:
-          action: input_boolean.turn_off
-          target:
-            entity_id: input_boolean.coffee_set
-        icon_template: >-
-          {% if is_state('input_boolean.coffee_set', 'on') %}
-            mdi:coffee
-          {% else %}
-            mdi:coffee-off
-          {% endif %}
-      one_two_lamps:
-        friendly_name: "{{ 'Both Lamps' if is_state('input_boolean.one_two_lamps', 'on') else 'One Lamp' }}"
-        value_template: "{{ is_state('input_boolean.one_two_lamps','on') }}"
-        turn_on:
-          action: input_boolean.turn_on
-          target:
-            entity_id: input_boolean.one_two_lamps
-        turn_off:
-          action: input_boolean.turn_off
-          target:
-            entity_id: input_boolean.one_two_lamps
-        icon_template: >-
-          {% if is_state('input_boolean.one_two_lamps', 'on') %}
-            mdi:lamps
-          {% else %}
-            mdi:lamp
-          {% endif %}
+
 ##################################
 ##### Unversal Media Player ######
 ################################## 
