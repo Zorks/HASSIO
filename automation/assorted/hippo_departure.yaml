@@ -20,99 +20,110 @@ condition:
     entity_id: device_tracker.the_hippo_location_tracker
     state: "home"
 action:
-  # sets state of charge to chosen percentage for next departure
-  - service: tesla_custom.api
-    data:
-      command: CHANGE_CHARGE_LIMIT
-      parameters:
-        path_vars:
-          vehicle_id: >-
-            {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
-        wake_if_asleep: true
-        percent: >-
-          {{integration_entities('scheduler') 
-          | select('is_state', 'on')
-          | expand 
-          | sort(attribute="attributes.next_trigger")
-          | first 
-          | regex_findall("\'value\'\: \d+","")
-          | regex_replace ("[^0-9]","") 
-          | int(default=69)
-          }}
-# wait briefly for it to start charging to the new limit
-  - delay: '00:00:45'
-# turn off charger
-  - service: switch.turn_off
-    entity_id: switch.the_hippo_charger
-# set scheduled departure
-  # may charge briefly afterwards to estimate completion time needed.
-  - service: tesla_custom.api
-    data:
-      command: SCHEDULED_DEPARTURE
-      parameters:
-        path_vars:
-          vehicle_id: >-
-            {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
-        enable: true
-        #same as end_off_peak_time - converts the sensor value from a full date time value to just the local time and then converts that into minutes from midnight due to the formatting that Tesla requires
-        departure_time: >-
-            {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
-        preconditioning_enabled: true
-        preconditioning_weekdays_only: false
-        # Best practice is to not let the battery sit at high states of charges (SoC) for long. If the target SoC is 70+, this will enable "just in time" charging to finish right before scheduled departure
-        # otherwise it should charge immediately after plugging in. 
-        off_peak_charging_enabled: >-
-          {{(integration_entities('scheduler') 
-          | select('is_state', 'on')
-          | expand 
-          | sort(attribute="attributes.next_trigger")
-          | first 
-          | regex_findall("\'value\'\: \d+","")
-          | regex_replace ("[^0-9]","") 
-          | int(default=69)) > 70
-          }}
-        off_peak_charging_weekdays_only: false
-        # same logic as departure_time
-        end_off_peak_time: >-
-            {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
-
-# logs the Hassio set departure time to compare against the next departure time 
-  - service: input_datetime.set_datetime
+  # For unknown reasons the Hippo occasionally reports as home when it is not. Forcing a polling update and aborting the automation captures this error. 
+  - action: button.press
     target:
-      entity_id: input_datetime.hippo_departure
-    data_template:
-      datetime: "{{states('sensor.next_hippo_departure')}}"        
-  # peace of mind notification - delayed so the charger has an opportunity to turn off
-  - delay: '00:10:00' 
-  - service: notify.phones
-    data:
-      title: "Hippo charge level set"
-      message: "The Hippo's charge level was set to {{states('number.the_hippo_charge_limit')}}% for an adventure on {{states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%A at %H%M')}}. The charger is currently {{ iif(is_state('binary_sensor.the_hippo_charging', 'on'), 'charging', iif(is_state('binary_sensor.the_hippo_charging', 'off'), 'paused', 'unknown')) }}."
+      entity_id: button.the_hippo_force_data_update
+  - delay: 00:01:00 #just to give it time to update
+  - if:
+      - condition: state
+        entity_id: device_tracker.the_hippo_location_tracker
+        state: "home"    
+    then:
+      # sets state of charge to chosen percentage for next departure
+      - service: tesla_custom.api
+        data:
+          command: CHANGE_CHARGE_LIMIT
+          parameters:
+            path_vars:
+              vehicle_id: >-
+                {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
+            wake_if_asleep: true
+            percent: >-
+              {{integration_entities('scheduler') 
+              | select('is_state', 'on')
+              | expand 
+              | sort(attribute="attributes.next_trigger")
+              | first 
+              | regex_findall("\'value\'\: \d+","")
+              | regex_replace ("[^0-9]","") 
+              | int(default=69)
+              }}
+    # wait briefly for it to start charging to the new limit
+      - delay: '00:00:45'
+    # turn off charger
+      - service: switch.turn_off
+        entity_id: switch.the_hippo_charger
+    # set scheduled departure
+      # may charge briefly afterwards to estimate completion time needed.
+      - service: tesla_custom.api
+        data:
+          command: SCHEDULED_DEPARTURE
+          parameters:
+            path_vars:
+              vehicle_id: >-
+                {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
+            enable: true
+            #same as end_off_peak_time - converts the sensor value from a full date time value to just the local time and then converts that into minutes from midnight due to the formatting that Tesla requires
+            departure_time: >-
+                {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
+            preconditioning_enabled: true
+            preconditioning_weekdays_only: false
+            # Best practice is to not let the battery sit at high states of charges (SoC) for long. If the target SoC is 70+, this will enable "just in time" charging to finish right before scheduled departure
+            # otherwise it should charge immediately after plugging in. 
+            off_peak_charging_enabled: >-
+              {{(integration_entities('scheduler') 
+              | select('is_state', 'on')
+              | expand 
+              | sort(attribute="attributes.next_trigger")
+              | first 
+              | regex_findall("\'value\'\: \d+","")
+              | regex_replace ("[^0-9]","") 
+              | int(default=69)) > 70
+              }}
+            off_peak_charging_weekdays_only: false
+            # same logic as departure_time
+            end_off_peak_time: >-
+                {{(states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[0:2] | int * 60 + (states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%H:%M'))[3:5] | int}}
 
-  #  If the target SoC is 70+, the battery is low, and the next scheduled departure is more than 6 hrs away, this will ensure a minimum level of charge for unexpected trips
-  - choose:
-    - conditions: 
-      - condition: template
-      # if the set SoC is >70
-        value_template: >-
-          {{(integration_entities('scheduler') 
-          | select('is_state', 'on')
-          | expand 
-          | sort(attribute="attributes.next_trigger")
-          | first 
-          | regex_findall("\'value\'\: \d+","")
-          | regex_replace ("[^0-9]","") 
-          | int(default=69)) > 70
-          }}
-      # if the next adventure is more than 6 hrs from now?
-      - condition: template
-        value_template: "{{int(states('sensor.next_hippo_departure_hrs')) > 6 }}"
-      # is the battery low enough to bother
-      - condition: numeric_state
-        entity_id: sensor.the_hippo_battery
-        below: 65
-      sequence: 
-        - service: script.turn_on
-          data:
-            entity_id: script.hippo_minimum_charge
+    # logs the Hassio set departure time to compare against the next departure time 
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.hippo_departure
+        data_template:
+          datetime: "{{states('sensor.next_hippo_departure')}}"        
+      # peace of mind notification - delayed so the charger has an opportunity to turn off
+      - delay: '00:10:00' 
+      - service: notify.phones
+        data:
+          title: "Hippo charge level set"
+          message: "The Hippo's charge level was set to {{states('number.the_hippo_charge_limit')}}% for an adventure on {{states('sensor.next_hippo_departure') | as_timestamp | timestamp_custom('%A at %H%M')}}. The charger is currently {{ iif(is_state('binary_sensor.the_hippo_charging', 'on'), 'charging', iif(is_state('binary_sensor.the_hippo_charging', 'off'), 'paused', 'unknown')) }}."
 
+      #  If the target SoC is 70+, the battery is low, and the next scheduled departure is more than 6 hrs away, this will ensure a minimum level of charge for unexpected trips
+      - choose:
+        - conditions: 
+          - condition: template
+          # if the set SoC is >70
+            value_template: >-
+              {{(integration_entities('scheduler') 
+              | select('is_state', 'on')
+              | expand 
+              | sort(attribute="attributes.next_trigger")
+              | first 
+              | regex_findall("\'value\'\: \d+","")
+              | regex_replace ("[^0-9]","") 
+              | int(default=69)) > 70
+              }}
+          # if the next adventure is more than 6 hrs from now?
+          - condition: template
+            value_template: "{{int(states('sensor.next_hippo_departure_hrs')) > 6 }}"
+          # is the battery low enough to bother
+          - condition: numeric_state
+            entity_id: sensor.the_hippo_battery
+            below: 65
+          sequence: 
+            - service: script.turn_on
+              data:
+                entity_id: script.hippo_minimum_charge
+    else:
+      - delay: 00:10:00 # so it doesn't fire repeatedly
