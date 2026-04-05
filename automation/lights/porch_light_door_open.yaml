@@ -3,7 +3,7 @@ id: porch_light_door_open
 triggers: 
     # front door opened
   - trigger: state
-    entity_id: binary_sensor.front_door_sensor_window_door_is_open
+    entity_id: binary_sensor.front_door_sensor_open
     from: 'off'
     to: 'on'
     # we get home
@@ -28,7 +28,7 @@ action:
   - service: switch.turn_on
     target:
       entity_id: switch.porch_light
-  - wait_template: "{{ is_state('binary_sensor.front_door_sensor_window_door_is_open', 'off') }}"
+  - wait_template: "{{ is_state('binary_sensor.front_door_sensor_open', 'off') }}"
     timeout: "00:05:00"
   # so it doesn't blink off right after the door is shut
   - delay: "00:02:00"

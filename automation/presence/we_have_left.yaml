@@ -10,7 +10,7 @@ action:
   - if:
     - alias: "Is the door open"
       condition: state
-      entity_id: binary_sensor.front_door_sensor_window_door_is_open
+      entity_id: binary_sensor.front_door_sensor_open
       state: 'on'
     - alias: "Is the door sensor live and updating" # has it updated in the last 2 hrs
       condition: template
