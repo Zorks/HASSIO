@@ -30,7 +30,7 @@ action:
             | sort(attribute="attributes.next_trigger")
             | first 
             | regex_findall("\'value\'\: \d+","")
-            | first | default("'value': 69")
+            | regex_replace ("[^0-9]","") 
             | int(default=69)) > 70
             }}
         # if the next adventure is more than 6 hrs from now?

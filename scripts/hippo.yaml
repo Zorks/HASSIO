@@ -6,6 +6,13 @@ hippo_minimum_charge:
     - service: switch.turn_on
       target:
         entity_id: switch.the_hippo_charger
+        # make certain the charger registers as charging before continuing, to possibly avoid false positives with the next wait template
+    - wait_for_trigger:
+        - platform: state
+          entity_id: binary_sensor.the_hippo_charging
+          to: "on"
+      timeout: "0:05:00"
+      continue_on_timeout: false        
     - alias: "Wait until SoC is above 70, is unplugged, or scheduled charging is about to kick in"
     # first: end script if 70% SoC is reached
     # second: end script if unplugged
