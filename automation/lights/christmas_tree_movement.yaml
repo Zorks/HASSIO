@@ -42,6 +42,7 @@ conditions:
   - condition: state
     entity_id: sensor.christmas_tree_node_status
     state: "alive"
+
 action:
   - choose:
       - conditions:
@@ -56,10 +57,16 @@ action:
           - condition: time
             before: "22:00:00"
             after: "04:00:00"
+          # WAF compromise - only if I am solo
+          - condition: state
+            entity_id: binary_sensor.movement_automations_active
+            state: "true"
+
         sequence:
           - action: switch.turn_on
             target:
               entity_id: switch.christmas_tree
+
   - choose:
       - conditions:
           - and:

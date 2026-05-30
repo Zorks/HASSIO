@@ -23,6 +23,11 @@ action:
           - condition: state
             entity_id: input_boolean.spare_bedroom_light_auto_on
             state: 'on'
+          # WAF compromise - only if I am solo
+          - condition: state
+            entity_id: binary_sensor.movement_automations_active
+            state: "true"
+
         sequence:
         - action: light.turn_on
           data_template:

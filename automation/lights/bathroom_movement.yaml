@@ -20,6 +20,14 @@ action:
           - condition: state
             entity_id: light.bathroom_light
             state: 'off'
+          # Don't turn on if someone is in bed
+          - condition: state
+            entity_id: input_boolean.bathroom_light_auto_on
+            state: 'on'
+          # WAF compromise - only if I am solo
+          - condition: state
+            entity_id: binary_sensor.movement_automations_active
+            state: "true"
       # temporary time condition so that it doesn't trigger during hours when we might want to go back to sleep
       # will eventually remove once BLE presence and sleep confidence comes into play
           - condition: time

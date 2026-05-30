@@ -7,6 +7,12 @@
           {%- else -%}
             false
           {%- endif -%}
+
+  - name: "Movement Automations Active"
+    unique_id: movement_automations_active
+    state: >
+      {{ is_state('person.trevor', 'home') and
+         is_state('person.emily', 'not_home') }}
 - switch:
   - turn_on:
     - action: input_boolean.turn_on

@@ -150,7 +150,7 @@ illuminance: #custom integration that roughly estimates LX based on current weat
 ###########################################
 notify: 
   - platform: group
-    name: 'all_devices'
+    name: 'all_devices_household'
     services:
       - service: mobile_app_s24u_trevor
       - service: mobile_app_s24u_emily
@@ -175,7 +175,7 @@ alert:
     can_acknowledge: true
     skip_first: false
     notifiers:
-      - all_devices
+      - all_devices_household
       - tts_google_translate
   leak_detection_refrigerator:
     name: 'Leak Detected'
@@ -187,7 +187,7 @@ alert:
     can_acknowledge: true
     skip_first: false
     notifiers:
-      - all_devices
+      - all_devices_household
       - tts_google_translate
   leak_detection_hot_water_heater:
     name: 'Leak Detected'
@@ -199,7 +199,7 @@ alert:
     can_acknowledge: true
     skip_first: false
     notifiers:
-      - all_devices
+      - all_devices_household
       - tts_google_translate      
   leak_detection_washer:
     name: 'Leak Detected'
@@ -211,7 +211,7 @@ alert:
     can_acknowledge: true
     skip_first: false
     notifiers:
-      - all_devices
+      - all_devices_household
       - tts_google_translate
   garage_circuit:
     name: 'Possible Power Loss'
@@ -226,7 +226,7 @@ alert:
     can_acknowledge: true
     skip_first: true #prevents alerting if it blinks off, but will alert during extended power loss situations
     notifiers:
-      - all_devices
+      - all_devices_household
 
 ####################
 ##### Sensors ######

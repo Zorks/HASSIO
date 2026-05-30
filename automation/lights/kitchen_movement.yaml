@@ -21,6 +21,11 @@ action:
           - condition: state
             entity_id: light.all_kitchen_lights
             state: 'off'
+          # WAF compromise - only if I am solo
+          - condition: state
+            entity_id: binary_sensor.movement_automations_active
+            state: "true"
+
       # temporary time condition so that it doesn't trigger during hours when we might want to go back to sleep
       # will eventually remove once BLE presence and sleep confidence comes into play
           - condition: time
