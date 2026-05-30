@@ -28,7 +28,6 @@ action:
           - condition: state
             entity_id: input_boolean.office_light_auto_on
             state: 'on'
-
         sequence:
           - action: light.turn_on
             data_template:
@@ -46,16 +45,16 @@ action:
                   {{20|int}}
                 {%- endif -%}
           - choose:
-            - conditions:
-                - condition: trigger
-                  id: "on"
-                - condition: state
-                  entity_id: light.office_light
-                  state: 'off'
-                # during work hours
-                - condition: time
-                  before: "18:00:00"
-                  after: "08:00:00"
+              - conditions:
+                  - condition: trigger
+                    id: "on"
+                  - condition: state
+                    entity_id: light.office_light
+                    state: 'off'
+                  # during work hours
+                  - condition: time
+                    before: "18:00:00"
+                    after: "08:00:00"
               sequence:
               - action: light.turn_on
                 data_template:
