@@ -332,6 +332,9 @@ light:
 ##### Input Boolean ######
 ##########################
 input_boolean:
+  work_precondition:
+    name: Hippo Work Preconditioning
+    icon: mdi:car-clock
   coffee_set:
     name: Coffee pot is ready for brewing
     icon: mdi:coffee

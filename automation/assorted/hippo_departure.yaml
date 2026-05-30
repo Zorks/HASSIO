@@ -40,14 +40,7 @@ action:
                 {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
             wake_if_asleep: true
             percent: >-
-              {{integration_entities('scheduler') 
-              | select('is_state', 'on')
-              | expand 
-              | sort(attribute="attributes.next_trigger")
-              | first 
-              | regex_findall("\'value\'\: \d+","")
-              | regex_replace ("[^0-9]","") 
-              | int(default=69)
+              {{states('sensor.next_hippo_charge_target') | int(69)
               }}
     # wait briefly for it to start charging to the new limit
       - delay: '00:00:45'
@@ -72,14 +65,7 @@ action:
             # Best practice is to not let the battery sit at high states of charges (SoC) for long. If the target SoC is 70+, this will enable "just in time" charging to finish right before scheduled departure
             # otherwise it should charge immediately after plugging in. 
             off_peak_charging_enabled: >-
-              {{(integration_entities('scheduler') 
-              | select('is_state', 'on')
-              | expand 
-              | sort(attribute="attributes.next_trigger")
-              | first 
-              | regex_findall("\'value\'\: \d+","")
-              | regex_replace ("[^0-9]","") 
-              | int(default=69)) > 70
+              {{(states('sensor.next_hippo_charge_target') | int(69)) > 70
               }}
             off_peak_charging_weekdays_only: false
             # same logic as departure_time
@@ -105,14 +91,7 @@ action:
           - condition: template
           # if the set SoC is >70
             value_template: >-
-              {{(integration_entities('scheduler') 
-              | select('is_state', 'on')
-              | expand 
-              | sort(attribute="attributes.next_trigger")
-              | first 
-              | regex_findall("\'value\'\: \d+","")
-              | regex_replace ("[^0-9]","") 
-              | int(default=69)) > 70
+              {{(states('sensor.next_hippo_charge_target') | int(69)) > 70
               }}
           # if the next adventure is more than 6 hrs from now?
           - condition: template

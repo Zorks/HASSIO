@@ -76,10 +76,27 @@
       else ''One Lamp'' }}'
     state: '{{ is_state(''input_boolean.one_two_lamps'',''on'') }}'
 - sensor: 
+  - name: "Next Hippo Charge Target"
+    unique_id: next_hippo_charge_target
+    unit_of_measurement: '%'
+    state: >
+      {{ integration_entities('scheduler')
+         | select('is_state', 'on')
+         | expand
+         | sort(attribute="attributes.next_trigger")
+         | first
+         | regex_findall("\'value\'\: \d+", "")
+         | regex_replace("[^0-9]", "")
+         | int(default=69) }}
   - name: "Number of hours until the Hippo's next adventure starts"
     unique_id: next_hippo_departure_hrs
-    # note that if there is no future departures, it defaults to 25 hrs + 10 seconds to avoid floating point math issues
-    state: "{{(as_timestamp(states('sensor.next_hippo_departure' ), as_timestamp(now()) + 90010 ) -  as_timestamp(now())) / 3600 }}"
+    state: >-
+      {% if states('sensor.next_hippo_departure') in ['unknown', 'unavailable'] %}
+        {{ none }}
+      {% else %}
+        {{ ((as_timestamp(states('sensor.next_hippo_departure')) - as_timestamp(now())) / 3600) | round(2) }}
+      {% endif %}
+    availability: "{{ states('sensor.next_hippo_departure') not in ['unknown', 'unavailable'] }}"
   - name: "Downstairs Temperature"
     unique_id: honeywell_temp 
     unit_of_measurement: '°F'
@@ -87,18 +104,18 @@
   - name: "Humidity difference between bathroom and house"
     unique_id: bathroom_humidity_diff
     unit_of_measurement: '%'
-    state: "state: "{{ (states('sensor.bathroom_sensor_humidity')|float(0) - states('sensor.home_humidity')|float(0)) | round(0) | int }}""
+    state: "{{ (states('sensor.bathroom_sensor_humidity')|float(0) - states('sensor.home_humidity')|float(0)) | round(0) | int }}"
   - name: "Home Temperature"
     unique_id: house_avg_temp
     unit_of_measurement: '°F'
-  state: >-
-    {% set sensors = [
-      states('sensor.bedroom_temperature') | float(-999),
-      states('sensor.home_temperature') | float(-999),
-      states('sensor.living_room_temperature') | float(-999)
-    ] %}
-    {% set valid = sensors | reject('equalto', -999) | list %}
-    {{ (valid | sum / valid | count) | round(2) if valid | count > 0 else 'unavailable' }}
+    state: >-
+      {% set sensors = [
+        states('sensor.bedroom_temperature') | float(-999),
+        states('sensor.home_temperature') | float(-999),
+        states('sensor.living_room_temperature') | float(-999)
+      ] %}
+      {% set valid = sensors | reject('equalto', -999) | list %}
+      {{ (valid | sum / valid | count) | round(2) if valid | count > 0 else 'unavailable' }}
   - unique_id: "trevor_location"
     attributes:
       friendly_name: "Trevor's Location"

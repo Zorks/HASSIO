@@ -613,6 +613,7 @@ views:
           decimals: 1
           hours_to_show: 168
           points_per_hour: 0.25
+
     - type: custom:scheduler-card
       title: Home Precondition Schedule
       include:
@@ -654,7 +655,11 @@ views:
                 value: 100
           # exclude_actions: 
             # - turn off
-
+    - type: tile
+      entity: input_boolean.work_precondition
+      name: Workday Finish Preconditioning
+      tap_action:
+        action: toggle
   - title: Media Players
     icon: mdi:television
     cards:       

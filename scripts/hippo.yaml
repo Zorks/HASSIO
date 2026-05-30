@@ -3,6 +3,7 @@ hippo_minimum_charge:
   sequence:
     - wait_template: "{{ is_state('binary_sensor.the_hippo_charger', 'on') }}"
       timeout: "00:10:00"
+      continue_on_timeout: false
     - service: switch.turn_on
       target:
         entity_id: switch.the_hippo_charger
@@ -24,8 +25,8 @@ hippo_minimum_charge:
         {{ 
         (states('sensor.the_hippo_battery') | float >= 70) 
         or (is_state('binary_sensor.the_hippo_charger', 'off' )) 
-        or  (((int(states('number.the_hippo_charge_limit')) - int(states('sensor.the_hippo_battery'))))/10) >= (int(states('sensor.next_hippo_departure_hrs')))
-        or  (not is_state('binary_sensor.the_hippo_charging', 'on')) and (now() > states.binary_sensor.the_hippo_charging.last_changed + timedelta(minutes=20))
+        or (((int(states('number.the_hippo_charge_limit')) - int(states('sensor.the_hippo_battery'))))/10) >= (int(states('sensor.next_hippo_departure_hrs')))
+        or ((not is_state('binary_sensor.the_hippo_charging', 'on')) and (now() > states.binary_sensor.the_hippo_charging.last_changed + timedelta(minutes=20)))
         }}    
     - service: switch.turn_off
       target:

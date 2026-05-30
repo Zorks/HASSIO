@@ -16,7 +16,9 @@ trigger:
     entity_id: binary_sensor.the_hippo_charger
     from: "off"
     to: "on"
-
+  - platform: state
+    entity_id: sensor.next_hippo_departure_hrs
+    to: "unavailable"
 action:
   - choose:
       #  If the target SoC is 70+, the battery is low, and the next scheduled departure is more than 6 hrs away, this will ensure a minimum level of charge for unexpected trips
@@ -24,15 +26,8 @@ action:
       - condition: template
         # if the set SoC is >70
         value_template: >-
-            {{(integration_entities('scheduler') 
-            | select('is_state', 'on')
-            | expand 
-            | sort(attribute="attributes.next_trigger")
-            | first 
-            | regex_findall("\'value\'\: \d+","")
-            | regex_replace ("[^0-9]","") 
-            | int(default=69)) > 70
-            }}
+              {{(states('sensor.next_hippo_charge_target') | int(69)) > 70
+              }}
         # if the next adventure is more than 6 hrs from now?
         # in case of error defaults to yes @ 7 hrs
       - condition: template
@@ -61,7 +56,7 @@ action:
           # wait_template: "{{ is_state('binary_sensor.the_hippo_asleep', 'off') }}"  
         - alias: "Wait until car is in park"
           wait_template: "{{ is_state('sensor.the_hippo_shift_state', 'P') }}"    
-          timeout: "00:5:00"
+          timeout: "00:05:00"
           continue_on_timeout: false
         - service: tesla_custom.api
           data:
@@ -90,4 +85,4 @@ action:
                 vehicle_id: >-
                   {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
               percent: 70      
-            
+  
