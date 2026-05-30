@@ -19,6 +19,10 @@ condition:
     - condition: state #has anyone already turned on the lights?
       entity_id: light.kitchen_light_2
       state: 'off'
+  # WAF compromise - only if I am solo
+    - condition: state
+      entity_id: binary_sensor.movement_automations_active
+      state: 'on'
 action:
   - service: automation.turn_off # override the default movement automation
     entity_id: automation.kitchen_movement

@@ -5,8 +5,9 @@ trigger:
     topic: 'trevor/alarm'
 action:
 # triggers coffee script which only runs if input_boolean.coffee_set was toggled
-  - service: homeassistant.turn_on
-    entity_id: script.coffee_start
+  - action: homeassistant.turn_on
+    target:
+      entity_id: script.coffee_start
   - choose:
     - conditions:
 # checks to see if we want both lamps to be used
@@ -14,14 +15,16 @@ action:
         entity_id: input_boolean.one_two_lamps
         state: "on"
       sequence:
-        - service: light.turn_on
-          entity_id: light.bedroom_color_2
+        - action: light.turn_on
+          target:
+            entity_id:  light.bedroom_color_2
           data:
             brightness_pct: 1
             rgb_color: [255,0,0]
 # always turns on my lamp
-  - service: light.turn_on
-    entity_id: light.bedroom_color_1
+  - action: light.turn_on
+    target:
+      entity_id: light.bedroom_color_1
     data:
       brightness_pct: 1
       rgb_color: [255,0,0]
@@ -33,18 +36,21 @@ action:
         entity_id: input_boolean.one_two_lamps
         state: "on"
       sequence:
-        - service: light.turn_on
-          entity_id: light.bedroom_color_2
+        - action: light.turn_on
+          target:
+            entity_id:  light.bedroom_color_2
           data:
             brightness_pct: 100
             color_temp_kelvin: 2700
-            # 360 seconds = 6 minutes
-            transition: 260
+            # 300 seconds = 5 minutes - coffee is done
+            transition: 300
 # resets the input_boolean back to one lamp
-        - service: input_boolean.turn_off
-          entity_id: input_boolean.one_two_lamps
-  - service: light.turn_on
-    entity_id: light.bedroom_color_1
+        - action: input_boolean.turn_off
+          target:
+            entity_id:  input_boolean.one_two_lamps
+  - action: light.turn_on
+    target:
+      entity_id:  light.bedroom_color_1
     data:
       brightness_pct: 100
       color_temp_kelvin: 2700

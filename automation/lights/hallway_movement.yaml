@@ -11,6 +11,11 @@ trigger:
     id: 'off'
     for:
       minutes: 1 # adjust as necessary 
+conditions:
+  # WAF compromise - only if I am solo
+  - condition: state
+    entity_id: binary_sensor.movement_automations_active
+    state: 'on'
 action:
   - choose:
       - conditions:
@@ -22,11 +27,6 @@ action:
           - condition: state
             entity_id: input_boolean.hallway_light_auto_on
             state: 'on'
-          # WAF compromise - only if I am solo
-          - condition: state
-            entity_id: binary_sensor.movement_automations_active
-            state: "true"
-
         sequence:
         - action: light.turn_on
           data_template:

@@ -12,6 +12,11 @@ trigger:
     id: 'off'
     for:
       minutes: 1 # adjust as necessary 
+conditions:
+  # WAF compromise - only if I am solo
+  - condition: state
+    entity_id: binary_sensor.movement_automations_active
+    state: 'on'
 action:
   - choose:
       - conditions:
@@ -24,10 +29,6 @@ action:
           - condition: state
             entity_id: input_boolean.bathroom_light_auto_on
             state: 'on'
-          # WAF compromise - only if I am solo
-          - condition: state
-            entity_id: binary_sensor.movement_automations_active
-            state: "true"
       # temporary time condition so that it doesn't trigger during hours when we might want to go back to sleep
       # will eventually remove once BLE presence and sleep confidence comes into play
           - condition: time

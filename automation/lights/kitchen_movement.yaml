@@ -1,7 +1,6 @@
 ## mmwave based automation 
 alias: 'Kitchen light - presence detected'
 id: kitchen_movement
-initial_state: true
 trigger:
   - platform: state
     entity_id: binary_sensor.kitchen_presence_presence
@@ -13,6 +12,11 @@ trigger:
     id: 'off'
     for:
       minutes: 1 # adjust as necessary 
+conditions:
+  # WAF compromise - only if I am solo
+  - condition: state
+    entity_id: binary_sensor.movement_automations_active
+    state: 'on'
 action:
   - choose:
       - conditions:
@@ -21,10 +25,6 @@ action:
           - condition: state
             entity_id: light.all_kitchen_lights
             state: 'off'
-          # WAF compromise - only if I am solo
-          - condition: state
-            entity_id: binary_sensor.movement_automations_active
-            state: "true"
 
       # temporary time condition so that it doesn't trigger during hours when we might want to go back to sleep
       # will eventually remove once BLE presence and sleep confidence comes into play

@@ -87,12 +87,18 @@
   - name: "Humidity difference between bathroom and house"
     unique_id: bathroom_humidity_diff
     unit_of_measurement: '%'
-    state: "{{ states('sensor.bathroom_sensor_humidity')|float(0)|round(0) - states('sensor.home_humidity')|float(0)|round(0) | int }}"
+    state: "state: "{{ (states('sensor.bathroom_sensor_humidity')|float(0) - states('sensor.home_humidity')|float(0)) | round(0) | int }}""
   - name: "Home Temperature"
     unique_id: house_avg_temp
     unit_of_measurement: '°F'
-    state: >-
-      {{ ((float(states('sensor.bedroom_temperature')) + float(states('sensor.home_temperature')) + float(states('sensor.living_room_temperature'))) / 3) | round(2) }}
+  state: >-
+    {% set sensors = [
+      states('sensor.bedroom_temperature') | float(-999),
+      states('sensor.home_temperature') | float(-999),
+      states('sensor.living_room_temperature') | float(-999)
+    ] %}
+    {% set valid = sensors | reject('equalto', -999) | list %}
+    {{ (valid | sum / valid | count) | round(2) if valid | count > 0 else 'unavailable' }}
   - unique_id: "trevor_location"
     attributes:
       friendly_name: "Trevor's Location"
@@ -115,7 +121,7 @@
         {% endif %}
 - trigger:
     - platform: time_pattern
-      minutes: "/5"
+      minutes: "/30"
     - platform: homeassistant
       event: start
     - platform: state

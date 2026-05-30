@@ -21,6 +21,9 @@ views:
           - condition: state
             entity: alert.leak_detection_washer
             state: "on"
+          - condition: state
+            entity: alert.leak_detection_refridgerator
+            state: "on"
         card:
           type: entity-filter
           entities:
@@ -30,6 +33,8 @@ views:
               name: Hot Water Tank
             - entity: binary_sensor.washer_water_leak_sensor_water_leak_detected
               name: Washer
+            - entity: binary_sensor.refridgerator_water_leak_sensor_water_leak_detected
+              name: Refridgerator 
           conditions:
             - condition: state
               state: "idle"   

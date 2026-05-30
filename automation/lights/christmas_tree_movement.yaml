@@ -36,9 +36,10 @@ trigger:
     for:
       minutes: 10 
 conditions:
+  # WAF compromise - only if I am solo
   - condition: state
-    entity_id: group.presence
-    state: 'home'
+    entity_id: binary_sensor.movement_automations_active
+    state: 'on'
   - condition: state
     entity_id: sensor.christmas_tree_node_status
     state: "alive"
@@ -57,10 +58,6 @@ action:
           - condition: time
             before: "22:00:00"
             after: "04:00:00"
-          # WAF compromise - only if I am solo
-          - condition: state
-            entity_id: binary_sensor.movement_automations_active
-            state: "true"
 
         sequence:
           - action: switch.turn_on
