@@ -1,8 +1,8 @@
 substitutions:
   # Set the device name
-  name: "bedroom-presence"
+  name: "MIA Sensor"
   # Set the friendly name
-  friendly_name: Bedroom Presence
+  friendly_name: MIA Sensor
   # Provide the wifi SSID
   wifi: !secret wifi_ssid
   #Provide the wifi password

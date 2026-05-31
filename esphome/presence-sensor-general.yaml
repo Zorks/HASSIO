@@ -1,8 +1,8 @@
 substitutions:
   # Set the device name
-  name: "presence-sensor-general"
+  name: "bedroom-presence"
   # Set the friendly name
-  friendly_name: Presence - General
+  friendly_name: Bedroom Presence
   # Provide the wifi SSID
   wifi: !secret wifi_ssid
   #Provide the wifi password

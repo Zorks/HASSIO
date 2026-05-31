@@ -85,4 +85,30 @@ action:
                 vehicle_id: >-
                   {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
               percent: 70      
-  
+  - if:
+      - condition: state
+        entity_id: input_boolean.trevors_work_week
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'on'
+    then:
+      - wait_template: >-
+          {{ is_state('device_tracker.the_hippo_location_tracker', 'work') }}
+        timeout: '01:00:00'
+        continue_on_timeout: false
+      - service: tesla_custom.api
+        data:
+          command: SCHEDULED_DEPARTURE
+          parameters:
+            path_vars:
+              vehicle_id: >-
+                {{ state_attr('binary_sensor.the_hippo_online', 'id') }}
+            wake_if_asleep: true
+            enable: true
+            departure_time: 1020
+            preconditioning_enabled: true
+            preconditioning_weekdays_only: true
+            off_peak_charging_enabled: false
+            off_peak_charging_weekdays_only: false
+            end_off_peak_time: 1020  
